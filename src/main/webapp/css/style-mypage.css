@@ -1,0 +1,20 @@
+#content {
+    max-width: 720px;
+    margin: auto;
+    margin-top: 60px;
+}
+
+#main {
+    margin: 10px 0;
+}
+
+#title {
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.item {
+    margin-top: 5px;
+}

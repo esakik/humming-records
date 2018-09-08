@@ -1,0 +1,44 @@
+.box {
+	text-align: right;
+}
+
+#content {
+    max-width: 750px;
+    margin: auto;
+    margin-top: 60px;
+}
+
+#title {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+.item {
+    margin-top: 30px;
+    margin: 30px 120px;
+    text-align: left;
+}
+
+.item .img {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: -10px;
+    padding: 5px 5px 0px 5px;
+}
+
+.item .singer {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#message {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#back {
+	text-align: right;
+}

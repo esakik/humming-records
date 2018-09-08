@@ -1,0 +1,12 @@
+#content {
+    max-width: 750px;
+    margin: auto;
+    margin-top: 60px;
+}
+
+.title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+}}

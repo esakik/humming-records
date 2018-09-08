@@ -1,0 +1,69 @@
+.box {
+    text-align: right;
+}
+
+#content {
+    max-width: 720px;
+    margin: auto;
+    margin-top: 60px;
+}
+
+#title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.item {
+    margin: 15px 20px 0px 20px;
+    text-align: left;
+}
+
+.item .img {
+    float: left;
+    margin-right: 20px;
+    padding: 5px 5px 5px 5px;
+}
+
+.item .singer {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#message {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#detail {
+	width: 240px;
+	float: right;
+	margin-top: 20px;
+}
+
+#totalPrice {
+	margin-top: 10px;
+}
+
+#select1 {
+	cursor: pointer;
+}
+
+.cart-btn {
+   margin-top: 10px;
+   border: 1px solid #ffffff;
+   background: #ffbb00;
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   border-radius: 4px;
+   color: #ffffff;
+   padding: 8.5px 18px;
+   font-size: 14px;
+   text-decoration: none;
+   vertical-align: middle;
+}
+.cart-btn:hover {
+   opacity: 0.6;
+}
