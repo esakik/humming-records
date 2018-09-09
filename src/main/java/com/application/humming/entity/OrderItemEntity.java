@@ -1,5 +1,7 @@
 package com.application.humming.entity;
 
+import com.application.humming.dto.ItemDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,5 +28,5 @@ public class OrderItemEntity {
     private Integer quantity;
 
     /** 注文商品. */
-    private ItemEntity item;
+    private ItemDto itemDto;
 }

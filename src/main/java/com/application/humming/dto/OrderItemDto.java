@@ -1,11 +1,9 @@
-package com.application.humming.form;
-
-import com.application.humming.dto.ItemDto;
+package com.application.humming.dto;
 
 import lombok.Data;
 
 @Data
-public class ShoppingCartForm {
+public class OrderItemDto {
 
     /** ID. */
     private Integer id;

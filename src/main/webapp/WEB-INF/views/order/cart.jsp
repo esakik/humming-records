@@ -14,12 +14,6 @@
 <link rel="stylesheet"
     href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 </head>
-<script>
-    function calc() {
-        var value = "<c:out value="${price}" />";
-        document.getElementById("sp1").innerHTML = [ num1 * num2 ];
-    }
-</script>
 <body style="background-color: whitesmoke;">
     <div class="container-fluid">
         <%@ include file="../common/header.jsp"%>
@@ -44,41 +38,19 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="singer">
-                                                <c:out value="${item. singer}" />
+                                                <c:out value="${item.singer}" />
                                                 /
-                                                <c:out value="${item. song}" />
+                                                <c:out value="${item.song}" />
                                             </div>
                                             <div class="price">
-                                                <c:forEach var="item2" items="${orderItemList}">
-                                                    <c:if test="${item.id == item2.itemId}">
-                                価格: <fmt:formatNumber
-                                                            value="${item.price}" pattern="###,###" /> 円
-                                <br>
-                                数量: <c:out value="${item2.quantity}" /> 個
-                                <br>
-                                                        <script>
-                                                            var delimit = function(
-                                                                    n) {
-                                                                return String(n)
-                                                                        .replace(
-                                                                                /(\d)(?=(\d{3})+(?!\d))/g,
-                                                                                '$1,');
-                                                            };
-                                                            var num1 = "<c:out value="${item2.quantity}" />";
-                                                            var num2 = "<c:out value="${item.price}" />";
-                                                            var result = num1
-                                                                    * num2;
-                                                            document
-                                                                    .write("合計: "
-                                                                            + delimit(result)
-                                                                            + " 円");
-                                                        </script>
-                                                        <form:form modelAttribute="orderItemForm"
-                                                            action="${pageContext.request.contextPath}/order/cart/delete">
+                                                <c:forEach var="orderItem" items="${orderItemList}">
+                                                    <c:if test="${item.id == orderItem.itemId}">
+                                                        価格: <fmt:formatNumber value="${item.price}" pattern="###,###" /> 円<br>
+                                                        数量: <c:out value="${orderItem.quantity}" /> 個<br>
 
+                                                        <form:form modelAttribute="orderItemForm" action="${pageContext.request.contextPath}/order/cart/delete">
                                                             <input type="hidden" name="itemId" value="${item.id}">
-                                                            <input type="hidden" name="quantity"
-                                                                value="${item2.quantity}">
+                                                            <input type="hidden" name="quantity" value="${orderItem.quantity}">
                                                             <input type="submit" value="カートから削除" class="delete-btn">
                                                         </form:form>
                                                     </c:if>

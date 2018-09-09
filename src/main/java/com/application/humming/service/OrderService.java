@@ -1,36 +1,70 @@
 package com.application.humming.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.application.humming.dao.OrderDao;
-import com.application.humming.dao.OrderItemDao;
+import com.application.humming.dto.OrderDto;
+import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.OrderEntity;
-import com.application.humming.logic.OrderLogic;
 
 import lombok.NonNull;
 
-@Service
-public class OrderService {
-
-    @Autowired
-    OrderLogic orderLogic;
-
-    @Autowired
-    OrderDao orderDao;
-
-    @Autowired
-    OrderItemDao orderItemDao;
+public interface OrderService {
 
     /**
-     * 前回ログイン時に未確定の注文情報を反映させる.
+     * カート内のアイテムを取得する.
      *
-     * @param Integer memberId
-     * @param OrderEntity orderEntity
-     * @return OrderEntity
+     * @param Integer id
+     * @return List<OrderItemDto>
      */
-    public OrderEntity updateOrderInfo(@NonNull final Integer memberId, @NonNull final OrderEntity orderInfo) {
-        final OrderEntity undeterminedOrderInfo = orderLogic.getUndeterminedOrderInfo(memberId);
-        return orderLogic.updateOrderInfo(orderInfo, undeterminedOrderInfo);
-    }
+    public List<OrderItemDto> getOrderItemInCart(@NonNull final Integer id);
+
+    /**
+     * カートにアイテムを追加する.
+     *
+     * @param OrderItemDto orderItemDto
+     * @return OrderDto
+     */
+    public OrderDto addToCart(@NonNull final OrderItemDto orderItemDto);
+
+    /**
+     * カートからアイテムを削除する.
+     *
+     * @param OrderDto orderDto
+     * @param OrderItemDto orderItemDto
+     * @return OrderDto
+     */
+    public OrderDto deleteOrderItemFromCart(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto);
+
+    /**
+     * 注文内容を取得する.
+     *
+     * @param Integer id
+     * @return List<OrderItemDto>
+     */
+    public List<OrderItemDto> getOrderedItems(@NonNull final Integer id);
+
+    /**
+     * 注文を確定する.
+     *
+     * @param OrderEntity orderEntity
+     * @param String deliveryTime
+     * @param String deliverySpecifiedTime
+     */
+    public void completeOrder(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime);
+
+    /**
+     * 注文履歴を取得する.
+     *
+     * @param Integer id
+     * @return List<OrderDto>
+     */
+    public List<OrderDto> getOrderHistory(@NonNull final Integer id);
+
+    /**
+     * 注文アイテム履歴を取得する.
+     *
+     * @param List<OrderDto> orderDtoList
+     * @return List<OrderItemDto>
+     */
+    public List<OrderItemDto> getOrderItemHistory(@NonNull final List<OrderDto> orderDtoList);
 }

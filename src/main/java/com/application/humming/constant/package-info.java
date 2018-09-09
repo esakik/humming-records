@@ -1,4 +1,4 @@
 /**
- * @author koki
+ * @author koki.esaki
  */
 package com.application.humming.constant;

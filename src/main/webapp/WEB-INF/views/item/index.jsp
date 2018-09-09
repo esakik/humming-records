@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../../../css/style.css">
 <link rel="stylesheet" href="../../../css/header.css">
 <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body style="background-color: whitesmoke;">
     <div class="container-fluid">

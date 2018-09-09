@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.application.humming.dto.MemberDto;
@@ -17,6 +18,7 @@ import com.application.humming.service.MemberService;
 import lombok.NonNull;
 
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService {
 
     @Autowired
@@ -32,6 +34,8 @@ public class MemberServiceImpl implements MemberService {
     public StandardPasswordEncoder standardPasswordEncoder() {
         return new StandardPasswordEncoder();
     }
+
+    private final static String[] SESSION_OBJECT = { "member", "order" };
 
     @Override
     public MemberDto createMemberDto(@NonNull final String email, @NonNull final String password) {
@@ -49,9 +53,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void logout(@NonNull final SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        session.setAttribute("order", null);
-        session.setAttribute("orderItemList", null);
-        session.setAttribute("itemList", null);
+        removeAttributes(sessionStatus, SESSION_OBJECT);
     }
 
     @Override
@@ -68,9 +70,19 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void withdraw(@NonNull final Integer id, @NonNull final SessionStatus sessionStatus) {
         memberLogic.delete(id);
+        removeAttributes(sessionStatus, SESSION_OBJECT);
+    }
+
+    /**
+     * セッションに格納されている情報を削除する.
+     *
+     * @param SessionStatus sessionStatus
+     * @param String attribute
+     */
+    private void removeAttributes(@NonNull final SessionStatus sessionStatus, final String[] attributes) {
         sessionStatus.setComplete();
-        session.removeAttribute("order");
-        session.removeAttribute("orderItemList");
-        session.removeAttribute("itemList");
+        for (final String attribute : attributes) {
+            session.removeAttribute(attribute);
+        }
     }
 }

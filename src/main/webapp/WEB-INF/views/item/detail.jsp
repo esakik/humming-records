@@ -62,8 +62,7 @@
                                 <option value="10">10</option>
                             </select>
                             <div id="totalPrice">
-                                この商品の合計金額:<span id="totalAmount"><fmt:formatNumber
-                                        value="${item.price}" pattern="###,###" /></span>円
+                                この商品の合計金額: <span id="totalAmount"><fmt:formatNumber value="${item.price}" pattern="###,###" /></span>円
                             </div>
                             <div class="cart">
                                 <input type="hidden" name="itemId" value="${item.id}"> <input

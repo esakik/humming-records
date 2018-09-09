@@ -41,4 +41,7 @@ public class OrderForm {
 
     /** 配達指定時間. */
     private String deliverySpecifiedTime;
+
+    /** 合計金額. */
+    private Integer totalPrice;
 }

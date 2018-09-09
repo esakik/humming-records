@@ -15,11 +15,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.application.humming.constant.PageConstants;
 import com.application.humming.dto.MemberDto;
 import com.application.humming.entity.MemberEntity;
-import com.application.humming.entity.OrderEntity;
 import com.application.humming.form.LoginForm;
 import com.application.humming.form.RegistForm;
 import com.application.humming.service.MemberService;
-import com.application.humming.service.OrderService;
 import com.application.humming.util.PropertiesUtil;
 
 @Controller
@@ -28,9 +26,6 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
-
-    @Autowired
-    private OrderService orderService;
 
     @Autowired
     HttpSession session;
@@ -77,12 +72,6 @@ public class MemberController {
         }
         // ユーザー情報有り → ユーザー情報をセッションで保持する
         session.setAttribute("member", memberDto);
-
-        // 前回ログイン時に未確定の注文が有ればカートに反映させる TODO リファクタリング
-        final OrderEntity orderEntity = (OrderEntity) session.getAttribute("order");
-        if (orderEntity != null) {
-            session.setAttribute("order", orderService.updateOrderInfo(memberDto.getId(), orderEntity));
-        }
 
         return "redirect:/";
     }

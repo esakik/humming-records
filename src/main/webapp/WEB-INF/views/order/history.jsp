@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Humming | カート</title>
+<title>Humming | 注文履歴</title>
 <link rel="stylesheet" href="../../../css/style-order-history.css" />
 <link rel="stylesheet" href="../../../css/header.css" />
 <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
@@ -20,16 +20,15 @@
                 <div class="panel-body">
                     <c:choose>
                         <c:when test="${empty orderList}">
-                            <div id="message">購入履歴はありません。</div>
+                            <div id="message">注文履歴はありません。</div>
                         </c:when>
                         <c:otherwise>
-                            <div id="title">購入履歴</div>
+                            <div id="title">注文履歴</div>
                             <c:forEach var="order" items="${orderList}">
                                 <div class="item">
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <c:forEach var="orderItem" items="${orderItemList}">
-
                                                 <c:if test="${order.id == orderItem.orderId}">
                                                     <c:forEach var="item" items="${itemList}">
                                                         <c:if test="${orderItem.itemId == item.id}">

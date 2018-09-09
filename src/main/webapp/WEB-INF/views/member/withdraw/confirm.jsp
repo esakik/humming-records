@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Humming | カート</title>
+<title>Humming | 退会の手続き</title>
 <link rel="stylesheet" href="../../../../css/style-withdraw-confirm.css" />
 <link rel="stylesheet" href="../../../../css/header.css" />
 <link rel="stylesheet" href="../../../../css/bootstrap.min.css" />

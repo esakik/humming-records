@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Humming | カート</title>
+<title>Humming | 注文内容のご確認</title>
 <link rel="stylesheet" href="../../../css/style-order-confirm.css" />
 <link rel="stylesheet" href="../../../css/header.css" />
 <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
@@ -34,31 +34,10 @@
                                         <c:out value="${item. song}" />
                                     </div>
                                     <div class="price">
-                                        <c:forEach var="item2" items="${orderItemList}">
-                                            <c:if test="${item.id == item2.itemId}">
-                                価格: <fmt:formatNumber
-                                                    value="${item.price}" pattern="###,###" /> 円
-                                <br>
-                                数量: <c:out value="${item2.quantity}" /> 個
-                                <br>
-
-                                                <script>
-                                                            var delimit = function(
-                                                                    n) {
-                                                                return String(n)
-                                                                        .replace(
-                                                                                /(\d)(?=(\d{3})+(?!\d))/g,
-                                                                                '$1,');
-                                                            };
-                                                            var num1 = "<c:out value="${item2.quantity}" />";
-                                                            var num2 = "<c:out value="${item.price}" />";
-                                                            var result = num1
-                                                                    * num2;
-                                                            document
-                                                                    .write("合計: "
-                                                                            + delimit(result)
-                                                                            + " 円");
-                                                        </script>
+                                        <c:forEach var="orderItem" items="${orderItemList}">
+                                            <c:if test="${item.id == orderItem.itemId}">
+                                                価格: <fmt:formatNumber value="${item.price}" pattern="###,###" /> 円<br>
+                                                数量: <c:out value="${orderItem.quantity}" /> 個<br>
                                             </c:if>
                                         </c:forEach>
                                     </div>
@@ -70,10 +49,6 @@
                     <div class="total text-right">
                         &nbsp;&nbsp;&nbsp;合計金額: <span class="totalPrice"><fmt:formatNumber
                                 value="${order.totalPrice}" pattern="###,###" /></span> 円 <br>
-                        <script>
-            var tax = Math.round(${order.totalPrice} * 0.08 / 1.08);
-            document.write("(うち消費税: " + delimit(tax) + " 円)");
-            </script>
                     </div>
 
                 </div>
@@ -176,6 +151,8 @@
                         <div class="text-right">
                             <input type="submit" value="この内容で注文する" class="submit-btn">
                         </div>
+                        <input type="hidden" name="totalPrice" value="${order.totalPrice}">
+
                     </form:form>
                 </div>
             </div>
