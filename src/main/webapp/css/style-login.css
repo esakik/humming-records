@@ -1,21 +1,18 @@
-.error {
-    text-align: center;
-    color: red;
-    margin-top: 20px;
-    margin-bottom: -20px;
+h2 {
+  padding: .25em 0 .25em 0;
+  border-left: 6px solid #ffbb00;
+  width: 210px;
 }
 
 .main {
 	width: 480px;
-	margin: 40px auto 0 auto;
+	margin: 20px auto 0 auto;
 }
 
-.form-container {
-   min-width:420px;
-   padding:20px;
-   width:420px;
-   margin: 0px auto 0 auto;
+.panel {
+    padding: 20px;
 }
+
 .form-field {
    border: 1px solid #646464;
    background: #ffffff;
@@ -28,7 +25,7 @@
    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
    padding:8px;
    margin-bottom:20px;
-   width:376px;
+   width:100%;
 }
 .form-field:focus {
    background: #fff;
@@ -41,10 +38,17 @@
    font-weight:bold;
    text-align:center;
 }
-.form-title {
-   margin-bottom:10px;
+.form-header {
    color: #000032;
    text-shadow: #ffffff 0 1px 0;
+   font-weight: bold;
+   margin-bottom: 20px;
+}
+.form-title {
+   color: #000032;
+   text-shadow: #ffffff 0 1px 0;
+   font-weight: bold;
+   margin-bottom: 5px;
 }
 .submit-container {
    margin:8px 0;

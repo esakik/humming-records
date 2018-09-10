@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../../../css/header.css">
 <link rel="stylesheet" href="../../../css/bootstrap.min.css">
 <script>
-    function selectQuantity() {
+    function calculateTotalAmount() {
         var num = document.shoppingCartForm.quantity.selectedIndex;
         var quantity = document.shoppingCartForm.quantity.options[num].value;
         var value = "<c:out value="${item.price}" />";
@@ -49,7 +49,7 @@
                         action="${pageContext.request.contextPath}/order/cart/add"
                         name="shoppingCartForm">
                         <div class="quantity">
-                            数量: <select name="quantity" id="select" onClick="selectQuantity()">
+                            数量: <select name="quantity" id="select" onClick="calculateTotalAmount()">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

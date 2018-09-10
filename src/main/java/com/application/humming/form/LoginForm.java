@@ -1,6 +1,6 @@
 package com.application.humming.form;
 
-import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -8,10 +8,10 @@ import lombok.Data;
 public class LoginForm {
 
     /** メールアドレス. */
-    @NotNull(message = "値を入力してください")
-    private String mailAddress;
+    @NotBlank(message = "メールアドレスは入力必須です。")
+    private String email;
 
     /** パスワード. */
-    @NotNull(message = "値を入力してください")
+    @NotBlank(message = "パスワードは入力必須です。")
     private String password;
 }

@@ -61,12 +61,12 @@ public class MemberController {
             return displayLoginForm();
         }
 
-        final String email = loginForm.getMailAddress();
+        final String email = loginForm.getEmail();
         final String password = loginForm.getPassword();
 
         final MemberDto memberDto = memberService.createMemberDto(email, password);
         // ユーザー情報無し → エラーメッセージを表示する
-        if (memberDto == null) {
+        if (memberDto.getId() == null) {
             model.addAttribute("error", PropertiesUtil.getProperties("login.error.invalid"));
             return displayLoginForm();
         }

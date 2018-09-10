@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,33 +18,37 @@
     <div class="container-fluid">
         <div id="content">
             <div class="row">
-                <div class="error">
-                    <c:out value="${error}" />
-                </div>
-                <div class="main panel panel-default">
-                    <div class="panel-body">
-                        <form:form modelAttribute="loginForm" action="/member/login"
-                            class="form-container">
-                            <div class="form-title">
+                <form:form modelAttribute="loginForm" action="/member/login"
+                    class="main form-container">
+                    <c:if test="${not empty error || not empty email}">
+                    <div class="alert alert-danger">
+                        <c:out value="${error}" />
+                    </div>
+                    </c:if>
+                    <spring:hasBindErrors name="loginForm">
+                    <div class="alert alert-danger">
+                    <form:errors path="email" element="div"/>
+                    <form:errors path="password" element="div"/>
+                    </div>
+                    </spring:hasBindErrors>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-header">
                                 <h2>Hummingにログイン</h2>
                             </div>
                             <div class="form-title">メールアドレス</div>
-                            <form:input class="form-field" path="mailAddress"
-                                placeholder="Email" />
-                            <span class="errer"><form:errors path="mailAddress" /></span>
+                            <form:input class="form-field" path="email" placeholder="Email" />
                             <br />
                             <div class="form-title">パスワード</div>
                             <form:password class="form-field" path="password"
                                 placeholder="Password" />
-                            <span class="errer"><form:errors path="password" /></span>
-                            <br />
-                            <a href="/member/registForm">新規会員登録はこちらから</a>
+                            <br /> <a href="/member/registForm">新規会員登録はこちらから</a>
                             <div class="submit-container">
                                 <input class="submit-button" type="submit" value="ログイン" />
                             </div>
-                        </form:form>
+                        </div>
                     </div>
-                </div>
+                </form:form>
             </div>
         </div>
     </div>
