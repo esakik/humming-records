@@ -39,4 +39,11 @@ public interface ItemLogic {
      * @return List<ItemEntity>
      */
     List<ItemEntity> findFromOffsetToLimit(@NonNull final Integer offset, @NonNull final Integer limit);
+
+    /**
+     * アイテム総数を取得する.
+     *
+     * @return Integer
+     */
+    Integer getItemCount();
 }

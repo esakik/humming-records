@@ -83,10 +83,29 @@ body {
 	text-align: left;
 }
 
-#newList {
-    padding-top: 30px;
+.paging_btn{
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.25em 0.75em;
+    margin: 40px 1px 20px 1px;
+    text-decoration: none;
+    color: #ffb900;
+    background: #ECECEC;
+    border: 1px solid #DDDDDD;
+    transition: .4s;
+  }
+
+.paging_btn:hover {
+    background: #ffb900;
+    border: 1px solid #ffb900;
+    color: white;
+    text-decoration: none;
 }
 
-#reserveList {
-    padding-top: 30px;
+.active-page {
+	background: #ffb900;
+    border: 1px solid #ffb900;
+    color: white;
+    text-decoration: none;
 }

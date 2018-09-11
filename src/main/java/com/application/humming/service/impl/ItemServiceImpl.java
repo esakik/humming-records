@@ -25,14 +25,6 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemLogic itemLogic;
 
-    /**
-     * 初期表示のアイテム一覧を取得する.
-     *
-     * @param Integer offset
-     * @param Integer limit
-     * @return List<ItemEntity>
-     * @throws HummingException
-     */
     @Override
     public List<ItemDto> getInitialItemList(@NonNull final Integer offset, @NonNull final Integer limit) throws HummingException {
         final List<ItemEntity> itemEntityList = itemLogic.findFromOffsetToLimit(offset, limit);
@@ -49,12 +41,6 @@ public class ItemServiceImpl implements ItemService {
         return itemDtoList;
     }
 
-    /**
-     * アイテム詳細を取得する.
-     *
-     * @param Integer id
-     * @return ItemEntity
-     */
     @Override
     public ItemDto getItemDetail(@NonNull final Integer id) {
         final ItemEntity itemEntity = itemLogic.findByPrimaryKey(id);
@@ -63,12 +49,6 @@ public class ItemServiceImpl implements ItemService {
         return itemDto;
     }
 
-    /**
-     * 歌手名または曲名でアイテムを取得する.
-     *
-     * @param String singerOrSong
-     * @return List<ItemEntity>
-     */
     @Override
     public List<ItemDto> getItemWithSingerOrSong(@NonNull final String singerOrSong) {
         final List<ItemEntity> itemEntityList = itemLogic.findBySingerOrSong(singerOrSong);
@@ -79,5 +59,10 @@ public class ItemServiceImpl implements ItemService {
             itemDtoList.add(itemDto);
         });
         return itemDtoList;
+    }
+
+    @Override
+    public Integer getItemCount() {
+        return itemLogic.getItemCount();
     }
 }

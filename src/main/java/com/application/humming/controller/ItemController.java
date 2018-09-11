@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.application.humming.constant.HummingConstants;
 import com.application.humming.constant.PageConstants;
@@ -41,23 +41,34 @@ public class ItemController {
      * トップ画面を表示する.
      *
      * @return トップ画面
+     * @throws HummingException
      */
     @RequestMapping(value = "/")
-    public String displayTopPage() {
+    public String displayTopPage(Model model) throws HummingException {
+        // OffsetとLimitに値を入れることで、表示数を変更できる
+        final List<ItemDto> itemDtoList = itemService.getInitialItemList(HummingConstants.OFFSET, HummingConstants.LIMIT);
+        final Integer itemCount = itemService.getItemCount();
+        model.addAttribute("itemList", itemDtoList);
+        model.addAttribute("pagingButtonCount", (itemCount / HummingConstants.LIMIT) + NumberUtils.INTEGER_ONE);
+        model.addAttribute("activePage", NumberUtils.INTEGER_ONE);
         return PageConstants.TOP_PAGE;
     }
 
     /**
-     * トップ画面に初期表示するアイテム一覧を表示する.<br>
-     * OffsetとLimitに値を入れることで、表示数を変更できる.
+     * 選択されたページ番号に応じたトップ画面を表示する.
      *
-     * @return アイテム一覧
+     * @return トップ画面
      * @throws HummingException
      */
-    @RequestMapping(value = "/displayInitialItemList")
-    @ResponseBody
-    public List<ItemDto> displayInitialItemList() throws HummingException {
-        return itemService.getInitialItemList(HummingConstants.OFFSET, HummingConstants.LIMIT);
+    @RequestMapping(value = "/page")
+    public String displayTopPaging(@RequestParam(name = "number") Integer number, Model model) throws HummingException {
+        // OffsetとLimitに値を入れることで、表示数を変更できる
+        final List<ItemDto> itemDtoList = itemService.getInitialItemList(HummingConstants.LIMIT * (number - 1), HummingConstants.LIMIT);
+        final Integer itemCount = itemService.getItemCount();
+        model.addAttribute("itemList", itemDtoList);
+        model.addAttribute("pagingButtonCount", (itemCount / HummingConstants.LIMIT) + NumberUtils.INTEGER_ONE);
+        model.addAttribute("activePage", number);
+        return PageConstants.TOP_PAGE;
     }
 
     /**

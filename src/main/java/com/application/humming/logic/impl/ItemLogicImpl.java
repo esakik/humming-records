@@ -36,4 +36,9 @@ public class ItemLogicImpl implements ItemLogic {
     public List<ItemEntity> findFromOffsetToLimit(@NonNull final Integer offset, @NonNull final Integer limit) {
         return itemDao.findFromOffsetToLimit(offset, limit);
     }
+
+    @Override
+    public Integer getItemCount() {
+        return itemDao.findAll().size();
+    }
 }

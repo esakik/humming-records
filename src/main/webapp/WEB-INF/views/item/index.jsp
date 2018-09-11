@@ -27,13 +27,44 @@
                         <div class="tab-content ribbon_box row">
                             <div id="ranking" class="tab-pane fade in active">
                                 <h3 class="ribbon8">人気アイテム</h3>
-
+                                <c:out value="${itemCount}"/>
                                 <div class="row">
-                                    <div id="item"></div>
+                                    <div id="item">
+                                        <c:forEach var="item" items="${itemList}">
+                                            <div class="single-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                                <img src="data:jpg;base64, ${item.image}" class="img-thumbnail">
+                                                <div class='singer'>
+                                                    <a href="/detail?itemId=${item.id}" style="text-decoration: none"><c:out value="${item.singer}"/></a>
+                                                </div>
+                                                <div class="song">
+                                                    <c:out value="${item.song}"/>
+                                                </div>
+                                                <div class="price">
+                                                    <c:out value="${item.price}"/> 円
+                                                </div>
+                                            </div>
+                                    </c:forEach>
+                                    </div>
                                 </div>
 
-                                <div id="paging" class="row"></div>
-                                <div style="margin-bottom: 30px;"></div>
+                                <div id="paging" class="row">
+                                    <c:if test="${activePage != 1}">
+                                        <a href="/page?number=${activePage - 1}" class="paging_btn">前の12件</a>
+                                    </c:if>
+                                    <c:forEach begin="1" end="${pagingButtonCount}" varStatus="status">
+                                        <c:choose>
+                                            <c:when test="${activePage == status.index}" >
+                                                <a href="/page?number=${status.index}" class="active-page paging_btn"><c:out value="${status.index}"/></a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="/page?number=${status.index}" class="paging_btn"><c:out value="${status.index}"/></a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <c:if test="${activePage != pagingButtonCount}">
+                                        <a href="/page?number=${activePage + 1}" class="paging_btn">次の12件</a>
+                                    </c:if>
+                                </div>
                             </div>
                             <div id="new" class="tab-pane fade">
                                 <h3 class="ribbon8">新着アイテム</h3>
@@ -119,7 +150,6 @@
 
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/displayInitialItemList.js"></script>
     <script src="../js/scrolltop.js"></script>
 </body>
 </html>
