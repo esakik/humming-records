@@ -69,6 +69,7 @@
                             <div id="new" class="tab-pane fade">
                                 <h3 class="ribbon8">新着アイテム</h3>
                                 <div id="newList" class="row" style="clear: both;">
+                                    <div style="margin-top: 30px;"></div>
                                     新着アイテムはありません。
                                 </div>
                                 <div id="paging-new" class="row"></div>
@@ -77,6 +78,7 @@
                             <div id="reserve" class="tab-pane fade">
                                 <h3 class="ribbon8">予約アイテム</h3>
                                 <div id="reserveList" class="row" style="clear: both;">
+                                    <div style="margin-top: 30px;"></div>
                                     予約アイテムはありません。
                                 </div>
                                 <div id="paging-reserve" class="row"></div>
@@ -141,11 +143,15 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <p class="row" id="scrollTop">
             <a href="#" style="text-decoration: none;">page top</a>
         </p>
+        <div class="row">
+            <%@ include file="../common/footer.jsp"%>
+        </div>
     </div>
 
     <script src="../js/jquery-3.1.1.min.js"></script>
