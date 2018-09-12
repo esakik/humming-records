@@ -14,12 +14,12 @@
 <link rel="stylesheet" href="../../../css/style-login.css">
 </head>
 <body style="background-color: whitesmoke;">
-    <%@ include file="../common/header.jsp"%>
     <div class="container-fluid">
+    <%@ include file="../common/header.jsp"%>
         <div id="content">
-            <div class="row">
+            <div class="row main">
                 <form:form modelAttribute="loginForm" action="/member/login"
-                    class="main form-container">
+                    class="form-container">
                     <c:if test="${not empty error || not empty email}">
                     <div class="alert alert-danger">
                         <c:out value="${error}" />
@@ -34,25 +34,30 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-header">
-                                <h2>Hummingにログイン</h2>
+                                <h2>Humming にログイン</h2>
                             </div>
+                            <div class="service">このサービスをご利用になるにはログインしてください。</div>
                             <div class="form-title">メールアドレス</div>
                             <form:input class="form-field" path="email" placeholder="Email" />
-                            <br />
+                            <br/>
                             <div class="form-title">パスワード</div>
                             <form:password class="form-field" path="password"
                                 placeholder="Password" />
-                            <br /> <a href="/member/registForm">新規会員登録はこちらから</a>
                             <div class="submit-container">
                                 <input class="submit-button" type="submit" value="ログイン" />
                             </div>
                         </div>
                     </div>
                 </form:form>
+                <div class="regist row">
+                    <p>まだ登録されていない方へ</p>
+                    <a href="/member/registForm" class="square_btn">新規会員登録はこちらから</a>
+                    <div class="about-humming"><a>Humming会員とは？</a></div>
+                </div>
             </div>
         </div>
+        <%@ include file="../common/footer.jsp"%>
     </div>
-
     <script src="../js/jquery-3.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 </body>
