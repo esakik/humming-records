@@ -25,7 +25,7 @@
                             確認の上、「退会」ボタンをクリックすると退会完了となります。
                         </p>
                         <form:form modelAttribute="userForm"
-                            action="/member/withdraw/complete">
+                            action="/member/withdraw/redirect">
                             <input type="hidden" name="deleted" value="${member.id}">
                             <input type="submit" value="退会する" class="withdraw-btn">
                         </form:form>

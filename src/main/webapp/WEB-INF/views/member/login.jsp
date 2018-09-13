@@ -18,7 +18,7 @@
     <%@ include file="../common/header.jsp"%>
         <div id="content">
             <div class="row main">
-                <form:form modelAttribute="loginForm" action="/member/login"
+                <form:form modelAttribute="loginForm" action="/member/login/complete"
                     class="form-container">
                     <c:if test="${not empty error || not empty email}">
                     <div class="alert alert-danger">
@@ -51,8 +51,8 @@
                 </form:form>
                 <div class="regist row">
                     <p>まだ登録されていない方へ</p>
-                    <a href="/member/registForm" class="square_btn">新規会員登録はこちらから</a>
-                    <div class="about-humming"><a>Humming会員とは？</a></div>
+                    <a href="/member/regist/input" class="square_btn">新規会員登録はこちらから</a>
+                    <div class="about-humming"><a href="#">Humming会員とは？</a></div>
                 </div>
             </div>
         </div>

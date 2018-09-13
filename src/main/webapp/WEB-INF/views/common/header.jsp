@@ -41,13 +41,13 @@
                     <li><a href="/member/logout"><span class="material-text">ログアウト</span></a></li>
                 </c:if>
                 <c:if test="${member.name == null}">
-                    <li><a href="/member/loginForm"><span class="material-text">ログイン</span></a></li>
+                    <li><a href="/member/login/input"><span class="material-text">ログイン</span></a></li>
                 </c:if>
                 <c:if test="${member.name != null}">
                     <li><a href="/member/mypage"><span class="material-text">マイページ</span></a></li>
                 </c:if>
                 <c:if test="${member.name == null}">
-                    <li><a href="/member/registForm"><span class="material-text">新規登録</span></a></li>
+                    <li><a href="/member/regist/input"><span class="material-text">新規登録</span></a></li>
                 </c:if>
                 <li><a href="/order/cart"><span class="material-text">カート</span></a></li>
                 <li><a href="/member/contact"><span class="material-text">問い合わせ</span></a></li>

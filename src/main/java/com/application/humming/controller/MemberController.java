@@ -45,8 +45,8 @@ public class MemberController {
      *
      * @return ログイン画面
      */
-    @RequestMapping(value = "/loginForm")
-    public String displayLoginForm() {
+    @RequestMapping(value = "/login/input")
+    public String displayLoginPage() {
         return PageConstants.LOGIN_PAGE;
     }
 
@@ -55,10 +55,10 @@ public class MemberController {
      *
      * @return 初期表示画面
      */
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login/complete")
     public String login(@Validated LoginForm loginForm, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return displayLoginForm();
+            return displayLoginPage();
         }
 
         final String email = loginForm.getEmail();
@@ -68,7 +68,7 @@ public class MemberController {
         // ユーザー情報無し → エラーメッセージを表示する
         if (memberDto.getId() == null) {
             model.addAttribute("error", PropertiesUtil.getProperties("login.error.invalid"));
-            return displayLoginForm();
+            return displayLoginPage();
         }
         // ユーザー情報有り → ユーザー情報をセッションで保持する
         session.setAttribute("member", memberDto);
@@ -88,47 +88,111 @@ public class MemberController {
     }
 
     /**
-     * 新規会員登録画面を表示する.
+     * 会員登録入力画面を表示する.
      *
-     * @return 新規会員登録画面
+     * @return 会員登録入力画面
      */
-    @RequestMapping(value = "/registForm")
-    public String displayRegistForm() {
-        return PageConstants.REGIST_PAGE;
+    @RequestMapping(value = "/regist/input")
+    public String displayRegistInputPage() {
+        return PageConstants.REGIST_INPUT_PAGE;
     }
 
     /**
-     * 新規会員登録する.
+     * 会員登録の確認を行う.
      *
-     * @return ログイン画面
+     * @return 会員登録確認画面
      */
-    @RequestMapping(value = "regist")
-    public String regist(@Validated RegistForm registForm, BindingResult result, Model model) {
+    @RequestMapping(value = "/regist/confirm")
+    public String displayRegistConfirmPage(@Validated RegistForm registForm, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return displayRegistForm();
+            return displayRegistInputPage();
         }
 
         final String email = registForm.getEmail();
         final boolean isUniqueEmailFlag = memberService.checkIfUniqueEmail(email);
         // 既に登録されたメールアドレス → エラーメッセージを表示する
         if (!isUniqueEmailFlag) {
-            model.addAttribute("error", PropertiesUtil.getProperties("regist.error.invalid.email"));
-            return displayRegistForm();
+            model.addAttribute("emailError", PropertiesUtil.getProperties("regist.error.invalid.email"));
+            return displayRegistInputPage();
         }
 
         final String password = registForm.getPassword();
         final String confirmationPassword = registForm.getConfirmationPassword();
         // パスワードと確認パスワードが一致 → 新規会員登録する
         if (password.equals(confirmationPassword)) {
-            final MemberEntity memberEntity = new MemberEntity();
-            BeanUtils.copyProperties(registForm, memberEntity);
-            memberService.regist(memberEntity);
-            return "redirect:/member/loginForm";
+            final MemberDto memberDto = new MemberDto();
+            BeanUtils.copyProperties(registForm, memberDto);
+            session.setAttribute("member", memberDto);
+            return PageConstants.REGIST_CONFIRM_PAGE;
         // パスワードと確認パスワードが一致しない → エラーメッセージを表示する
         } else {
-            model.addAttribute("error", PropertiesUtil.getProperties("regist.error.invalid.password"));
-            return displayRegistForm();
+            model.addAttribute("passwordError", PropertiesUtil.getProperties("regist.error.invalid.password"));
+            return displayRegistInputPage();
         }
+    }
+
+    /**
+     * 会員登録処理を行う.
+     *
+     * @return 会員登録完了画面
+     */
+    @RequestMapping(value = "/regist/redirect")
+    public String regist() {
+        final MemberDto memberDto = (MemberDto) session.getAttribute("member");
+        if (memberDto == null) {
+            return PageConstants.REGIST_INPUT_PAGE;
+        }
+        final MemberEntity memberEntity = new MemberEntity();
+        BeanUtils.copyProperties(memberDto, memberEntity);
+        memberService.regist(memberEntity);
+        return "redirect:/member/regist/complete";
+    }
+
+    /**
+     * 会員登録完了画面を表示する.
+     *
+     * @return 会員登録完了画面
+     */
+    @RequestMapping(value = "/regist/complete")
+    public String displayRegistCompletePage() {
+        return PageConstants.REGIST_COMPLETE_PAGE;
+    }
+
+    /**
+     * 退会確認画面を表示する.
+     *
+     * @return 退会確認画面
+     */
+    @RequestMapping(value = "/withdraw/confirm")
+    public String displayWithdrawConfirmPage() {
+        if (session.getAttribute("member") == null) {
+            return PageConstants.LOGIN_PAGE;
+        }
+        return PageConstants.WITHDRAW_CONFIRM_PAGE;
+    }
+
+    /**
+     * 退会処理を行う.
+     *
+     * @return 退会完了画面
+     */
+    @RequestMapping(value = "/withdraw/redirect")
+    public String withdraw(RegistForm registForm, SessionStatus sessionStatus) {
+        if (session.getAttribute("member") == null) {
+            return PageConstants.LOGIN_PAGE;
+        }
+        memberService.withdraw(registForm.getDeleted(), sessionStatus);
+        return "redirect:/member/withdraw/complete";
+    }
+
+    /**
+     * 退会完了画面を表示する.
+     *
+     * @return 退会完了画面
+     */
+    @RequestMapping(value = "/withdraw/complete")
+    public String redirectCompleteWithdrawPage() {
+        return PageConstants.WITHDRAW_COMPLETE_PAGE;
     }
 
     /**
@@ -142,38 +206,6 @@ public class MemberController {
             return PageConstants.LOGIN_PAGE;
         }
         return PageConstants.MY_PAGE;
-    }
-
-    /**
-     * 退会確認画面を表示する.
-     *
-     * @return 退会確認画面
-     */
-    @RequestMapping(value = "/withdraw/confirm")
-    public String displayWithdrawPage() {
-        if (session.getAttribute("member") == null) {
-            return PageConstants.LOGIN_PAGE;
-        }
-        return PageConstants.WITHDRAW_CONFIRM_PAGE;
-    }
-
-    /**
-     * 退会処理をする.
-     *
-     * @return 退会完了画面
-     */
-    @RequestMapping(value = "/withdraw/complete")
-    public String withdraw(RegistForm registForm, SessionStatus sessionStatus) {
-        if (session.getAttribute("member") == null) {
-            return PageConstants.LOGIN_PAGE;
-        }
-        memberService.withdraw(registForm.getDeleted(), sessionStatus);
-        return "redirect:/member/withdraw/redirect";
-    }
-
-    @RequestMapping(value = "/withdraw/redirect")
-    public String redirectCompleteWithdrawPage() {
-        return PageConstants.WITHDRAW_COMPLETE_PAGE;
     }
 
     /**

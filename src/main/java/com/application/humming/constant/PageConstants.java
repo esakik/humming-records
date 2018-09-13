@@ -12,7 +12,11 @@ public class PageConstants {
 
     public static final String HISTORY_PAGE = "mypage/history";
 
-    public static final String REGIST_PAGE = "member/regist";
+    public static final String REGIST_INPUT_PAGE = "member/regist/input";
+
+    public static final String REGIST_CONFIRM_PAGE = "member/regist/confirm";
+
+    public static final String REGIST_COMPLETE_PAGE = "member/regist/complete";
 
     public static final String LOGIN_PAGE = "member/login";
 

@@ -3,7 +3,6 @@ package com.application.humming.form;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
 
@@ -25,7 +24,6 @@ public class RegistForm {
 
     /** 電話番号. */
     @NotBlank(message = "電話番号は入力必須です。")
-    @Range(min = 8, max = 12, message = "電話番号が正しい形式ではありません。")
     private String telephone;
 
     /** パスワード. */
@@ -34,7 +32,7 @@ public class RegistForm {
     private String password;
 
     /** 確認用パスワード. */
-    @NotBlank(message = "確認用パスワードは入力必須です。")
+    @NotBlank(message = "パスワード (確認)は入力必須です。")
     private String confirmationPassword;
 
     /** 削除フラグ. */

@@ -1,68 +1,174 @@
+body, html {
+    height: 100%;
+}
+
 .error {
-    text-align: center;
+    text-align: left;
     color: red;
     margin-top: 20px;
     margin-bottom: -20px;
 }
 
+.title span {
+    padding: .25em 0 .25em 15px;
+    border-left: 6px solid #ffbb00;
+    text-shadow: #ffffff 0 1px 0;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.complete span {
+    text-shadow: #ffffff 0 1px 0;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
 .main {
-    width: 680px;
-    margin: 40px auto 0 auto;
-    margin-bottom: 20px;
+    width: 820px;
+    margin: 10px auto 20px auto;
 }
 
 .form-container {
-   min-width:620px;
-   padding:20px;
-   width:620px;
-   margin: 0 auto 0 auto;
+    width: 820px;
+    margin: 0 auto 0 auto;
 }
+
 .form-field {
-   border: 1px solid #646464;
-   background: #ffffff;
-   -webkit-border-radius: 0px;
-   -moz-border-radius: 0px;
-   border-radius: 0px;
-   color: #333333;
-   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
-   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
-   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
-   padding:8px;
-   margin-bottom:20px;
-   width:576px;
+    border: 1px solid #646464;
+    background: #ffffff;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    color: #333333;
+    -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+        rgba(000, 000, 000, 0.7) 0 0px 0px;
+    -moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+        rgba(000, 000, 000, 0.7) 0 0px 0px;
+    box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+        rgba(000, 000, 000, 0.7) 0 0px 0px;
+    padding: 8px;
+    margin-bottom: 20px;
+    width: 100%;
 }
+
 .form-field:focus {
-   background: #fff;
-   color: #333333;
+    background: #fff;
+    color: #333333;
 }
+
 .form-container h2 {
-   text-shadow: #ffffff 0 1px 0;
-   font-size:18px;
-   margin: 0 0 10px 0;
-   font-weight:bold;
-   text-align:center;
+    text-shadow: #ffffff 0 1px 0;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    text-align: center;
 }
+
 .form-title {
-   margin-bottom:10px;
-   color: #000032;
-   text-shadow: #ffffff 0 1px 0;
+    margin-bottom: 10px;
+    color: #000032;
+    text-shadow: #ffffff 0 1px 0;
 }
+
 .submit-container {
-   margin:8px 0;
-   text-align:right;
+    text-align: center;
 }
+
 .submit-button {
-   border: 1px solid #ffffff;
-   background: #ffbb00;
-   -webkit-border-radius: 4px;
-   -moz-border-radius: 4px;
-   border-radius: 4px;
-   color: #ffffff;
-   padding: 8.5px 18px;
-   font-size: 14px;
-   text-decoration: none;
-   vertical-align: middle;
+    border: 1px solid #ffffff;
+    background: #ffbb00;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 8.5px 18px;
+    font-size: 14px;
+    text-decoration: none;
+    vertical-align: middle;
 }
+
 .submit-button:hover {
     opacity: 0.6;
+}
+
+.step-bar {
+    width: 600px;
+    margin: 10px auto 10px auto;
+}
+
+.steps-title-active {
+    width: 96%;
+    margin: 0 .5em 1em 0em;
+    background: #ffbb00;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.steps-title-active::after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 15px solid #ffbb00;
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    left: 100%;
+    z-index: 2;
+}
+
+.steps-title {
+    width: 96%;
+    margin: 0 .5em 1em 0em;
+    background: #ffbb00;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    opacity: 0.6;
+}
+
+.steps-title::after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 15px solid #ffbb00;
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    left: 100%;
+    z-index: 2;
+}
+
+.footer {
+    margin-top: 70px;
+    border-top: 2px solid lightgray;
+    width: 100%;
+    padding: 12px 0 6px 0;
+    text-align: center;
+    color: #666;
+    line-height: 15px;
 }
