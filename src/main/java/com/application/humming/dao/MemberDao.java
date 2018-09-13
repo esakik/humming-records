@@ -9,7 +9,7 @@ public interface MemberDao {
     /**
      * メールアドレスから会員情報を取得する.
      *
-     * @param String email
+     * @param email
      * @return MemberEntity
      */
     MemberEntity findByEmail(@NonNull final String email);
@@ -17,7 +17,7 @@ public interface MemberDao {
     /**
      * 会員情報を登録または更新する.
      *
-     * @param MemberEntity memberEntity
+     * @param memberEntity
      * @return MemberEntity
      */
     void save(@NonNull final MemberEntity memberEntity);
@@ -25,7 +25,7 @@ public interface MemberDao {
     /**
      * 会員情報を削除する.
      *
-     * @param Integer id
+     * @param id
      */
     void delete(@NonNull final Integer id);
 }

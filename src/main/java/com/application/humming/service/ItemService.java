@@ -12,8 +12,8 @@ public interface ItemService {
     /**
      * 初期表示のアイテム一覧を取得する.
      *
-     * @param Integer offset
-     * @param Integer limit
+     * @param offset
+     * @param limit
      * @return List<ItemEntity>
      * @throws HummingException
      */
@@ -22,7 +22,7 @@ public interface ItemService {
     /**
      * アイテム詳細を取得する.
      *
-     * @param Integer id
+     * @param id
      * @return ItemEntity
      */
     ItemDto getItemDetail(@NonNull final Integer id);
@@ -30,7 +30,7 @@ public interface ItemService {
     /**
      * 歌手名または曲名でアイテムを取得する.
      *
-     * @param String singerOrSong
+     * @param singerOrSong
      * @return List<ItemEntity>
      */
     List<ItemDto> getItemWithSingerOrSong(@NonNull final String singerOrSong);

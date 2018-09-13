@@ -9,7 +9,6 @@ public enum OrderStatus {
 
     @Getter
     private final int code;
-
     @Getter
     private final String label;
 

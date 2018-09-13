@@ -10,6 +10,7 @@ public class PropertiesUtil {
 
     /**
      * プロパティファイルに含まれるメッセージを取得する.
+     *
      * @param key
      * @return メッセージ
      */

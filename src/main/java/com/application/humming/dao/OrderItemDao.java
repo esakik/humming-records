@@ -12,7 +12,7 @@ public interface OrderItemDao {
     /**
      * 注文アイテムをを注文IDで検索する.
      *
-     * @param Integer orderId
+     * @param orderId
      * @return List<OrderItemEntity>
      */
     List<OrderItemEntity> findByOrderId(@NonNull final Integer orderId);
@@ -20,8 +20,8 @@ public interface OrderItemDao {
     /**
      * 注文アイテムを注文IDと商品IDで検索する.
      *
-     * @param Integer orderId
-     * @param Integer itemId
+     * @param orderId
+     * @param itemId
      * @return OrderItemEntity
      */
     OrderItemEntity findbyOrderIdAndItemId(final Integer orderId, @NonNull final Integer itemId);
@@ -29,24 +29,24 @@ public interface OrderItemDao {
     /**
      * 注文アイテムの数量を更新する.
      *
-     * @param Integer orderId
-     * @param Integer itemId
-     * @param Integer quantity
+     * @param orderId
+     * @param itemId
+     * @param quantity
      */
     void updateQuantity(@NonNull final Integer orderId, @NonNull final Integer itemId, @NonNull final Integer quantity);
 
     /**
      * 注文アイテムを追加する.
      *
-     * @param OrderItemDto orderItemDto
+     * @param orderItemDto
      */
     void insert(@NonNull final OrderItemDto orderItemDto);
 
     /**
      * 注文アイテムを削除する.
      *
-     * @param Integer orderId
-     * @param Integer itemId
+     * @param orderId
+     * @param itemId
      */
     void deleteByOrderIdAndItemId(@NonNull final Integer orderId, @NonNull final Integer itemId);
 }

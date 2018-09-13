@@ -13,7 +13,7 @@ public interface OrderLogic {
     /**
      * 注文アイテム情報を取得する.
      *
-     * @param Integer id
+     * @param id
      * @return List<OrderItemDto>
      */
     List<OrderItemDto> getOrderItemInfo(@NonNull final Integer id);
@@ -21,7 +21,7 @@ public interface OrderLogic {
     /**
      * 注文アイテム情報を更新する.
      *
-     * @param OrderItemDto orderItemDto
+     * @param orderItemDto
      * @return OrderDto
      */
     OrderDto updateOrderItemInfo(@NonNull final OrderItemDto orderItemDto);
@@ -29,14 +29,15 @@ public interface OrderLogic {
     /**
      * カートからアイテムを削除する.
      *
-     * @param OrderDto orderDto
-     * @param OrderItemDto orderItemDto
+     * @param orderDto
+     * @param orderItemDto
      * @return OrderDto
      */
     OrderDto deleteOrderItemInfo(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto);
 
     /**
      * 注文ステータスを更新する.
+     *
      * @param orderEntity
      */
     void updateStatus(@NonNull final OrderEntity orderEntity);
@@ -44,16 +45,16 @@ public interface OrderLogic {
     /**
      * 配送時間をセットする.
      *
-     * @param OrderEntity orderEntity
-     * @param String deliveryTime
-     * @param String deliverySpecifiedTime
+     * @param orderEntity
+     * @param deliveryTime
+     * @param deliverySpecifiedTime
      */
     void setDeliveryTime(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime);
 
     /**
      * 確定済みの注文情報を取得する.
      *
-     * @param Integer id
+     * @param id
      * @return List<OrderDto>
      */
     List<OrderDto> getOrderedInfo(final Integer id);
@@ -61,7 +62,7 @@ public interface OrderLogic {
     /**
      * 確定済みの注文アイテム情報を取得する.
      *
-     * @param List<OrderDto> orderDtoList
+     * @param orderDtoList
      * @return List<OrderItemDto>
      */
     List<OrderItemDto> getOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList);

@@ -13,7 +13,7 @@ public interface OrderService {
     /**
      * カート内のアイテムを取得する.
      *
-     * @param Integer id
+     * @param id
      * @return List<OrderItemDto>
      */
     public List<OrderItemDto> getOrderItemInCart(@NonNull final Integer id);
@@ -21,7 +21,7 @@ public interface OrderService {
     /**
      * カートにアイテムを追加する.
      *
-     * @param OrderItemDto orderItemDto
+     * @param orderItemDto
      * @return OrderDto
      */
     public OrderDto addToCart(@NonNull final OrderItemDto orderItemDto);
@@ -29,8 +29,8 @@ public interface OrderService {
     /**
      * カートからアイテムを削除する.
      *
-     * @param OrderDto orderDto
-     * @param OrderItemDto orderItemDto
+     * @param orderDto
+     * @param orderItemDto
      * @return OrderDto
      */
     public OrderDto deleteOrderItemFromCart(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto);
@@ -38,7 +38,7 @@ public interface OrderService {
     /**
      * 注文内容を取得する.
      *
-     * @param Integer id
+     * @param id
      * @return List<OrderItemDto>
      */
     public List<OrderItemDto> getOrderedItems(@NonNull final Integer id);
@@ -46,16 +46,16 @@ public interface OrderService {
     /**
      * 注文を確定する.
      *
-     * @param OrderEntity orderEntity
-     * @param String deliveryTime
-     * @param String deliverySpecifiedTime
+     * @param orderEntity
+     * @param deliveryTime
+     * @param deliverySpecifiedTime
      */
     public void completeOrder(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime);
 
     /**
      * 注文履歴を取得する.
      *
-     * @param Integer id
+     * @param id
      * @return List<OrderDto>
      */
     public List<OrderDto> getOrderHistory(@NonNull final Integer id);
@@ -63,7 +63,7 @@ public interface OrderService {
     /**
      * 注文アイテム履歴を取得する.
      *
-     * @param List<OrderDto> orderDtoList
+     * @param orderDtoList
      * @return List<OrderItemDto>
      */
     public List<OrderItemDto> getOrderItemHistory(@NonNull final List<OrderDto> orderDtoList);

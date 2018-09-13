@@ -11,8 +11,8 @@ public interface OrderDao {
     /**
      * 注文情報を会員IDと注文ステータスで検索する.
      *
-     * @param Integer memberId
-     * @param Integer status
+     * @param memberId
+     * @param status
      * @return List<OrderEntity>
      */
     List<OrderEntity> findByMemberIdAndStatus(@NonNull final Integer memberId, @NonNull final Integer status);
@@ -20,15 +20,15 @@ public interface OrderDao {
     /**
      * 合計金額を更新する.
      *
-     * @param Integer orderId
-     * @param Integer totalPrice
+     * @param orderId
+     * @param totalPrice
      */
     void updateTotalPrice(final Integer orderId, @NonNull final Integer totalPrice);
 
     /**
      * 注文情報を追加・更新する.
      *
-     * @param OrderEntity orderEntity
+     * @param orderEntity
      * @return OrderEntity
      */
     OrderEntity save(@NonNull final OrderEntity orderEntity);
@@ -36,7 +36,7 @@ public interface OrderDao {
     /**
      * 注文情報を削除する.
      *
-     * @param Integer id
+     * @param id
      */
     void deleteByPrimaryKey(@NonNull final Integer id);
 }

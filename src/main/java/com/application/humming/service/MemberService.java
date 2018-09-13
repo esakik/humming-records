@@ -12,8 +12,8 @@ public interface MemberService {
     /**
      * ログイン処理を行う.
      *
-     * @param String email
-     * @param String password
+     * @param email
+     * @param password
      * @return MemberDto
      */
     MemberDto createMemberDto(@NonNull final String email, @NonNull final String password);
@@ -21,7 +21,7 @@ public interface MemberService {
     /**
      * ログアウト処理を行う.
      *
-     * @param SessionStatus sessionStatus
+     * @param sessionStatus
      */
     void logout(@NonNull final SessionStatus sessionStatus);
 
@@ -36,15 +36,15 @@ public interface MemberService {
     /**
      * 新規会員登録を行う.
      *
-     * @param MemberEntity memberEntity
+     * @param memberEntity
      */
     void regist(@NonNull final MemberEntity memberEntity);
 
     /**
      * 退会処理を行う.
      *
-     * @param Integer id
-     * @param SessionStatus sessionStatus
+     * @param id
+     * @param sessionStatus
      */
     void withdraw(@NonNull final Integer id, @NonNull final SessionStatus sessionStatus);
 }

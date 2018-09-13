@@ -98,7 +98,7 @@ public class OrderController {
     /**
      * 注文内容を表示する.
      *
-     * @return 注文内容確認画面
+     * @return 注文確認画面
      */
     @RequestMapping(value="/confirm")
     public String displayConfirmOrder(Model model) {
@@ -121,9 +121,9 @@ public class OrderController {
     /**
      * 注文内容を確定する.
      *
-     * @return 注文内容確定画面
+     * @return 注文確定画面
      */
-    @RequestMapping(value = "/complete")
+    @RequestMapping(value = "/redirect")
     public String completeOrder(@Validated OrderForm orderForm, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         MemberDto memberDto = (MemberDto) session.getAttribute("member");
         if(memberDto == null) {
@@ -144,10 +144,15 @@ public class OrderController {
 
         session.removeAttribute("order");
 
-        return "redirect:/order/redirect";
+        return "redirect:/order/complete";
     }
 
-    @RequestMapping(value = "/redirect")
+    /**
+     * 注文確定画面を表示する.
+     *
+     * @return 注文確定画面
+     */
+    @RequestMapping(value = "/complete")
     public String orderRedirect() {
         return PageConstants.ORDER_COMPLETE_PAGE;
     }
@@ -155,7 +160,7 @@ public class OrderController {
     /**
      * 注文履歴を表示する.
      *
-     * @return 注文履歴
+     * @return 注文履歴画面
      */
     @RequestMapping(value="/history")
     public String displayOrderHistory(LoginForm forn, Model model) {

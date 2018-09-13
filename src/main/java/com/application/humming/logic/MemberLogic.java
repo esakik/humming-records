@@ -9,7 +9,7 @@ public interface MemberLogic {
     /**
      * 会員情報を取得する.
      *
-     * @param String email
+     * @param email
      * @return MemberEntity
      */
     MemberEntity getMemberInfoByEmail(@NonNull final String email);
@@ -17,14 +17,14 @@ public interface MemberLogic {
     /**
      * 会員情報を登録する.
      *
-     * @param MemberEntity memberEntity
+     * @param memberEntity
      */
     void save(@NonNull final MemberEntity memberEntity);
 
     /**
      * 会員情報を削除する.
      *
-     * @param Integer id
+     * @param id
      */
     void delete(@NonNull final Integer id);
 }

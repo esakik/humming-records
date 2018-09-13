@@ -56,7 +56,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form:form modelAttribute="orderForm"
-                        action="${pageContext.request.contextPath}/order/complete">
+                        action="${pageContext.request.contextPath}/order/redirect">
                         <!-- table -->
                         <div class="title">&nbsp;&nbsp;お届け先情報</div>
                         <br>
