@@ -44,9 +44,9 @@ public class OrderController {
     }
 
     /**
-     * カートの中身を表示する.
+     * 買い物かご画面を表示する.
      *
-     * @return カート画面
+     * @return 買い物かご画面
      */
     @RequestMapping(value = "/cart")
     public String displayCartPage(Model model) {
@@ -64,9 +64,9 @@ public class OrderController {
     }
 
     /**
-     * 商品をカートに追加する.
+     * アイテムを買い物かごに追加する.
      *
-     * @return カート画面
+     * @return 買い物かご画面
      */
     @RequestMapping(value="/cart/add")
     public String addItem(AddItemForm addItemForm, Model model) {
@@ -79,9 +79,9 @@ public class OrderController {
     }
 
     /**
-     * 商品をカートから削除する.
+     * アイテムを買い物かごから削除する.
      *
-     * @return カート画面
+     * @return 買い物かご画面
      */
     @RequestMapping(value="/cart/delete")
     public String deleteItem(DeleteItemForm deleteItemForm, Model model) {

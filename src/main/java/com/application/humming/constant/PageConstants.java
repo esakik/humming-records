@@ -14,6 +14,9 @@ public class PageConstants {
     /** マイページ. */
     public static final String MY_PAGE = "member/mypage";
 
+    /** ログイン画面. */
+    public static final String LOGIN_PAGE = "member/login";
+
     /** 会員登録入力画面. */
     public static final String REGIST_INPUT_PAGE = "member/regist/input";
 
@@ -22,9 +25,6 @@ public class PageConstants {
 
     /** 会員登録完了画面. */
     public static final String REGIST_COMPLETE_PAGE = "member/regist/complete";
-
-    /** ログイン画面. */
-    public static final String LOGIN_PAGE = "member/login";
 
     /** 退会確認画面. */
     public static final String WITHDRAW_CONFIRM_PAGE = "member/withdraw/confirm";
@@ -35,7 +35,7 @@ public class PageConstants {
     /** 問い合わせ画面. */
     public static final String CONTACT_PAGE = "member/contact";
 
-    /** カートの中身. */
+    /** 買い物かご画面. */
     public static final String CART_PAGE = "order/cart";
 
     /** 注文確認画面. */
