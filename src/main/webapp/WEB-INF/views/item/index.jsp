@@ -123,8 +123,7 @@
                 <div class="row panel panel-info">
                     <div class="panel-heading">
                         <a href="#panelCollapse" data-toggle="collapse" style="font-weight: bold;text-decoration: none;">
-                            <span style="margin-right: -16px;">Hummingとは</span>
-                            <span class="material-icons" style="float: right;font-size: 16px;">touch_app</span>
+                            <div><span style="margin-right: -16px;">Hummingとは</span><span class="material-icons" style="float: right;font-size: 16px;">touch_app</span></div>
                         </a>
                     </div>
                     <div class="panel-body">

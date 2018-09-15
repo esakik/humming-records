@@ -87,10 +87,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="submit-container">
-                            <input class="submit-button" type="submit" value="入力内容の確認へ" />
-                        </div>
+                    <div class="submit-container">
+                        <input class="submit-button" type="submit" value="入力内容の確認へ" />
                     </div>
 
                 </form:form>

@@ -77,12 +77,9 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="submit-container">
-                            <input class="submit-button" type="submit" value="会員登録" />
-                        </div>
+                    <div class="submit-container">
+                        <input class="submit-button" type="submit" value="会員登録" />
                     </div>
-
                 </form:form>
             </div>
         </div>

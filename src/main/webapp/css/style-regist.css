@@ -12,7 +12,7 @@ body, html {
 #content {
     max-width: 820px;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 20px;
     min-width: 820px;
     min-height: 760px;
 }
@@ -83,7 +83,7 @@ body, html {
 }
 
 .submit-container {
-    text-align: center;
+    text-align: right;
 }
 
 .submit-button {
