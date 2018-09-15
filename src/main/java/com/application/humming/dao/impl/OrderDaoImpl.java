@@ -19,7 +19,9 @@ import com.application.humming.dao.OrderDao;
 import com.application.humming.entity.OrderEntity;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Repository
 public class OrderDaoImpl implements OrderDao {
 
@@ -45,58 +47,61 @@ public class OrderDaoImpl implements OrderDao {
 
     @PostConstruct
     public void init() {
-        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert((JdbcTemplate) jdbcTemplate.getJdbcOperations());
-        SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("orders");
+        final SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert((JdbcTemplate) jdbcTemplate.getJdbcOperations());
+        final SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("orders");
         insert = withTableName.usingGeneratedKeyColumns("id");
     }
 
     @Override
     public List<OrderEntity> findByMemberIdAndStatus(@NonNull final Integer memberId, @NonNull final Integer status) {
-        String sql = "SELECT id, member_id, status, total_price, order_date, delivery_name, delivery_email, delivery_address,"
-                + " delivery_telephone, delivery_time FROM orders WHERE member_id = :memberId and status = :status";
-        SqlParameterSource param = new MapSqlParameterSource().addValue("memberId", memberId).addValue("status", status);
+        final String sql = "SELECT id, member_id, status, total_price, order_date, delivery_name, delivery_email, delivery_address,"
+                + " delivery_telephone, delivery_time FROM orders WHERE member_id = :memberId AND status = :status";
+        final SqlParameterSource param = new MapSqlParameterSource().addValue("memberId", memberId).addValue("status", status);
         try {
             return jdbcTemplate.query(sql, param, ROW_MAPPER);
-        } catch (DataAccessException e) {
+        } catch (final DataAccessException e) {
+            log.warn("Fail to find orders by memberId and status, memberId: {}, status, message: {}", memberId, status, e.getMessage());
             return null;
         }
     }
 
     @Override
-    public void updateTotalPrice(final Integer orderId, @NonNull final Integer totalPrice) {
-        String sql = "UPDATE orders SET total_price = :totalPrice WHERE id = :orderId";
-        SqlParameterSource param = new MapSqlParameterSource().addValue("totalPrice", totalPrice).addValue("orderId", orderId);
-        jdbcTemplate.update(sql, param);
+    public void updateTotalPrice(@NonNull final Integer orderId, @NonNull final Integer totalPrice) {
+        final String sql = "UPDATE orders SET total_price = :totalPrice WHERE id = :orderId";
+        final SqlParameterSource param = new MapSqlParameterSource().addValue("totalPrice", totalPrice).addValue("orderId", orderId);
+        try {
+            jdbcTemplate.update(sql, param);
+        } catch (final DataAccessException e) {
+            log.warn("Fail to update total price, orderId: {}, totalPrice: {}, message: {}", orderId, totalPrice, e.getMessage());
+        }
     }
 
     @Override
     public OrderEntity save(@NonNull final OrderEntity orderEntity) {
         if (orderEntity.getId() == null) {
-            SqlParameterSource param = new BeanPropertySqlParameterSource(orderEntity);
+            final SqlParameterSource param = new BeanPropertySqlParameterSource(orderEntity);
             orderEntity.setId(insert.executeAndReturnKey(param).intValue());
-        } else {
-            String sql = "UPDATE orders SET status = :status, total_price = :totalPrice, order_date = :orderDate, delivery_name = :deliveryName,"
-                    + " delivery_email = :deliveryEmail, delivery_address = :deliveryAddress, delivery_telephone = :deliveryTelephone,"
-                    + " delivery_time = :deliveryTime WHERE id = :id";
-            SqlParameterSource param = new MapSqlParameterSource()
-                    .addValue("id", orderEntity.getId())
-                    .addValue("status", orderEntity.getStatus())
-                    .addValue("totalPrice", orderEntity.getTotalPrice())
-                    .addValue("orderDate", orderEntity.getOrderDate())
-                    .addValue("deliveryName", orderEntity.getDeliveryName())
-                    .addValue("deliveryEmail", orderEntity.getDeliveryEmail())
-                    .addValue("deliveryAddress", orderEntity.getDeliveryAddress())
-                    .addValue("deliveryTelephone", orderEntity.getDeliveryTelephone())
-                    .addValue("deliveryTime", orderEntity.getDeliveryTime());
+            return orderEntity;
+        }
+        final String sql = "UPDATE orders SET status = :status, member_id = :memberId, total_price = :totalPrice, order_date = :orderDate, delivery_name = :deliveryName,"
+                + " delivery_email = :deliveryEmail, delivery_address = :deliveryAddress, delivery_telephone = :deliveryTelephone,"
+                + " delivery_time = :deliveryTime WHERE id = :id";
+        final SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("id", orderEntity.getId())
+                .addValue("memberId", orderEntity.getMemberId())
+                .addValue("status", orderEntity.getStatus())
+                .addValue("totalPrice", orderEntity.getTotalPrice())
+                .addValue("orderDate", orderEntity.getOrderDate())
+                .addValue("deliveryName", orderEntity.getDeliveryName())
+                .addValue("deliveryEmail", orderEntity.getDeliveryEmail())
+                .addValue("deliveryAddress", orderEntity.getDeliveryAddress())
+                .addValue("deliveryTelephone", orderEntity.getDeliveryTelephone())
+                .addValue("deliveryTime", orderEntity.getDeliveryTime());
+        try {
             jdbcTemplate.update(sql, param);
+        } catch (final DataAccessException e) {
+            log.warn("Fail to save order, id: {}, memberId: {}, message: {}", orderEntity.getId(), orderEntity.getMemberId(), e.getMessage());
         }
         return orderEntity;
-    }
-
-    @Override
-    public void deleteByPrimaryKey(@NonNull final Integer id) {
-        String sql = "DELETE FROM orders WHERE id = :id";
-        SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-        jdbcTemplate.update(sql, param);
     }
 }

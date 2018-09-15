@@ -13,7 +13,9 @@ import com.application.humming.dao.MemberDao;
 import com.application.humming.entity.MemberEntity;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Repository
 public class MemberDaoImpl implements MemberDao {
 
@@ -33,28 +35,37 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public MemberEntity findByEmail(@NonNull final String email) {
-        SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
+        final SqlParameterSource param = new MapSqlParameterSource().addValue("email", email);
         try {
             return jdbcTemplate.queryForObject("SELECT id, name, email, password, address, telephone FROM members WHERE email = :email", param, ROW_MAPPER);
-        } catch (DataAccessException e) {
+        } catch (final DataAccessException e) {
+            log.warn("Fail to find member by email, email: {}, message: {}", email, e.getMessage());
             return null;
         }
     }
 
     @Override
     public void save(@NonNull final MemberEntity memberEntity) {
-        SqlParameterSource param = new BeanPropertySqlParameterSource(memberEntity);
-        if (memberEntity.getId() == null) {
-            jdbcTemplate.update("INSERT INTO members (name, email, password, address, telephone) VALUES (:name, :email, :password, :address , :telephone)", param);
-        } else {
+        final SqlParameterSource param = new BeanPropertySqlParameterSource(memberEntity);
+        try {
+            if (memberEntity.getId() == null) {
+                jdbcTemplate.update("INSERT INTO members (name, email, password, address, telephone) VALUES (:name, :email, :password, :address , :telephone)", param);
+                return;
+            }
             jdbcTemplate.update("UPDATE members SET name = :name, email = :email, password = :password WHERE id = :id", param);
+        } catch (final DataAccessException e) {
+            log.warn("Fail to save member, email: {}, message: {}", memberEntity.getEmail(), e.getMessage());
         }
     }
 
     @Override
     public void delete(@NonNull final Integer id) {
-        String sql = "DELETE FROM members WHERE id=:id";
-        SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-        jdbcTemplate.update(sql, param);
+        final String sql = "DELETE FROM members WHERE id=:id";
+        final SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+        try {
+            jdbcTemplate.update(sql, param);
+        } catch (final DataAccessException e) {
+            log.warn("Fail to delete member, id: {}, message: {}", id, e.getMessage());
+        }
     }
 }

@@ -32,11 +32,4 @@ public interface OrderDao {
      * @return OrderEntity
      */
     OrderEntity save(@NonNull final OrderEntity orderEntity);
-
-    /**
-     * 注文情報を削除する.
-     *
-     * @param id
-     */
-    void deleteByPrimaryKey(@NonNull final Integer id);
 }

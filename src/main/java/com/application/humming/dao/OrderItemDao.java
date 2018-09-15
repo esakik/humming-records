@@ -24,7 +24,7 @@ public interface OrderItemDao {
      * @param itemId
      * @return OrderItemEntity
      */
-    OrderItemEntity findbyOrderIdAndItemId(final Integer orderId, @NonNull final Integer itemId);
+    OrderItemEntity findbyOrderIdAndItemId(@NonNull final Integer orderId, @NonNull final Integer itemId);
 
     /**
      * 注文アイテムの数量を更新する.
