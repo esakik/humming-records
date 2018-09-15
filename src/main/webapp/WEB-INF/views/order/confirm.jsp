@@ -55,10 +55,8 @@
                                             <div class="price">
                                                 <c:forEach var="orderItem" items="${orderItemList}">
                                                     <c:if test="${item.id == orderItem.itemId}">
-                                                価格: <fmt:formatNumber
-                                                            value="${item.price}" pattern="###,###" /> 円<br>
-                                                数量: <c:out
-                                                            value="${orderItem.quantity}" /> 個<br>
+                                                        価格: <fmt:formatNumber value="${item.price}" pattern="###,###" /> 円<br>
+                                                        数量: <c:out value="${orderItem.quantity}" /> 個<br>
                                                     </c:if>
                                                 </c:forEach>
                                             </div>

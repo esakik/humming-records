@@ -19,7 +19,7 @@ body, html {
 }
 
 .main {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .title span {
@@ -32,8 +32,36 @@ body, html {
     text-align: center;
 }
 
-.item {
-    margin-top: 5px;
+.price {
+	font-weight: bold;
+}
+
+.logout-btn {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.logout-btn a {
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+.withdraw-btn {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.withdraw-btn a {
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+#scrollTop {
+    background-color: #eee;
+    bottom: 20px;
+    padding: 4px;
+    position: fixed;
+    right: 20px;
 }
 
 .footer {
