@@ -168,7 +168,6 @@ public class OrderLogicImpl implements OrderLogic {
         final List<Integer> orderIdList = orderDtoList.stream().map(OrderDto::getId).collect(Collectors.toList());
         orderIdList.stream().forEach(orderId -> {
             orderItemDao.findByOrderId(orderId).stream().forEach(orderItem -> {
-                System.out.println(orderItem.getOrderId());
                 orderItemEntityList.add(orderItemDao.findbyOrderIdAndItemId(orderItem.getOrderId(), orderItem.getItemId()));
             });
         });

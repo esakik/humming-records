@@ -22,10 +22,10 @@ import com.application.humming.dto.MemberDto;
 import com.application.humming.dto.OrderDto;
 import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.OrderEntity;
+import com.application.humming.form.AddItemForm;
 import com.application.humming.form.DeleteItemForm;
 import com.application.humming.form.LoginForm;
 import com.application.humming.form.OrderForm;
-import com.application.humming.form.ShoppingCartForm;
 import com.application.humming.service.OrderService;
 
 @Controller
@@ -49,7 +49,7 @@ public class OrderController {
      * @return カート画面
      */
     @RequestMapping(value = "/cart")
-    public String displayCart(Model model) {
+    public String displayCartPage(Model model) {
         final OrderDto orderDto = (OrderDto) session.getAttribute("order");
 
         if (orderDto != null) {
@@ -69,13 +69,13 @@ public class OrderController {
      * @return カート画面
      */
     @RequestMapping(value="/cart/add")
-    public String addToCart(ShoppingCartForm shoppingCartForm, Model model) {
+    public String addItem(AddItemForm addItemForm, Model model) {
         final OrderItemDto orderItemDto = new OrderItemDto();
-        BeanUtils.copyProperties(shoppingCartForm, orderItemDto);
+        BeanUtils.copyProperties(addItemForm, orderItemDto);
 
         final OrderDto orderDto = orderService.addToCart(orderItemDto);
         session.setAttribute("order", orderDto);
-        return displayCart(model);
+        return displayCartPage(model);
     }
 
     /**
@@ -84,14 +84,14 @@ public class OrderController {
      * @return カート画面
      */
     @RequestMapping(value="/cart/delete")
-    public String deleteOrderItem(DeleteItemForm deleteItemForm, Model model) {
+    public String deleteItem(DeleteItemForm deleteItemForm, Model model) {
         OrderDto orderDto = (OrderDto) session.getAttribute("order");
 
         final OrderItemDto orderItemDto = new OrderItemDto();
         BeanUtils.copyProperties(deleteItemForm, orderItemDto);
 
         session.setAttribute("order", orderService.deleteOrderItemFromCart(orderDto, orderItemDto));
-        return displayCart(model);
+        return displayCartPage(model);
     }
 
     /**
@@ -100,13 +100,15 @@ public class OrderController {
      * @return 注文確認画面
      */
     @RequestMapping(value="/confirm")
-    public String displayConfirmOrder(Model model) {
+    public String displayOrderConfirmPage(Model model) {
         final MemberDto memberDto = (MemberDto) session.getAttribute("member");
         if(memberDto == null) {
             return PageConstants.LOGIN_PAGE;
         }
 
         final OrderDto orderDto = (OrderDto) session.getAttribute("order");
+        orderDto.setMemberId(memberDto.getId());
+
         final List<OrderItemDto> orderItemDtoList = orderService.getOrderedItems(orderDto.getId());
         model.addAttribute("orderItemList", orderItemDtoList);
 
@@ -123,15 +125,15 @@ public class OrderController {
      * @return 注文確定画面
      */
     @RequestMapping(value = "/redirect")
-    public String completeOrder(@Validated OrderForm orderForm, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+    public String order(@Validated OrderForm orderForm, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         MemberDto memberDto = (MemberDto) session.getAttribute("member");
         final OrderDto orderDto = (OrderDto) session.getAttribute("order");
-        if(memberDto == null || orderDto == null) {
+        if(memberDto.getId() == null || orderDto == null) {
             return PageConstants.LOGIN_PAGE;
         }
 
         if (result.hasErrors()) {
-            return displayConfirmOrder(model);
+            return displayOrderConfirmPage(model);
         }
 
         final OrderEntity orderEntity= new OrderEntity();
@@ -154,7 +156,7 @@ public class OrderController {
      * @return 注文確定画面
      */
     @RequestMapping(value = "/complete")
-    public String orderRedirect() {
+    public String displayOrderCompletePage() {
         return PageConstants.ORDER_COMPLETE_PAGE;
     }
 }

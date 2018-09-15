@@ -5,7 +5,7 @@ import com.application.humming.dto.ItemDto;
 import lombok.Data;
 
 @Data
-public class ShoppingCartForm {
+public class AddItemForm {
 
     /** ID. */
     private Integer id;

@@ -45,7 +45,7 @@
                                     <div>
                                         価格 <span id="price"><fmt:formatNumber value="${item.price}" pattern="###,###" /></span>円
                                     </div>
-                                    <form:form modelAttribute="shoppingCartForm"
+                                    <form:form modelAttribute="addItemForm"
                                         action="${pageContext.request.contextPath}/order/cart/add"
                                         name="shoppingCartForm">
                                         <div class="quantity">

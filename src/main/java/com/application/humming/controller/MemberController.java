@@ -84,7 +84,7 @@ public class MemberController {
         // ユーザー情報有り → ユーザー情報をセッションで保持する
         session.setAttribute("member", memberDto);
 
-        // 注文情報がある場合は注文確認画面へ遷移
+        // 注文情報がある場合は買い物かごへ遷移
         if ((OrderDto) session.getAttribute("order") != null) {
             return "redirect:/order/confirm";
         }
@@ -207,7 +207,7 @@ public class MemberController {
      * @return 退会完了画面
      */
     @RequestMapping(value = "/withdraw/complete")
-    public String redirectCompleteWithdrawPage() {
+    public String displayWithdrawCompletePage() {
         return PageConstants.WITHDRAW_COMPLETE_PAGE;
     }
 

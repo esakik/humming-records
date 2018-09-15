@@ -24,7 +24,7 @@
                     <div id="main">
                         <p>
                             退会をご希望される方へ<br> 退会されますと、本サービスがご利用できなくなります。<br>
-                            確認の上、「退会」ボタンをクリックすると退会完了となります。
+                            確認の上、「退会する」ボタンをクリックすると退会完了となります。
                         </p>
                         <form:form modelAttribute="userForm"
                             action="/member/withdraw/redirect">
