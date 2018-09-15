@@ -22,6 +22,7 @@ import com.application.humming.dto.MemberDto;
 import com.application.humming.dto.OrderDto;
 import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.MemberEntity;
+import com.application.humming.exception.HummingException;
 import com.application.humming.form.LoginForm;
 import com.application.humming.form.RegistForm;
 import com.application.humming.service.MemberService;
@@ -243,6 +244,7 @@ public class MemberController {
      * 問い合わせ画面を表示する.
      *
      * @return 問い合わせ画面
+     * @throws HummingException
      */
     @RequestMapping(value = "/contact")
     public String displayContactPage() {

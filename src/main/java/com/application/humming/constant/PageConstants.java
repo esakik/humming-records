@@ -43,4 +43,7 @@ public class PageConstants {
 
     /** 注文完了画面. */
     public static final String ORDER_COMPLETE_PAGE = "order/complete";
+
+    /** システムエラー画面. */
+    public static final String SYSTEM_ERROR_PAGE = "common/syserror";
 }
