@@ -1,12 +1,91 @@
-#content {
-    max-width: 750px;
-    margin: auto;
-    margin-top: 60px;
+body, html {
+    height: 100%;
 }
 
-.title {
-    text-align: center;
+#content {
+    max-width: 860px;
+    margin: auto;
+    margin-top: 30px;
+    min-width: 860px;
+    min-height: 452px;
+}
+
+.complete span {
+    text-shadow: #ffffff 0 1px 0;
     font-size: 18px;
+    margin: 0 0 10px 0;
     font-weight: bold;
-    margin: 20px 0;
-}}
+    text-align: center;
+}
+
+.main {
+    width: 820px;
+    margin: 20px auto 20px auto;
+}
+
+.progressbar_02 {
+    margin: 0;
+    padding: 0;
+    counter-reset: step;
+    width: 52%;
+    float: right;
+}
+
+.progressbar_02 li {
+    list-style-type: none;
+    width: 33%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progressbar_02 li:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 26px;
+    border: 2px solid #aaa;
+    display: block;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #eee;
+    margin-right: 10px;
+}
+
+.progressbar_02 li:first-child:after {
+    content: none;
+}
+
+.progressbar_02 li.active {
+    color: #fd9535;
+    font-weight: bold;
+}
+
+.progressbar_02 li.active:before {
+    background-color: #ffbb00;
+    color: #fff;
+    border-color: #fd9535;
+}
+
+.progressbar_02 li.active+li:after {
+    background-color: #ffbb00;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    border-top : 2px solid lightgray;
+    width: 100%;
+    padding: 12px 0 6px 0;
+    text-align: center;
+    color: #666;
+    line-height: 15px;
+    border-top: 2px solid lightgray;
+}

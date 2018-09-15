@@ -13,7 +13,7 @@ html {
     margin: auto;
     margin-top: 20px;
     text-align: center;
-    height: 1000px;
+    min-height: 1000px;
 }
 
 .main {
@@ -30,16 +30,20 @@ html {
 	margin-bottom: 5px;
 }
 
-#item .singer {
+#item .song {
+	font-size: 14px;
+	font-weight: bold;
 	text-align: left;
 }
 
-#item .song {
+#item .singer {
 	color: #444;
     text-align: left;
 }
 
 #item .price {
+	font-size: 14px;
+    font-weight: bold;
     color: red;
     text-align: right;
 }
@@ -117,11 +121,12 @@ html {
 }
 
 .footer {
-  bottom: 0;
-  border-top: 2px solid lightgray;
-  width: 100%;
-  padding: 12px 0 6px 0;
-  text-align: center;
-  color: #666;
-  line-height: 15px;
+    bottom: 0px;
+    border-top : 2px solid lightgray;
+    width: 100%;
+    padding: 12px 0 6px 0;
+    text-align: center;
+    color: #666;
+    line-height: 15px;
+    border-top: 2px solid lightgray;
 }

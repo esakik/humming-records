@@ -21,8 +21,8 @@ import com.application.humming.dto.ItemDto;
 import com.application.humming.dto.MemberDto;
 import com.application.humming.dto.OrderDto;
 import com.application.humming.dto.OrderItemDto;
-import com.application.humming.entity.MemberEntity;
 import com.application.humming.entity.OrderEntity;
+import com.application.humming.form.DeleteItemForm;
 import com.application.humming.form.LoginForm;
 import com.application.humming.form.OrderForm;
 import com.application.humming.form.ShoppingCartForm;
@@ -84,14 +84,13 @@ public class OrderController {
      * @return カート画面
      */
     @RequestMapping(value="/cart/delete")
-    public String deleteOrderItem(ShoppingCartForm shoppingCartForm, Model model) {
+    public String deleteOrderItem(DeleteItemForm deleteItemForm, Model model) {
         OrderDto orderDto = (OrderDto) session.getAttribute("order");
 
         final OrderItemDto orderItemDto = new OrderItemDto();
-        BeanUtils.copyProperties(shoppingCartForm, orderItemDto);
+        BeanUtils.copyProperties(deleteItemForm, orderItemDto);
 
-        orderDto = orderService.deleteOrderItemFromCart(orderDto, orderItemDto);
-        session.setAttribute("order", orderDto);
+        session.setAttribute("order", orderService.deleteOrderItemFromCart(orderDto, orderItemDto));
         return displayCart(model);
     }
 
@@ -126,7 +125,8 @@ public class OrderController {
     @RequestMapping(value = "/redirect")
     public String completeOrder(@Validated OrderForm orderForm, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         MemberDto memberDto = (MemberDto) session.getAttribute("member");
-        if(memberDto == null) {
+        final OrderDto orderDto = (OrderDto) session.getAttribute("order");
+        if(memberDto == null || orderDto == null) {
             return PageConstants.LOGIN_PAGE;
         }
 
@@ -137,8 +137,9 @@ public class OrderController {
         final OrderEntity orderEntity= new OrderEntity();
         BeanUtils.copyProperties(orderForm, orderEntity);
 
-        orderEntity.setTotalPrice(orderForm.getTotalPrice());
+        orderEntity.setId(orderDto.getId());
         orderEntity.setMemberId(memberDto.getId());
+        orderEntity.setTotalPrice(orderForm.getTotalPrice());
 
         orderService.completeOrder(orderEntity, orderForm.getDeliveryTime(), orderForm.getDeliverySpecifiedTime());
 
@@ -155,37 +156,5 @@ public class OrderController {
     @RequestMapping(value = "/complete")
     public String orderRedirect() {
         return PageConstants.ORDER_COMPLETE_PAGE;
-    }
-
-    /**
-     * 注文履歴を表示する.
-     *
-     * @return 注文履歴画面
-     */
-    @RequestMapping(value="/history")
-    public String displayOrderHistory(LoginForm forn, Model model) {
-        final MemberDto memberDto = (MemberDto) session.getAttribute("member");
-        if (memberDto == null) {
-            return PageConstants.LOGIN_PAGE;
-        }
-
-        final MemberEntity memberEntity= new MemberEntity();
-        BeanUtils.copyProperties(memberDto, memberEntity);
-
-        final List<OrderDto> orderDtoList = orderService.getOrderHistory(memberEntity.getId());
-        model.addAttribute("orderList", orderDtoList);
-
-        if (orderDtoList == null) {
-            return PageConstants.ORDER_HISTORY_PAGE;
-        }
-
-        final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemHistory(orderDtoList);
-        model.addAttribute("orderItemList", orderItemDtoList);
-
-        final List<ItemDto> itemDtoList = new ArrayList<>();
-        itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemDto).collect(Collectors.toList()));
-        model.addAttribute("itemList", itemDtoList);
-
-        return PageConstants.ORDER_HISTORY_PAGE;
     }
 }

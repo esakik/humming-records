@@ -47,9 +47,9 @@
                     <li><a href="/member/mypage"><span class="material-text">マイページ</span></a></li>
                 </c:if>
                 <c:if test="${member.name == null}">
-                    <li><a href="/member/regist/input"><span class="material-text">新規登録</span></a></li>
+                    <li><a href="/member/regist/input"><span class="material-text">会員登録</span></a></li>
                 </c:if>
-                <li><a href="/order/cart"><span class="material-text">カート</span></a></li>
+                <li><a href="/order/cart"><span class="material-text">買い物かご</span></a></li>
                 <li><a href="/member/contact"><span class="material-text">問い合わせ</span></a></li>
             </ul>
         </div>

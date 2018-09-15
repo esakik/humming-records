@@ -1,20 +1,27 @@
-body , html {
+body, html {
     height: 100%;
 }
 
 h2 {
-  padding: .25em 0 .25em 0;
-  border-left: 6px solid #ffbb00;
-  width: 210px;
+    padding: .25em 0 .25em 0;
+    border-left: 6px solid #ffbb00;
+    width: 210px;
+}
+
+#content {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .main {
-	width: 740px;
-	margin: 40px auto 0 auto;
+    width: 740px;
+    margin: 40px auto 0 auto;
 }
 
 .service {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .panel {
@@ -22,83 +29,93 @@ h2 {
 }
 
 form {
-	 float: left;
+    float: left;
 }
 
 .form-field {
-   border: 1px solid #646464;
-   background: #ffffff;
-   -webkit-border-radius: 0px;
-   -moz-border-radius: 0px;
-   border-radius: 0px;
-   color: #333333;
-   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
-   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
-   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
-   padding:8px;
-   margin-bottom:20px;
-   width:100%;
+    border: 1px solid #646464;
+    background: #ffffff;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    color: #333333;
+    -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+        rgba(000, 000, 000, 0.7) 0 0px 0px;
+    -moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+        rgba(000, 000, 000, 0.7) 0 0px 0px;
+    box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset
+        rgba(000, 000, 000, 0.7) 0 0px 0px;
+    padding: 8px;
+    margin-bottom: 20px;
+    width: 100%;
 }
+
 .form-field:focus {
-   background: #fff;
-   color: #333333;
+    background: #fff;
+    color: #333333;
 }
+
 .form-container h2 {
-   text-shadow: #ffffff 0 1px 0;
-   font-size:18px;
-   margin: 0 0 10px 0;
-   font-weight:bold;
-   text-align:center;
+    text-shadow: #ffffff 0 1px 0;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    text-align: center;
 }
+
 .form-header {
-   color: #000032;
-   text-shadow: #ffffff 0 1px 0;
-   font-weight: bold;
-   margin-bottom: 20px;
+    color: #000032;
+    text-shadow: #ffffff 0 1px 0;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
+
 .form-title {
-   color: #000032;
-   text-shadow: #ffffff 0 1px 0;
-   font-weight: bold;
-   margin-bottom: 5px;
+    color: #000032;
+    text-shadow: #ffffff 0 1px 0;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
+
 .submit-container {
-   margin:8px 0;
-   text-align:right;
+    margin: 8px 0;
+    text-align: right;
 }
+
 .submit-button {
-   border: 1px solid #ffffff;
-   background: #ffbb00;
-   -webkit-border-radius: 4px;
-   -moz-border-radius: 4px;
-   border-radius: 4px;
-   color: #ffffff;
-   padding: 8.5px 18px;
-   font-size: 14px;
-   text-decoration: none;
-   vertical-align: middle;
+    border: 1px solid #ffffff;
+    background: #ffbb00;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 8.5px 18px;
+    font-size: 14px;
+    text-decoration: none;
+    vertical-align: middle;
 }
+
 .submit-button:hover {
     opacity: 0.6;
 }
 
 .regist {
-	float:left;
-	padding: 30px 50px;
+    float: left;
+    padding: 30px 50px;
 }
 
 .about-humming {
-	margin-top: 5px;
-	cursor: pointer;
-	text-decoration: underline;
+    margin-top: 5px;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .about-humming a {
-	color: blue;
+    color: blue;
 }
 
 .regist p {
-	font-size: 16px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -108,10 +125,11 @@ form {
     padding: 0.5em 0.5em;
     text-decoration: none;
     color: #FFF;
-    background: #fd9535;/*背景色*/
-    border-bottom: solid 2px #d27d00;/*少し濃い目の色に*/
-    border-radius: 4px;/*角の丸み*/
-    box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+    background: #fd9535; /*背景色*/
+    border-bottom: solid 2px #d27d00; /*少し濃い目の色に*/
+    border-radius: 4px; /*角の丸み*/
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.2), 0 2px 2px
+        rgba(0, 0, 0, 0.19);
     font-weight: bold;
     font-size: 16px;
 }
@@ -126,11 +144,13 @@ form {
 }
 
 .footer {
-  margin-top: 70px;
-  border-top: 2px solid lightgray;
-  width: 100%;
-  padding: 12px 0 6px 0;
-  text-align: center;
-  color: #666;
-  line-height: 15px;
+    position: absolute;
+    bottom: 0px;
+    border-top : 2px solid lightgray;
+    width: 100%;
+    padding: 12px 0 6px 0;
+    text-align: center;
+    color: #666;
+    line-height: 15px;
+    border-top: 2px solid lightgray;
 }

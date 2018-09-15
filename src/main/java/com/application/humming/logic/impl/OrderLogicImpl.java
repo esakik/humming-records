@@ -73,12 +73,11 @@ public class OrderLogicImpl implements OrderLogic {
     @Override
     public OrderDto updateOrderItemInfo(@NonNull final OrderItemDto orderItemDto) {
         OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setMemberId(HummingConstants.NON_MEMBER_ID);
         // ログイン状態のとき注文情報に会員IDをセットする
         final MemberDto memberDto = (MemberDto) session.getAttribute("member");
         if (memberDto != null) {
             orderEntity.setMemberId(memberDto.getId());
-        } else {
-            orderEntity.setMemberId(HummingConstants.NON_MEMBER_ID);
         }
         // 合計金額を計算する
         final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemDto.getItemId());
@@ -169,9 +168,9 @@ public class OrderLogicImpl implements OrderLogic {
         final List<Integer> orderIdList = orderDtoList.stream().map(OrderDto::getId).collect(Collectors.toList());
         orderIdList.stream().forEach(orderId -> {
             orderItemDao.findByOrderId(orderId).stream().forEach(orderItem -> {
+                System.out.println(orderItem.getOrderId());
                 orderItemEntityList.add(orderItemDao.findbyOrderIdAndItemId(orderItem.getOrderId(), orderItem.getItemId()));
             });
-
         });
 
         final List<OrderItemDto> orderItemDtoList = new ArrayList<>();

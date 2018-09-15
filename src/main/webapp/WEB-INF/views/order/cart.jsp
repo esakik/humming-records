@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Humming | カート</title>
+<title>Humming | 買い物かご</title>
 <link rel="stylesheet" href="../../../css/style-cart.css" />
 <link rel="stylesheet" href="../../../css/header.css" />
 <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
@@ -19,21 +19,35 @@
         <%@ include file="../common/header.jsp"%>
         <div id="content">
             <div class="panel panel-default">
+                    <div class="panel-body title">
+                        <span>買い物かご</span>
+                    </div>
+            </div>
+
+            <div class="row">
+                <ul class="progressbar_02">
+                    <li class="active">アイテムの追加</li>
+                    <li>注文内容の確認</li>
+                    <li>注文内容の確定</li>
+                </ul>
+            </div>
+
+            <div class="main panel panel-default">
                 <div class="panel-body">
                     <c:choose>
                         <c:when test="${empty orderItemList}">
-                            <div id="message">カートに商品はありません。</div>
+                            <div id="message">アイテムが入っていません</div>
                             <div id="back">
-                                <a href="${pageContext.request.contextPath}/">トップへ戻る </a>
+                                <a href="/" class="btn btn-default">Humming トップへ</a>
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <div id="title">カートの中身</div>
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                             <c:forEach var="item" items="${itemList}">
                                 <div class="item">
                                     <div class="img">
                                         <img src="data:jpg;base64, ${item.image}"
-                                            class="img-thumbnail" width="180px;">
+                                            class="img-thumbnail" width="140px;">
                                     </div>
                                     <div class="panel panel-default">
                                         <div class="panel-body">
@@ -45,13 +59,15 @@
                                             <div class="price">
                                                 <c:forEach var="orderItem" items="${orderItemList}">
                                                     <c:if test="${item.id == orderItem.itemId}">
-                                                        価格: <fmt:formatNumber value="${item.price}" pattern="###,###" /> 円<br>
+                                                        <span><fmt:formatNumber value="${item.price}" pattern="###,###" /></span> <font style="color: red; margin-right: 15px;">円</font>
                                                         数量: <c:out value="${orderItem.quantity}" /> 個<br>
 
-                                                        <form:form modelAttribute="orderItemForm" action="${pageContext.request.contextPath}/order/cart/delete">
+                                                        <form:form modelAttribute="deleteItemForm" action="${pageContext.request.contextPath}/order/cart/delete">
+                                                            <input type="hidden" name="id" value="${orderItem.id}">
                                                             <input type="hidden" name="itemId" value="${item.id}">
+                                                            <input type="hidden" name="orderId" value="${orderItem.orderId}">
                                                             <input type="hidden" name="quantity" value="${orderItem.quantity}">
-                                                            <input type="submit" value="カートから削除" class="delete-btn">
+                                                            <input type="submit" value="削除する" class="btn btn-default delete-btn">
                                                         </form:form>
                                                     </c:if>
                                                 </c:forEach>
@@ -60,25 +76,27 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                            <div class="box">
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 purchase">
+                                <div>
+                                    <a href="${pageContext.request.contextPath}/order/confirm" class="purchase-btn">ご購入手続き</a>
+                                </div>
                                 <c:if test="${order.totalPrice > 0}">
                                     <div class="total">
-                                        合計金額: <span class="totalPrice"><fmt:formatNumber
-                                                value="${order.totalPrice}" pattern="###,###" /></span> 円
+                                        小計 <fmt:formatNumber value="${order.totalPrice}" pattern="###,###" /> 円
                                     </div>
                                 </c:if>
-                                <div class=return>
-                                    <a href="${pageContext.request.contextPath}/order/confirm"
-                                        class="susumu">注文確認画面へ進む </a>
-                                </div>
                             </div>
                         </c:otherwise>
                     </c:choose>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <%@ include file="../common/footer.jsp"%>
+        </div>
     </div>
-    <script src="../js/jquery-3.1.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../../../js/jquery-3.1.1.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -15,6 +15,11 @@
     <%@ include file="../common/header.jsp"%>
     <div id="content">
         <div class="panel panel-default">
+            <div class="text-left panel-body title">
+                <span>アイテム検索</span>
+            </div>
+        </div>
+        <div class="panel panel-default">
             <div class="panel-body">
                 <div id="message">
                     <c:out value="${searchResultMessage}"/>
@@ -39,6 +44,9 @@
                 </c:forEach>
             </div>
         </div>
+    </div>
+    <div class="row">
+            <%@ include file="../common/footer.jsp"%>
     </div>
 </div>
 

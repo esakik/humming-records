@@ -65,6 +65,9 @@ public class MemberServiceImpl implements MemberService {
     public void regist(@NonNull final MemberEntity memberEntity) {
         memberEntity.setPassword(spe.encode(memberEntity.getPassword()));
         memberLogic.save(memberEntity);
+        final MemberDto memberDto = new MemberDto();
+        BeanUtils.copyProperties(memberLogic.getMemberInfoByEmail(memberEntity.getEmail()), memberDto);
+        session.setAttribute("member", memberDto);
     }
 
     @Override

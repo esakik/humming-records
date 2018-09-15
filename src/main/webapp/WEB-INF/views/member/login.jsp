@@ -56,9 +56,11 @@
                 </div>
             </div>
         </div>
-        <%@ include file="../common/footer.jsp"%>
+        <div class="row">
+            <%@ include file="../common/footer.jsp"%>
+        </div>
     </div>
-    <script src="../js/jquery-3.1.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../../../js/jquery-3.1.1.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
 </body>
 </html>

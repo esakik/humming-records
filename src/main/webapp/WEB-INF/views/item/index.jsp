@@ -33,14 +33,14 @@
                                         <c:forEach var="item" items="${itemList}">
                                             <div class="single-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                                 <img src="data:jpg;base64, ${item.image}" class="img-thumbnail">
-                                                <div class='singer'>
-                                                    <a href="/detail?itemId=${item.id}" style="text-decoration: none"><c:out value="${item.singer}"/></a>
-                                                </div>
                                                 <div class="song">
-                                                    <c:out value="${item.song}"/>
+                                                    <a href="/detail?itemId=${item.id}" style="text-decoration: none;"><c:out value="${item.song}"/></a>
+                                                </div>
+                                                <div class="singer">
+                                                    <c:out value="${item.singer}"/>
                                                 </div>
                                                 <div class="price">
-                                                    <c:out value="${item.price}"/> 円
+                                                    <c:out value="${item.price}"/>円
                                                 </div>
                                             </div>
                                     </c:forEach>

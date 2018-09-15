@@ -8,14 +8,6 @@ CREATE TABLE members(
  ,telephone text NOT NULL
 );
 
-drop table if exists order_items cascade;
-CREATE TABLE order_items(
-  id serial PRIMARY KEY
- ,itemId Integer NOT NULL
- ,orderId Integer NOT NULL
- ,quantity Integer NOT NULL
-);
-
 drop table if exists orders cascade;
 CREATE TABLE orders(
   id serial PRIMARY KEY
@@ -28,6 +20,14 @@ CREATE TABLE orders(
  ,delivery_address text
  ,delivery_telephone text
  ,delivery_time Timestamp
+);
+
+drop table if exists order_items cascade;
+CREATE TABLE order_items(
+  id serial PRIMARY KEY
+ ,item_id Integer NOT NULL
+ ,order_id Integer NOT NULL
+ ,quantity Integer NOT NULL
 );
 
 drop table if exists items cascade;

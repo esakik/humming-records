@@ -1,23 +1,31 @@
-.box {
-    text-align: right;
+body, html {
+    height: 100%;
 }
 
 #content {
-    max-width: 750px;
+    max-width: 860px;
     margin: auto;
-    margin-top: 60px;
+    margin-top: 30px;
+    min-width: 860px;
+    min-height: 452px;
 }
 
-.title {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+.main {
     margin-top: 20px;
 }
 
+.title span {
+    padding: .25em 0 .25em 15px;
+    border-left: 6px solid #ffbb00;
+    text-shadow: #ffffff 0 1px 0;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
 .item {
-    margin-top: 30px;
-    margin: 30px 120px;
+    margin: 30px;
     text-align: left;
 }
 
@@ -35,18 +43,92 @@
 }
 
 .submit-btn {
-   margin-top: 26px;
-   border: 1px solid #ffffff;
-   background: #ffbb00;
-   -webkit-border-radius: 4px;
-   -moz-border-radius: 4px;
-   border-radius: 4px;
-   color: #ffffff;
-   padding: 8.5px 18px;
-   font-size: 14px;
-   text-decoration: none;
-   vertical-align: middle;
+   border: 1px solid #ffbb00;
+    background: #ffbb00;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 10px 38px;
+    font-size: 18px;
+    text-decoration: none;
 }
 .submit-btn:hover {
    opacity: 0.6;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.totalPrice {
+    color: red;
+    margin-left: 3px;
+}
+
+.progressbar_02 {
+    margin: 0;
+    padding: 0;
+    counter-reset: step;
+    width: 52%;
+    float: right;
+}
+
+.progressbar_02 li {
+    list-style-type: none;
+    width: 33%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progressbar_02 li:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 26px;
+    border: 2px solid #aaa;
+    display: block;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #eee;
+    margin-right: 10px;
+}
+
+.progressbar_02 li:first-child:after {
+    content: none;
+}
+
+.progressbar_02 li.active {
+    color: #fd9535;
+    font-weight: bold;
+}
+
+.progressbar_02 li.active:before {
+    background-color: #ffbb00;
+    color: #fff;
+    border-color: #fd9535;
+}
+
+.progressbar_02 li.active+li:after {
+    background-color: #ffbb00;
+}
+
+.footer {
+    bottom: 0px;
+    border-top : 2px solid lightgray;
+    width: 100%;
+    padding: 12px 0 6px 0;
+    text-align: center;
+    color: #666;
+    line-height: 15px;
+    border-top: 2px solid lightgray;
 }

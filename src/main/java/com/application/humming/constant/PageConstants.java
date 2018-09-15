@@ -43,8 +43,4 @@ public class PageConstants {
 
     /** 注文完了画面. */
     public static final String ORDER_COMPLETE_PAGE = "order/complete";
-
-    /** 注文履歴画面. */
-    public static final String ORDER_HISTORY_PAGE = "order/history";
-
 }

@@ -75,13 +75,18 @@ public class OrderDaoImpl implements OrderDao {
             SqlParameterSource param = new BeanPropertySqlParameterSource(orderEntity);
             orderEntity.setId(insert.executeAndReturnKey(param).intValue());
         } else {
-            String sql = "UPDATE orders SET status = :status, order_date = :orderDate, delivery_name = :deliveryName,"
+            String sql = "UPDATE orders SET status = :status, total_price = :totalPrice, order_date = :orderDate, delivery_name = :deliveryName,"
                     + " delivery_email = :deliveryEmail, delivery_address = :deliveryAddress, delivery_telephone = :deliveryTelephone,"
                     + " delivery_time = :deliveryTime WHERE id = :id";
-            SqlParameterSource param = new MapSqlParameterSource().addValue("status", orderEntity.getStatus())
-                    .addValue("orderDate", orderEntity.getOrderDate()).addValue("id", orderEntity.getId())
-                    .addValue("deliveryName", orderEntity.getDeliveryName()).addValue("deliveryEmail", orderEntity.getDeliveryEmail())
-                    .addValue("deliveryAddress", orderEntity.getDeliveryAddress()).addValue("deliveryTelephone", orderEntity.getDeliveryTelephone())
+            SqlParameterSource param = new MapSqlParameterSource()
+                    .addValue("id", orderEntity.getId())
+                    .addValue("status", orderEntity.getStatus())
+                    .addValue("totalPrice", orderEntity.getTotalPrice())
+                    .addValue("orderDate", orderEntity.getOrderDate())
+                    .addValue("deliveryName", orderEntity.getDeliveryName())
+                    .addValue("deliveryEmail", orderEntity.getDeliveryEmail())
+                    .addValue("deliveryAddress", orderEntity.getDeliveryAddress())
+                    .addValue("deliveryTelephone", orderEntity.getDeliveryTelephone())
                     .addValue("deliveryTime", orderEntity.getDeliveryTime());
             jdbcTemplate.update(sql, param);
         }

@@ -1,5 +1,9 @@
 package com.application.humming.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -13,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.application.humming.constant.PageConstants;
+import com.application.humming.dto.ItemDto;
 import com.application.humming.dto.MemberDto;
+import com.application.humming.dto.OrderDto;
+import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.MemberEntity;
 import com.application.humming.form.LoginForm;
 import com.application.humming.form.RegistForm;
 import com.application.humming.service.MemberService;
+import com.application.humming.service.OrderService;
 import com.application.humming.util.PropertiesUtil;
 
 @Controller
@@ -26,6 +34,9 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     HttpSession session;
@@ -201,10 +212,25 @@ public class MemberController {
      * @return マイページ
      */
     @RequestMapping(value = "/mypage")
-    public String displayMyPage() {
-        if (session.getAttribute("member") == null) {
+    public String displayMyPage(Model model) {
+        final MemberDto memberDto = (MemberDto) session.getAttribute("member");
+        if (memberDto == null) {
             return PageConstants.LOGIN_PAGE;
         }
+
+        final MemberEntity memberEntity= new MemberEntity();
+        BeanUtils.copyProperties(memberDto, memberEntity);
+
+        final List<OrderDto> orderDtoList = orderService.getOrderHistory(memberEntity.getId());
+        model.addAttribute("orderList", orderDtoList);
+
+        final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemHistory(orderDtoList);
+        model.addAttribute("orderItemList", orderItemDtoList);
+
+        final List<ItemDto> itemDtoList = new ArrayList<>();
+        itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemDto).collect(Collectors.toList()));
+        model.addAttribute("itemList", itemDtoList);
+
         return PageConstants.MY_PAGE;
     }
 
