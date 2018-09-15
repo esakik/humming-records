@@ -16,16 +16,16 @@
         <%@ include file="../common/header.jsp"%>
         <div id="content">
             <div class="main panel panel-default">
+                <div class="panel-heading text-left">
+                    <b>問い合わせフォーム</b>
+                </div>
                 <div class="panel-body">
                     <form class="form-container">
-                        <div class="form-title">
-                            <h2>問い合わせフォーム</h2>
-                        </div>
                         <div class="form-title">件名</div>
-                        <input class="form-field" placeholder="例：商品について" />
+                        <input class="form-field" placeholder="（例）Humming について" />
                         <br />
                         <div class="form-title">問い合わせ内容</div>
-                        <textarea rows="5" cols="49" placeholder="問い合わせ内容を入力してください。"></textarea>
+                        <textarea placeholder="問い合わせ内容を入力してください。"></textarea>
                         <br />
                         <div class="submit-container">
                             <input class="submit-button" type="submit" value="送信" />
@@ -33,6 +33,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <%@ include file="../common/footer.jsp"%>
         </div>
     </div>
 

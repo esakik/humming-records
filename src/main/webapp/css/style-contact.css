@@ -5,55 +5,81 @@
     margin-bottom: -20px;
 }
 
+#content {
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 20px;
+    min-height: 452px;
+}
+
 .main {
-	width: 480px;
-	margin: 40px auto 0 auto;
+    width: 440px;
+    margin: 30px auto 0 auto;
 }
 
 .form-container {
-   min-width:420px;
-   padding:20px;
-   width:420px;
-   margin: 0px auto 0 auto;
+    padding: 10px 0;
+    width: 380px;
+    margin: 0px auto 0 auto;
 }
+
 .form-field {
-   color: #333333;
-   padding:8px;
-   margin-bottom:20px;
-   width:376px;
+    color: #333333;
+    padding: 8px;
+    margin-bottom: 20px;
+    width: 100%;
 }
+
+textarea {
+	width: 100%;
+	padding: 8px;
+	max-width: 380px;
+	min-height: 120px;
+	max-height: 180px;
+}
+
 .form-field:focus {
-   background: #fff;
-   color: #333333;
+    background: #fff;
+    color: #333333;
 }
-.form-container h2 {
-   text-shadow: #ffffff 0 1px 0;
-   font-size:18px;
-   margin: 0 0 10px 0;
-   font-weight:bold;
-   text-align:center;
-}
+
 .form-title {
-   margin-bottom:10px;
-   color: #000032;
-   text-shadow: #ffffff 0 1px 0;
+    font-weight: bold; margin-bottom : 5px;
+    color: #000032;
+    text-shadow: #ffffff 0 1px 0;
+    margin-bottom: 5px;
 }
+
 .submit-container {
-   margin:8px 0;
-   text-align:right;
+    margin: 8px 0;
+    text-align: right;
 }
+
 .submit-button {
-   border: 1px solid #ffffff;
-   background: #ffbb00;
-   -webkit-border-radius: 4px;
-   -moz-border-radius: 4px;
-   border-radius: 4px;
-   color: #ffffff;
-   padding: 8.5px 18px;
-   font-size: 14px;
-   text-decoration: none;
-   vertical-align: middle;
+    border: 1px solid #ffffff;
+    background: #ffbb00;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 8.5px 18px;
+    font-size: 14px;
+    text-decoration: none;
+    vertical-align: middle;
 }
+
 .submit-button:hover {
     opacity: 0.6;
+}
+
+.footer {
+    position: absolute; bottom : 0px;
+    border-top: 2px solid lightgray;
+    width: 100%;
+    padding: 12px 0 6px 0;
+    text-align: center;
+    color: #666;
+    line-height: 15px;
+    border-top: 2px solid lightgray;
+    bottom: 0px;
 }
