@@ -17,9 +17,11 @@
         <%@ include file="../../common/header.jsp"%>
         <div id="content">
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>退会の手続き</b>
+                </div>
                 <div class="panel-body">
                     <div id="main">
-                        <div id="title">退会の手続き</div>
                         <p>
                             退会をご希望される方へ<br> 退会されますと、本サービスがご利用できなくなります。<br>
                             確認の上、「退会」ボタンをクリックすると退会完了となります。
@@ -32,6 +34,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <%@ include file="../../common/footer.jsp"%>
         </div>
     </div>
     <script src="../../js/jquery-3.1.1.min.js"></script>
