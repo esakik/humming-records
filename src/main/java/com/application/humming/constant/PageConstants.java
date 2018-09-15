@@ -2,14 +2,14 @@ package com.application.humming.constant;
 
 public class PageConstants {
 
-    /** 初期表示画面. */
+    /** トップ画面. */
     public static final String TOP_PAGE = "item/index";
 
     /** アイテム検索画面. */
-    public static final String SEARCH_PAGE = "item/search";
+    public static final String ITEM_SEARCH_PAGE = "item/search";
 
     /** アイテム詳細画面. */
-    public static final String DETAIL_PAGE = "item/detail";
+    public static final String ITEM_DETAIL_PAGE = "item/detail";
 
     /** マイページ. */
     public static final String MY_PAGE = "member/mypage";

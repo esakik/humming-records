@@ -80,7 +80,7 @@ public class ItemController {
     public String displsyDetailPage(@RequestParam(name = "itemId") Integer id, Model model) {
         final ItemDto itemDto = itemService.getItemDetail(id);
         model.addAttribute("item", itemDto);
-        return PageConstants.DETAIL_PAGE;
+        return PageConstants.ITEM_DETAIL_PAGE;
     }
 
     /**
@@ -94,18 +94,18 @@ public class ItemController {
         // 検索キーワード無し → ユーザーメッセージを表示する
         if (StringUtils.isEmpty(singerOrSong)) {
             model.addAttribute("searchResultMessage", PropertiesUtil.getProperties("search.empty.message"));
-            return PageConstants.SEARCH_PAGE;
+            return PageConstants.ITEM_SEARCH_PAGE;
         }
         final List<ItemDto> itemDtoList = itemService.getItemWithSingerOrSong(singerOrSong);
         // 検索一致アイテム無し → ユーザーメッセージを表示する
         if (CollectionUtils.isEmpty(itemDtoList)) {
             model.addAttribute("searchResultMessage", PropertiesUtil.getProperties("search.not.found.message"));
-            return PageConstants.SEARCH_PAGE;
+            return PageConstants.ITEM_SEARCH_PAGE;
         }
         // 検索一致アイテム有り → 検索アイテムを表示する
         model.addAttribute("searchResultMessage", HummingConstants.SEARCH_RESULT_PREFIX + singerOrSong + HummingConstants.SEARCH_RESULT_SUFFIX);
         model.addAttribute("itemList", itemDtoList);
 
-        return PageConstants.SEARCH_PAGE;
+        return PageConstants.ITEM_SEARCH_PAGE;
     }
 }
