@@ -81,7 +81,6 @@ public class OrderLogicImpl implements OrderLogic {
         orderItemEntityList.forEach(orderItemEntity -> {
             final OrderItemDto orderItemDto = new OrderItemDto();
             BeanUtils.copyProperties(orderItemEntity, orderItemDto);
-
             itemEntityList.forEach(itemEntity -> {
                 if (itemEntity.getId() == orderItemEntity.getItemId()) {
                     final ItemDto itemDto = new ItemDto();
