@@ -22,11 +22,6 @@ public class OrderServiceImpl implements OrderService {
     OrderLogic orderLogic;
 
     @Override
-    public List<OrderItemDto> getOrderItemInCart(@NonNull final Integer orderId) {
-        return orderLogic.createOrderItemInfoByOrderId(orderId);
-    }
-
-    @Override
     public OrderDto addToCart(@NonNull final OrderItemDto orderItemDto) {
         return orderLogic.updateOrderItemInfo(orderItemDto);
     }
@@ -37,8 +32,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderItemDto> getOrderedItems(@NonNull final Integer orderId) {
-        return orderLogic.createOrderItemInfoByOrderId(orderId);
+    public List<OrderItemDto> getOrderItemInfos(@NonNull final Integer orderId) {
+        return orderLogic.findOrderItemInfosByOrderId(orderId);
     }
 
     @Override

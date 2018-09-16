@@ -16,7 +16,7 @@ public interface OrderLogic {
      * @param orderId
      * @return List<OrderItemDto>
      */
-    List<OrderItemDto> createOrderItemInfoByOrderId(@NonNull final Integer orderId);
+    List<OrderItemDto> findOrderItemInfosByOrderId(@NonNull final Integer orderId);
 
     /**
      * 注文アイテム情報を更新する.

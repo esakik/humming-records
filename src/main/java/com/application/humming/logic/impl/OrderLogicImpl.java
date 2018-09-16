@@ -50,7 +50,7 @@ public class OrderLogicImpl implements OrderLogic {
     private HttpSession session;
 
     @Override
-    public List<OrderItemDto> createOrderItemInfoByOrderId(@NonNull final Integer orderId){
+    public List<OrderItemDto> findOrderItemInfosByOrderId(@NonNull final Integer orderId){
         final List<OrderItemDto> orderItemDtoList = new ArrayList<>();
 
         final List<OrderItemEntity> orderItemEntityList = orderItemDao.findByOrderId(orderId);
@@ -86,7 +86,7 @@ public class OrderLogicImpl implements OrderLogic {
                 if (itemEntity.getId() == orderItemEntity.getItemId()) {
                     final ItemDto itemDto = new ItemDto();
                     BeanUtils.copyProperties(itemEntity, itemDto);
-                    orderItemDto.setItemDto(itemDto);
+                    orderItemDto.setItemInfo(itemDto);
                 }
             });
             orderItemDtoList.add(orderItemDto);
@@ -95,44 +95,58 @@ public class OrderLogicImpl implements OrderLogic {
 
     @Override
     public OrderDto updateOrderItemInfo(@NonNull final OrderItemDto orderItemDto) {
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setMemberId(HummingConstants.NON_MEMBER_ID);
-        // ログイン状態のとき注文情報に会員IDをセットする
-        final MemberDto memberDto = (MemberDto) session.getAttribute("member");
-        if (memberDto != null) {
-            orderEntity.setMemberId(memberDto.getId());
-        }
-        // 合計金額を計算する
-        final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemDto.getItemId());
-        final Integer totalPrice = orderItemDto.getQuantity() * itemEntity.getPrice();
-        // セッションに注文情報がある場合は注文IDを取得する
-        final OrderDto orderDto = (OrderDto) session.getAttribute("order");
-        if (orderDto != null) {
-            orderEntity.setId(orderDto.getId());
-            orderEntity.setTotalPrice(totalPrice + orderDto.getTotalPrice());
-        } else {
-            orderEntity.setTotalPrice(totalPrice);
-        }
-        // 注文ステータスはすべて「0: 注文未確定」
-        orderEntity.setStatus(OrderStatus.UNDETERMINED.getCode());
+        // 注文情報を更新する
+        final OrderEntity updatedOrderEntity = orderDao.save(createOrderInfo(orderItemDto));
 
-        // カートの中身を更新
-        orderEntity = orderDao.save(orderEntity);
-        orderItemDto.setOrderId(orderEntity.getId());
+        // 注文アイテム情報を取得する
+        final OrderItemEntity orderItemEntity = orderItemDao.findbyOrderIdAndItemId(updatedOrderEntity.getId(), orderItemDto.getItemId());
 
-        // アイテムをカートに追加する
-        final OrderItemEntity orderItemEntity = orderItemDao.findbyOrderIdAndItemId(orderEntity.getId(), orderItemDto.getItemId());
+        orderItemDto.setOrderId(updatedOrderEntity.getId());
         if (orderItemEntity == null) {
             orderItemDao.insert(orderItemDto);
         } else {
             orderItemDao.updateQuantity(orderItemDto.getOrderId(), orderItemDto.getItemId(), orderItemDto.getQuantity());
         }
         return OrderDto.builder()
-                .id(orderEntity.getId())
-                .memberId(orderEntity.getMemberId())
-                .status(orderEntity.getStatus())
-                .totalPrice(orderEntity.getTotalPrice())
+                .id(updatedOrderEntity.getId())
+                .memberId(updatedOrderEntity.getMemberId())
+                .status(updatedOrderEntity.getStatus())
+                .totalPrice(updatedOrderEntity.getTotalPrice())
                 .build();
+    }
+
+    /**
+     * 注文情報を生成する.
+     *
+     * @param orderItemDto
+     * @return OrderEntity
+     */
+    private OrderEntity createOrderInfo(@NonNull final OrderItemDto orderItemDto) {
+        final OrderEntity orderEntity = new OrderEntity();
+
+        // 会員IDをセットする
+        final MemberDto memberDto = (MemberDto) session.getAttribute("member");
+        if (memberDto != null) {
+            orderEntity.setMemberId(memberDto.getId());
+        } else {
+            orderEntity.setMemberId(HummingConstants.NON_MEMBER_ID);
+        }
+
+        // 合計金額を計算しセットする
+        final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemDto.getItemId());
+        Integer totalPrice = orderItemDto.getQuantity() * itemEntity.getPrice();
+        final OrderDto orderDto = (OrderDto) session.getAttribute("order");
+        if (orderDto != null) {
+            totalPrice += orderDto.getTotalPrice();
+            // セッションに注文情報が残っている場合は注文IDをセットする.
+            orderEntity.setId(orderDto.getId());
+        }
+        orderEntity.setTotalPrice(totalPrice);
+
+        // 注文ステータスはすべて「0: 注文未確定」
+        orderEntity.setStatus(OrderStatus.UNDETERMINED.getCode());
+
+        return orderEntity;
     }
 
     @Override
@@ -201,9 +215,9 @@ public class OrderLogicImpl implements OrderLogic {
             final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemEntity.getItemId());
             BeanUtils.copyProperties(itemEntity, itemDto);
 
-            orderItemEntity.setItemDto(itemDto);
             final OrderItemDto orderItemDto = new OrderItemDto();
             BeanUtils.copyProperties(orderItemEntity, orderItemDto);
+            orderItemDto.setItemInfo(itemDto);
 
             orderItemDtoList.add(orderItemDto);
         });

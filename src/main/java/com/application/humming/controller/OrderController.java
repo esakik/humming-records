@@ -51,14 +51,9 @@ public class OrderController {
     @RequestMapping(value = "/cart")
     public String displayCartPage(Model model) {
         final OrderDto orderDto = (OrderDto) session.getAttribute("order");
-
         if (orderDto != null) {
-            final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemInCart(orderDto.getId());
+            final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemInfos(orderDto.getId());
             model.addAttribute("orderItemList", orderItemDtoList);
-
-            final List<ItemDto> itemDtoList = new ArrayList<>();
-            itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemDto).collect(Collectors.toList()));
-            model.addAttribute("itemList", itemDtoList);
         }
         return PageConstants.CART_PAGE;
     }
@@ -109,11 +104,11 @@ public class OrderController {
         final OrderDto orderDto = (OrderDto) session.getAttribute("order");
         orderDto.setMemberId(memberDto.getId());
 
-        final List<OrderItemDto> orderItemDtoList = orderService.getOrderedItems(orderDto.getId());
+        final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemInfos(orderDto.getId());
         model.addAttribute("orderItemList", orderItemDtoList);
 
         final List<ItemDto> itemDtoList = new ArrayList<>();
-        itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemDto).collect(Collectors.toList()));
+        itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemInfo).collect(Collectors.toList()));
         model.addAttribute("itemList", itemDtoList);
 
         return PageConstants.ORDER_CONFIRM_PAGE;

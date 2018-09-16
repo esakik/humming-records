@@ -11,15 +11,7 @@ import lombok.NonNull;
 public interface OrderService {
 
     /**
-     * カート内のアイテムを取得する.
-     *
-     * @param id
-     * @return List<OrderItemDto>
-     */
-    public List<OrderItemDto> getOrderItemInCart(@NonNull final Integer id);
-
-    /**
-     * カートにアイテムを追加する.
+     * 買い物かごにアイテムを追加する.
      *
      * @param orderItemDto
      * @return OrderDto
@@ -27,7 +19,7 @@ public interface OrderService {
     public OrderDto addToCart(@NonNull final OrderItemDto orderItemDto);
 
     /**
-     * カートからアイテムを削除する.
+     * 買い物かごからアイテムを削除する.
      *
      * @param orderDto
      * @param orderItemDto
@@ -36,12 +28,12 @@ public interface OrderService {
     public OrderDto deleteOrderItemFromCart(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto);
 
     /**
-     * 注文内容を取得する.
+     * 注文アイテム情報を取得する.
      *
      * @param id
      * @return List<OrderItemDto>
      */
-    public List<OrderItemDto> getOrderedItems(@NonNull final Integer id);
+    public List<OrderItemDto> getOrderItemInfos(@NonNull final Integer id);
 
     /**
      * 注文を確定する.

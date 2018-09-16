@@ -236,7 +236,7 @@ public class MemberController {
         model.addAttribute("orderItemList", orderItemDtoList);
 
         final List<ItemDto> itemDtoList = new ArrayList<>();
-        itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemDto).collect(Collectors.toList()));
+        itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemInfo).collect(Collectors.toList()));
         model.addAttribute("itemList", itemDtoList);
 
         return PageConstants.MY_PAGE;

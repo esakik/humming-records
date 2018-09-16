@@ -18,5 +18,5 @@ public class OrderItemDto {
     private Integer quantity;
 
     /** 注文商品. */
-    private ItemDto itemDto;
+    private ItemDto itemInfo;
 }

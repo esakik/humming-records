@@ -43,34 +43,29 @@
                         </c:when>
                         <c:otherwise>
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                            <c:forEach var="item" items="${itemList}">
+                            <c:forEach var="orderItem" items="${orderItemList}">
                                 <div class="item">
                                     <div class="img">
-                                        <img src="data:jpg;base64, ${item.image}"
+                                        <img src="data:jpg;base64, ${orderItem.itemInfo.image}"
                                             class="img-thumbnail" width="140px;">
                                     </div>
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="singer">
-                                                <c:out value="${item.singer}" />
+                                                <c:out value="${orderItem.itemInfo.singer}" />
                                                 /
-                                                <c:out value="${item.song}" />
+                                                <c:out value="${orderItem.itemInfo.song}" />
                                             </div>
                                             <div class="price">
-                                                <c:forEach var="orderItem" items="${orderItemList}">
-                                                    <c:if test="${item.id == orderItem.itemId}">
-                                                        <span><fmt:formatNumber value="${item.price}" pattern="###,###" /></span> <font style="color: red; margin-right: 15px;">円</font>
-                                                        数量: <c:out value="${orderItem.quantity}" /> 個<br>
-
-                                                        <form:form modelAttribute="deleteItemForm" action="${pageContext.request.contextPath}/order/cart/delete">
-                                                            <input type="hidden" name="id" value="${orderItem.id}">
-                                                            <input type="hidden" name="itemId" value="${item.id}">
-                                                            <input type="hidden" name="orderId" value="${orderItem.orderId}">
-                                                            <input type="hidden" name="quantity" value="${orderItem.quantity}">
-                                                            <input type="submit" value="削除する" class="btn btn-default delete-btn">
-                                                        </form:form>
-                                                    </c:if>
-                                                </c:forEach>
+                                                <span><fmt:formatNumber value="${orderItem.itemInfo.price}" pattern="###,###" /></span> <font style="color: red; margin-right: 15px;">円</font>
+                                                数量: <c:out value="${orderItem.quantity}" /> 個<br>
+                                                <form:form modelAttribute="deleteItemForm" action="${pageContext.request.contextPath}/order/cart/delete">
+                                                    <input type="hidden" name="id" value="${orderItem.id}">
+                                                    <input type="hidden" name="itemId" value="${orderItem.itemId}">
+                                                    <input type="hidden" name="orderId" value="${orderItem.orderId}">
+                                                    <input type="hidden" name="quantity" value="${orderItem.quantity}">
+                                                    <input type="submit" value="削除する" class="btn btn-default delete-btn">
+                                                </form:form>
                                             </div>
                                         </div>
                                     </div>
