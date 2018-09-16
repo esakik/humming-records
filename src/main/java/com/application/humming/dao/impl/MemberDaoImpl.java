@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.application.humming.dao.MemberDao;
 import com.application.humming.entity.MemberEntity;
+import com.application.humming.exception.HummingException;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     @Override
-    public void save(@NonNull final MemberEntity memberEntity) {
+    public void save(@NonNull final MemberEntity memberEntity) throws HummingException {
         final SqlParameterSource param = new BeanPropertySqlParameterSource(memberEntity);
         try {
             if (memberEntity.getId() == null) {
@@ -54,18 +55,20 @@ public class MemberDaoImpl implements MemberDao {
             }
             jdbcTemplate.update("UPDATE members SET name = :name, email = :email, password = :password WHERE id = :id", param);
         } catch (final DataAccessException e) {
-            log.warn("Fail to save member, email: {}, message: {}", memberEntity.getEmail(), e.getMessage());
+            log.error("Fail to save member, email: {}, message: {}", memberEntity.getEmail(), e.getMessage());
+            throw new HummingException(e.getMessage());
         }
     }
 
     @Override
-    public void delete(@NonNull final Integer id) {
+    public void delete(@NonNull final Integer id) throws HummingException {
         final String sql = "DELETE FROM members WHERE id=:id";
         final SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
         try {
             jdbcTemplate.update(sql, param);
         } catch (final DataAccessException e) {
-            log.warn("Fail to delete member, id: {}, message: {}", id, e.getMessage());
+            log.error("Fail to delete member, id: {}, message: {}", id, e.getMessage());
+            throw new HummingException(e.getMessage());
         }
     }
 }

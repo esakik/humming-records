@@ -1,6 +1,7 @@
 package com.application.humming.dao;
 
 import com.application.humming.entity.MemberEntity;
+import com.application.humming.exception.HummingException;
 
 import lombok.NonNull;
 
@@ -19,13 +20,15 @@ public interface MemberDao {
      *
      * @param memberEntity
      * @return MemberEntity
+     * @throws HummingException
      */
-    void save(@NonNull final MemberEntity memberEntity);
+    void save(@NonNull final MemberEntity memberEntity) throws HummingException;
 
     /**
      * 会員情報を削除する.
      *
      * @param id
+     * @throws HummingException
      */
-    void delete(@NonNull final Integer id);
+    void delete(@NonNull final Integer id) throws HummingException;
 }

@@ -152,9 +152,10 @@ public class MemberController {
      * 会員登録処理を行う.
      *
      * @return 会員登録完了画面
+     * @throws HummingException
      */
     @RequestMapping(value = "/regist/redirect")
-    public String regist() {
+    public String regist() throws HummingException {
         final MemberDto memberDto = (MemberDto) session.getAttribute("member");
         if (memberDto == null) {
             return PageConstants.REGIST_INPUT_PAGE;
@@ -192,9 +193,10 @@ public class MemberController {
      * 退会処理を行う.
      *
      * @return 退会完了画面
+     * @throws HummingException
      */
     @RequestMapping(value = "/withdraw/redirect")
-    public String withdraw(RegistForm registForm, SessionStatus sessionStatus) {
+    public String withdraw(RegistForm registForm, SessionStatus sessionStatus) throws HummingException {
         if (session.getAttribute("member") == null) {
             return PageConstants.LOGIN_PAGE;
         }

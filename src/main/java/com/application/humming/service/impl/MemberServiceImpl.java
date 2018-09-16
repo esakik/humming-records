@@ -12,6 +12,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.application.humming.dto.MemberDto;
 import com.application.humming.entity.MemberEntity;
+import com.application.humming.exception.HummingException;
 import com.application.humming.logic.MemberLogic;
 import com.application.humming.service.MemberService;
 
@@ -40,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDto createMemberDto(@NonNull final String email, @NonNull final String password) {
         final MemberDto memberDto = new MemberDto();
-        final MemberEntity memberEntity = memberLogic.getMemberInfoByEmail(email);
+        final MemberEntity memberEntity = memberLogic.findByEmail(email);
         if (memberEntity != null) {
             final String encodedPassword = memberEntity.getPassword();
             if (spe.matches(password, encodedPassword)) {
@@ -58,20 +59,20 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean checkIfUniqueEmail(@NonNull final String email) {
-        return memberLogic.getMemberInfoByEmail(email) == null;
+        return memberLogic.findByEmail(email) == null;
     }
 
     @Override
-    public void regist(@NonNull final MemberEntity memberEntity) {
+    public void regist(@NonNull final MemberEntity memberEntity) throws HummingException {
         memberEntity.setPassword(spe.encode(memberEntity.getPassword()));
         memberLogic.save(memberEntity);
         final MemberDto memberDto = new MemberDto();
-        BeanUtils.copyProperties(memberLogic.getMemberInfoByEmail(memberEntity.getEmail()), memberDto);
+        BeanUtils.copyProperties(memberLogic.findByEmail(memberEntity.getEmail()), memberDto);
         session.setAttribute("member", memberDto);
     }
 
     @Override
-    public void withdraw(@NonNull final Integer id, @NonNull final SessionStatus sessionStatus) {
+    public void withdraw(@NonNull final Integer id, @NonNull final SessionStatus sessionStatus) throws HummingException {
         memberLogic.delete(id);
         removeAttributes(sessionStatus, SESSION_OBJECT);
     }

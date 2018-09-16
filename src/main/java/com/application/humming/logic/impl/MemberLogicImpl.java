@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.application.humming.dao.MemberDao;
 import com.application.humming.entity.MemberEntity;
+import com.application.humming.exception.HummingException;
 import com.application.humming.logic.MemberLogic;
 
 import lombok.NonNull;
@@ -16,17 +17,17 @@ public class MemberLogicImpl implements MemberLogic {
     MemberDao memberDao;
 
     @Override
-    public MemberEntity getMemberInfoByEmail(@NonNull final String email) {
+    public MemberEntity findByEmail(@NonNull final String email) {
         return memberDao.findByEmail(email);
     }
 
     @Override
-    public void save(@NonNull final MemberEntity memberEntity){
+    public void save(@NonNull final MemberEntity memberEntity) throws HummingException {
         memberDao.save(memberEntity);
     }
 
     @Override
-    public void delete(@NonNull final Integer id){
+    public void delete(@NonNull final Integer id) throws HummingException {
         memberDao.delete(id);
     }
 }

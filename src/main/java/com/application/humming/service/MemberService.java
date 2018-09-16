@@ -4,6 +4,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.application.humming.dto.MemberDto;
 import com.application.humming.entity.MemberEntity;
+import com.application.humming.exception.HummingException;
 
 import lombok.NonNull;
 
@@ -37,14 +38,16 @@ public interface MemberService {
      * 新規会員登録を行う.
      *
      * @param memberEntity
+     * @throws HummingException
      */
-    void regist(@NonNull final MemberEntity memberEntity);
+    void regist(@NonNull final MemberEntity memberEntity) throws HummingException;
 
     /**
      * 退会処理を行う.
      *
      * @param id
      * @param sessionStatus
+     * @throws HummingException
      */
-    void withdraw(@NonNull final Integer id, @NonNull final SessionStatus sessionStatus);
+    void withdraw(@NonNull final Integer id, @NonNull final SessionStatus sessionStatus) throws HummingException;
 }

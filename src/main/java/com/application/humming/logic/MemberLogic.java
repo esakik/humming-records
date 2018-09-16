@@ -1,6 +1,7 @@
 package com.application.humming.logic;
 
 import com.application.humming.entity.MemberEntity;
+import com.application.humming.exception.HummingException;
 
 import lombok.NonNull;
 
@@ -12,19 +13,21 @@ public interface MemberLogic {
      * @param email
      * @return MemberEntity
      */
-    MemberEntity getMemberInfoByEmail(@NonNull final String email);
+    MemberEntity findByEmail(@NonNull final String email);
 
     /**
      * 会員情報を登録する.
      *
      * @param memberEntity
+     * @throws HummingException
      */
-    void save(@NonNull final MemberEntity memberEntity);
+    void save(@NonNull final MemberEntity memberEntity) throws HummingException;
 
     /**
      * 会員情報を削除する.
      *
      * @param id
+     * @throws HummingException
      */
-    void delete(@NonNull final Integer id);
+    void delete(@NonNull final Integer id) throws HummingException;
 }
