@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.application.humming.constant.HummingConstants;
 import com.application.humming.dao.ItemDao;
@@ -30,7 +31,9 @@ import com.application.humming.logic.OrderLogic;
 import com.application.humming.type.OrderStatus;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class OrderLogicImpl implements OrderLogic {
 
@@ -47,12 +50,28 @@ public class OrderLogicImpl implements OrderLogic {
     private HttpSession session;
 
     @Override
-    public List<OrderItemDto> getOrderItemInfo(@NonNull final Integer id){
+    public List<OrderItemDto> createOrderItemInfoByOrderId(@NonNull final Integer orderId){
         final List<OrderItemDto> orderItemDtoList = new ArrayList<>();
 
-        final List<OrderItemEntity> orderItemEntityList = orderItemDao.findByOrderId(id);
-        final List<ItemEntity> itemEntityList = itemDao.findAll();
+        final List<OrderItemEntity> orderItemEntityList = orderItemDao.findByOrderId(orderId);
+        if (CollectionUtils.isEmpty(orderItemEntityList)) {
+            log.info("Order Items are empty, Class: {}, OrderId: {}", OrderLogic.class, orderId);
+            return orderItemDtoList;
+        }
 
+        final List<ItemEntity> itemEntityList = itemDao.findAll();
+        if (CollectionUtils.isEmpty(itemEntityList)) {
+            log.info("Items are empty, Class: {}, OrderId: {}", OrderLogic.class, orderId);
+            return orderItemDtoList;
+        }
+
+        setItemInfo(orderItemDtoList, orderItemEntityList, itemEntityList);
+
+        return orderItemDtoList;
+    }
+
+    @Override
+    public void setItemInfo(@NonNull final List<OrderItemDto> orderItemDtoList, @NonNull final List<OrderItemEntity> orderItemEntityList, @NonNull final List<ItemEntity> itemEntityList) {
         orderItemEntityList.forEach(orderItemEntity -> {
             final OrderItemDto orderItemDto = new OrderItemDto();
             BeanUtils.copyProperties(orderItemEntity, orderItemDto);
@@ -66,8 +85,6 @@ public class OrderLogicImpl implements OrderLogic {
             });
             orderItemDtoList.add(orderItemDto);
         });
-
-        return orderItemDtoList;
     }
 
     @Override
@@ -149,9 +166,9 @@ public class OrderLogicImpl implements OrderLogic {
     }
 
     @Override
-    public List<OrderDto> getOrderedInfo(final Integer id){
+    public List<OrderDto> createOrderedInfoByMemberId(final Integer memberId){
         final  List<OrderDto> orderDtoList = new ArrayList<>();
-        final List<OrderEntity> orderEntityList = orderDao.findByMemberIdAndStatus(id, OrderStatus.DETERMINED.getCode());
+        final List<OrderEntity> orderEntityList = orderDao.findByMemberIdAndStatus(memberId, OrderStatus.DETERMINED.getCode());
         orderEntityList.forEach(orderEntity -> {
             final OrderDto orderDto = new OrderDto();
             BeanUtils.copyProperties(orderEntity, orderDto);
@@ -162,7 +179,7 @@ public class OrderLogicImpl implements OrderLogic {
     }
 
     @Override
-    public List<OrderItemDto> getOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList){
+    public List<OrderItemDto> createOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList){
         final List<OrderItemEntity> orderItemEntityList = new ArrayList<>();
 
         final List<Integer> orderIdList = orderDtoList.stream().map(OrderDto::getId).collect(Collectors.toList());

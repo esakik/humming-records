@@ -22,8 +22,8 @@ public class OrderServiceImpl implements OrderService {
     OrderLogic orderLogic;
 
     @Override
-    public List<OrderItemDto> getOrderItemInCart(@NonNull final Integer id) {
-        return orderLogic.getOrderItemInfo(id);
+    public List<OrderItemDto> getOrderItemInCart(@NonNull final Integer orderId) {
+        return orderLogic.createOrderItemInfoByOrderId(orderId);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderItemDto> getOrderedItems(@NonNull final Integer id) {
-        return orderLogic.getOrderItemInfo(id);
+    public List<OrderItemDto> getOrderedItems(@NonNull final Integer orderId) {
+        return orderLogic.createOrderItemInfoByOrderId(orderId);
     }
 
     @Override
@@ -48,12 +48,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> getOrderHistory(@NonNull final Integer id){
-        return orderLogic.getOrderedInfo(id);
+    public List<OrderDto> getOrderHistory(@NonNull final Integer memberId){
+        return orderLogic.createOrderedInfoByMemberId(memberId);
     }
 
     @Override
     public List<OrderItemDto> getOrderItemHistory(@NonNull final List<OrderDto> orderDtoList){
-        return orderLogic.getOrderedItemInfo(orderDtoList);
+        return orderLogic.createOrderedItemInfo(orderDtoList);
     }
 }
