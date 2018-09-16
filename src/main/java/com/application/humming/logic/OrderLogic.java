@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.application.humming.dto.OrderDto;
 import com.application.humming.dto.OrderItemDto;
-import com.application.humming.entity.ItemEntity;
 import com.application.humming.entity.OrderEntity;
-import com.application.humming.entity.OrderItemEntity;
 
 import lombok.NonNull;
 
@@ -19,15 +17,6 @@ public interface OrderLogic {
      * @return List<OrderItemDto>
      */
     List<OrderItemDto> createOrderItemInfoByOrderId(@NonNull final Integer orderId);
-
-    /**
-     * アイテム情報をセットする.
-     *
-     * @param orderItemDtoList
-     * @param orderItemEntityList
-     * @param itemEntityList
-     */
-    void setItemInfo (@NonNull final List<OrderItemDto> orderItemDtoList, @NonNull final List<OrderItemEntity> orderItemEntityList, @NonNull final List<ItemEntity> itemEntityList);
 
     /**
      * 注文アイテム情報を更新する.

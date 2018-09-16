@@ -70,8 +70,14 @@ public class OrderLogicImpl implements OrderLogic {
         return orderItemDtoList;
     }
 
-    @Override
-    public void setItemInfo(@NonNull final List<OrderItemDto> orderItemDtoList, @NonNull final List<OrderItemEntity> orderItemEntityList, @NonNull final List<ItemEntity> itemEntityList) {
+    /**
+     * アイテム情報をセットする.
+     *
+     * @param orderItemDtoList
+     * @param orderItemEntityList
+     * @param itemEntityList
+     */
+    private void setItemInfo(@NonNull final List<OrderItemDto> orderItemDtoList, @NonNull final List<OrderItemEntity> orderItemEntityList, @NonNull final List<ItemEntity> itemEntityList) {
         orderItemEntityList.forEach(orderItemEntity -> {
             final OrderItemDto orderItemDto = new OrderItemDto();
             BeanUtils.copyProperties(orderItemEntity, orderItemDto);
