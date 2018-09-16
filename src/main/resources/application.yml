@@ -8,3 +8,12 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+      
+debug: true
+logging:
+    level:
+        root: INFO
+        org:
+            springframework.web: DEBUG
+            hibernate: INFO
+    file: logs/application.log
