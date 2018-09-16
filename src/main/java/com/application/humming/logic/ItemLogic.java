@@ -43,7 +43,7 @@ public interface ItemLogic {
     /**
      * アイテム総数を取得する.
      *
-     * @return Integer
+     * @return int
      */
-    Integer getItemCount();
+    int getItemCount();
 }

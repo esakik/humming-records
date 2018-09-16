@@ -38,7 +38,8 @@ public class ItemLogicImpl implements ItemLogic {
     }
 
     @Override
-    public Integer getItemCount() {
-        return itemDao.findAll().size();
+    public int getItemCount() {
+        final List<ItemEntity> itemEntityList = itemDao.findAll();
+        return itemEntityList != null? itemEntityList.size() : 0;
     }
 }

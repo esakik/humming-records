@@ -47,8 +47,8 @@ public class ItemController {
     public String displayTopPage(Model model) throws HummingException {
         // OffsetとLimitに値を入れることで、表示数を変更できる
         final List<ItemDto> itemDtoList = itemService.getInitialItemList(HummingConstants.OFFSET, HummingConstants.LIMIT);
-        final Integer itemCount = itemService.getItemCount();
         model.addAttribute("itemList", itemDtoList);
+        final Integer itemCount = itemService.getItemCount();
         model.addAttribute("pagingButtonCount", (itemCount / HummingConstants.LIMIT) + NumberUtils.INTEGER_ONE);
         model.addAttribute("activePage", NumberUtils.INTEGER_ONE);
         return PageConstants.TOP_PAGE;
@@ -64,8 +64,8 @@ public class ItemController {
     public String displayTopPaging(@RequestParam(name = "number") Integer number, Model model) throws HummingException {
         // OffsetとLimitに値を入れることで、表示数を変更できる
         final List<ItemDto> itemDtoList = itemService.getInitialItemList(HummingConstants.LIMIT * (number - 1), HummingConstants.LIMIT);
-        final Integer itemCount = itemService.getItemCount();
         model.addAttribute("itemList", itemDtoList);
+        final Integer itemCount = itemService.getItemCount();
         model.addAttribute("pagingButtonCount", (itemCount / HummingConstants.LIMIT) + NumberUtils.INTEGER_ONE);
         model.addAttribute("activePage", number);
         return PageConstants.TOP_PAGE;

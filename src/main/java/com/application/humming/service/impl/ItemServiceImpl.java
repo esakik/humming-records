@@ -29,7 +29,6 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> getInitialItemList(@NonNull final Integer offset, @NonNull final Integer limit) throws HummingException {
         final List<ItemEntity> itemEntityList = itemLogic.findFromOffsetToLimit(offset, limit);
         if (CollectionUtils.isEmpty(itemEntityList)) {
-            // TODO Exception Handler
             throw new HummingException(PropertiesUtil.getProperties("item.error.empty.result"));
         }
         final List<ItemDto> itemDtoList = new ArrayList<>();
