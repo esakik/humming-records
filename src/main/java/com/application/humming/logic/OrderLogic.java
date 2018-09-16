@@ -21,7 +21,7 @@ public interface OrderLogic {
     List<OrderItemDto> createOrderItemInfoByOrderId(@NonNull final Integer orderId);
 
     /**
-     * 注文アイテムのアイテム情報をセットする.
+     * アイテム情報をセットする.
      *
      * @param orderItemDtoList
      * @param orderItemEntityList
