@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.application.humming.dto.OrderDto;
 import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.OrderEntity;
+import com.application.humming.exception.HummingException;
 import com.application.humming.logic.OrderLogic;
 import com.application.humming.service.OrderService;
 
@@ -28,27 +29,31 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto addOrderItem(@NonNull final OrderItemDto orderItemDto) {
-        return orderLogic.updateOrderItemInfo(orderItemDto);
+        final OrderEntity orderEntity = orderLogic.createOrderInfoByOrderItem(orderItemDto);
+        final OrderDto orderDto = orderLogic.insertOrUpdateOrderInfo(orderEntity);
+        orderItemDto.setOrderId(orderDto.getId());
+        orderLogic.insertOrUpdateOrderItemInfo(orderItemDto);
+        return orderDto;
     }
 
     @Override
-    public OrderDto deleteOrderItem(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto) {
-        return orderLogic.deleteOrderItemInfo(orderDto, orderItemDto);
+    public OrderDto deleteOrderItem(@NonNull final OrderItemDto orderItemDto) {
+        return orderLogic.deleteOrderItemInfo(orderItemDto);
     }
 
     @Override
-    public void completeOrder(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime) {
+    public void orderComplete(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime) throws HummingException {
         orderLogic.setDeliveryTime(orderEntity, deliveryTime, deliverySpecifiedTime);
         orderLogic.updateStatus(orderEntity);
     }
 
     @Override
     public List<OrderDto> getOrderHistory(@NonNull final Integer memberId){
-        return orderLogic.createOrderedInfoByMemberId(memberId);
+        return orderLogic.findOrderedInfoByMemberId(memberId);
     }
 
     @Override
     public List<OrderItemDto> getOrderItemHistory(@NonNull final List<OrderDto> orderDtoList){
-        return orderLogic.createOrderedItemInfo(orderDtoList);
+        return orderLogic.findOrderedItemInfo(orderDtoList);
     }
 }

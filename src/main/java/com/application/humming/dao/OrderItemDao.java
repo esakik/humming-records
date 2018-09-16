@@ -29,11 +29,9 @@ public interface OrderItemDao {
     /**
      * 注文アイテムの数量を更新する.
      *
-     * @param orderId
-     * @param itemId
-     * @param quantity
+     * @param orderItemDto
      */
-    void updateQuantity(@NonNull final Integer orderId, @NonNull final Integer itemId, @NonNull final Integer quantity);
+    void updateQuantity(@NonNull final OrderItemDto orderItemDto);
 
     /**
      * 注文アイテムを追加する.

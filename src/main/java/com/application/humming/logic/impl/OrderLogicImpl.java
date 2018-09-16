@@ -27,6 +27,7 @@ import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.ItemEntity;
 import com.application.humming.entity.OrderEntity;
 import com.application.humming.entity.OrderItemEntity;
+import com.application.humming.exception.HummingException;
 import com.application.humming.logic.OrderLogic;
 import com.application.humming.type.OrderStatus;
 
@@ -64,7 +65,6 @@ public class OrderLogicImpl implements OrderLogic {
             log.info("Items are empty, Class: {}, OrderId: {}", OrderLogic.class, orderId);
             return orderItemDtoList;
         }
-
         setItemInfo(orderItemDtoList, orderItemEntityList, itemEntityList);
 
         return orderItemDtoList;
@@ -94,35 +94,7 @@ public class OrderLogicImpl implements OrderLogic {
     }
 
     @Override
-    public OrderDto updateOrderItemInfo(@NonNull final OrderItemDto orderItemDto) {
-        // 注文情報を更新する
-        final OrderEntity updatedOrderEntity = orderDao.save(createOrderInfo(orderItemDto));
-        orderItemDto.setOrderId(updatedOrderEntity.getId());
-
-        // 注文アイテム情報が存在する → インサート | 存在しない → 数量のみ更新する
-        final OrderItemEntity orderItemEntity = orderItemDao.findbyOrderIdAndItemId(updatedOrderEntity.getId(), orderItemDto.getItemId());
-
-
-        if (orderItemEntity == null) {
-            orderItemDao.insert(orderItemDto);
-        } else {
-            orderItemDao.updateQuantity(orderItemDto.getOrderId(), orderItemDto.getItemId(), orderItemDto.getQuantity());
-        }
-        return OrderDto.builder()
-                .id(updatedOrderEntity.getId())
-                .memberId(updatedOrderEntity.getMemberId())
-                .status(updatedOrderEntity.getStatus())
-                .totalPrice(updatedOrderEntity.getTotalPrice())
-                .build();
-    }
-
-    /**
-     * 注文情報を生成する.
-     *
-     * @param orderItemDto
-     * @return OrderEntity
-     */
-    private OrderEntity createOrderInfo(@NonNull final OrderItemDto orderItemDto) {
+    public OrderEntity createOrderInfoByOrderItem(@NonNull final OrderItemDto orderItemDto) {
         final OrderEntity orderEntity = new OrderEntity();
 
         // 会員IDをセットする
@@ -136,6 +108,7 @@ public class OrderLogicImpl implements OrderLogic {
         // 合計金額を計算しセットする
         final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemDto.getItemId());
         Integer totalPrice = orderItemDto.getQuantity() * itemEntity.getPrice();
+
         final OrderDto orderDto = (OrderDto) session.getAttribute("order");
         if (orderDto != null) {
             totalPrice += orderDto.getTotalPrice();
@@ -151,14 +124,38 @@ public class OrderLogicImpl implements OrderLogic {
     }
 
     @Override
-    public OrderDto deleteOrderItemInfo(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto) {
-        final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemDto.getItemId());
-        // 合計金額を再計算する
-        final Integer totalPrice = orderDto.getTotalPrice() - itemEntity.getPrice() * orderItemDto.getQuantity();
-        orderDto.setTotalPrice(totalPrice);
-        orderDao.updateTotalPrice(orderDto.getId(), totalPrice);
-        // 削除処理を行う
-        orderItemDao.deleteByOrderIdAndItemId(orderDto.getId(), orderItemDto.getItemId());
+    public OrderDto insertOrUpdateOrderInfo(@NonNull final OrderEntity orderEntity) {
+        final OrderEntity updatedOrderEntity = orderDao.save(orderEntity);
+        return OrderDto.builder()
+                .id(updatedOrderEntity.getId())
+                .memberId(updatedOrderEntity.getMemberId())
+                .status(updatedOrderEntity.getStatus())
+                .totalPrice(updatedOrderEntity.getTotalPrice())
+                .build();
+    }
+
+    @Override
+    public void insertOrUpdateOrderItemInfo(@NonNull final OrderItemDto orderItemDto) {
+        final OrderItemEntity orderItemEntity = orderItemDao.findbyOrderIdAndItemId(orderItemDto.getOrderId(), orderItemDto.getItemId());
+        if (orderItemEntity == null) {
+            orderItemDao.insert(orderItemDto);
+            return;
+        }
+        orderItemDao.updateQuantity(orderItemDto);
+    }
+
+    @Override
+    public OrderDto deleteOrderItemInfo(@NonNull final OrderItemDto orderItemDto) {
+        final OrderDto orderDto = (OrderDto) session.getAttribute("order");
+        if (orderDto != null) {
+            final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemDto.getItemId());
+            // 合計金額を再計算する
+            final Integer totalPrice = orderDto.getTotalPrice() - itemEntity.getPrice() * orderItemDto.getQuantity();
+            orderDto.setTotalPrice(totalPrice);
+            orderDao.updateTotalPrice(orderDto.getId(), totalPrice);
+            // 削除処理を行う
+            orderItemDao.deleteByOrderIdAndItemId(orderDto.getId(), orderItemDto.getItemId());
+        }
         return orderDto;
     }
 
@@ -170,24 +167,22 @@ public class OrderLogicImpl implements OrderLogic {
     }
 
     @Override
-    public void setDeliveryTime(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime) {
+    public void setDeliveryTime(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime) throws HummingException {
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date formatDate = new Date();
         final Calendar calendar = Calendar.getInstance();
-
         try {
             formatDate = sdf.parse(deliveryTime);
             calendar.setTime(formatDate);
             calendar.add(Calendar.HOUR_OF_DAY, Integer.parseInt(deliverySpecifiedTime));
-
         } catch (ParseException e) {
-
+            throw new HummingException(e.getMessage());
         }
         orderEntity.setDeliveryTime(new Timestamp(calendar.getTime().getTime()));
     }
 
     @Override
-    public List<OrderDto> createOrderedInfoByMemberId(final Integer memberId){
+    public List<OrderDto> findOrderedInfoByMemberId(final Integer memberId){
         final  List<OrderDto> orderDtoList = new ArrayList<>();
         final List<OrderEntity> orderEntityList = orderDao.findByMemberIdAndStatus(memberId, OrderStatus.DETERMINED.getCode());
         orderEntityList.forEach(orderEntity -> {
@@ -195,12 +190,11 @@ public class OrderLogicImpl implements OrderLogic {
             BeanUtils.copyProperties(orderEntity, orderDto);
             orderDtoList.add(orderDto);
         });
-
         return orderDtoList;
     }
 
     @Override
-    public List<OrderItemDto> createOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList){
+    public List<OrderItemDto> findOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList){
         final List<OrderItemEntity> orderItemEntityList = new ArrayList<>();
 
         final List<Integer> orderIdList = orderDtoList.stream().map(OrderDto::getId).collect(Collectors.toList());

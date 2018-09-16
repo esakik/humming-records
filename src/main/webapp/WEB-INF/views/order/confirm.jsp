@@ -31,34 +31,29 @@
             </div>
 
             <div class="row">
-            <form:form modelAttribute="orderForm"
-                action="${pageContext.request.contextPath}/order/redirect">
+            <form:form modelAttribute="orderForm" action="${pageContext.request.contextPath}/order/redirect">
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     <div class="main panel panel-default">
                         <div class="panel-heading text-left">
                             <b>注文アイテム</b>
                         </div>
                         <div class="panel-body">
-                            <c:forEach var="item" items="${itemList}">
+                            <c:forEach var="orderItem" items="${orderItemList}">
                                 <div class="item">
                                     <div class="img">
-                                        <img src="data:jpg;base64, ${item.image}"
+                                        <img src="data:jpg;base64, ${orderItem.itemInfo.image}"
                                             class="img-thumbnail" width="140px;">
                                     </div>
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="singer">
-                                                <c:out value="${item. singer}" />
+                                                <c:out value="${orderItem.itemInfo.singer}" />
                                                 /
-                                                <c:out value="${item. song}" />
+                                                <c:out value="${orderItem.itemInfo.song}" />
                                             </div>
                                             <div class="price">
-                                                <c:forEach var="orderItem" items="${orderItemList}">
-                                                    <c:if test="${item.id == orderItem.itemId}">
-                                                        価格: <fmt:formatNumber value="${item.price}" pattern="###,###" /> 円<br>
-                                                        数量: <c:out value="${orderItem.quantity}" /> 個<br>
-                                                    </c:if>
-                                                </c:forEach>
+                                                価格: <fmt:formatNumber value="${orderItem.itemInfo.price}" pattern="###,###" /> 円<br>
+                                                数量: <c:out value="${orderItem.quantity}" /> 個<br>
                                             </div>
                                         </div>
                                     </div>
@@ -150,13 +145,12 @@
                 </div>
                 <div class="row col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="main" style="position: fixed;">
-                        <input type="submit" value="注文を確定する" class="submit-btn"> <input
-                            type="hidden" name="totalPrice" value="${order.totalPrice}">
+                        <input type="submit" value="注文を確定する" class="submit-btn">
+                        <input type="hidden" name="totalPrice" value="${order.totalPrice}">
                         <div class="main panel panel-default">
                             <div class="panel-body">
                                 <div class="total text-center">
-                                    <span>総合計</span> <span class="totalPrice"><fmt:formatNumber
-                                            value="${order.totalPrice}" pattern="###,###" />円</span>
+                                    <span>総合計</span> <span class="totalPrice"><fmt:formatNumber value="${order.totalPrice}" pattern="###,###" />円</span>
                                 </div>
                             </div>
                         </div>

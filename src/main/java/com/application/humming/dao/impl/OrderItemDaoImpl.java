@@ -58,13 +58,13 @@ public class OrderItemDaoImpl implements OrderItemDao {
     }
 
     @Override
-    public void updateQuantity(@NonNull final Integer orderId, @NonNull final Integer itemId, @NonNull final Integer quantity) {
+    public void updateQuantity(@NonNull final OrderItemDto orderItemDto) {
         final String sql = "UPDATE order_items SET quantity = quantity + :quantity WHERE order_id = :orderId AND item_id = :itemId";
-        final SqlParameterSource param = new MapSqlParameterSource().addValue("quantity", quantity).addValue("orderId", orderId).addValue("itemId", itemId);
+        final SqlParameterSource param = new MapSqlParameterSource().addValue("quantity", orderItemDto.getQuantity()).addValue("orderId", orderItemDto.getOrderId()).addValue("itemId", orderItemDto.getItemId());
         try {
             jdbcTemplate.update(sql, param);
         } catch (final DataAccessException e) {
-            log.warn("Fail to update quantity, orderId: {}, itemId: {}, quantity: {}, message: {}", orderId, itemId, quantity, e.getMessage());
+            log.warn("Fail to update quantity, orderId: {}, itemId: {}, quantity: {}, message: {}", orderItemDto.getOrderId(), orderItemDto.getItemId(), orderItemDto.getQuantity(), e.getMessage());
         }
     }
 

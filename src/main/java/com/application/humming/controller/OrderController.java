@@ -1,8 +1,6 @@
 package com.application.humming.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.application.humming.constant.PageConstants;
-import com.application.humming.dto.ItemDto;
 import com.application.humming.dto.MemberDto;
 import com.application.humming.dto.OrderDto;
 import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.OrderEntity;
+import com.application.humming.exception.HummingException;
 import com.application.humming.form.AddItemForm;
 import com.application.humming.form.DeleteItemForm;
 import com.application.humming.form.LoginForm;
@@ -67,8 +65,7 @@ public class OrderController {
     public String addOrderItem(AddItemForm addItemForm, Model model) {
         final OrderItemDto orderItemDto = new OrderItemDto();
         BeanUtils.copyProperties(addItemForm, orderItemDto);
-        final OrderDto orderDto = orderService.addOrderItem(orderItemDto);
-        session.setAttribute("order", orderDto);
+        session.setAttribute("order", orderService.addOrderItem(orderItemDto));
         return displayCartPage(model);
     }
 
@@ -79,10 +76,9 @@ public class OrderController {
      */
     @RequestMapping(value="/cart/delete")
     public String deleteOrderItem(DeleteItemForm deleteItemForm, Model model) {
-        final OrderDto orderDto = (OrderDto) session.getAttribute("order");
         final OrderItemDto orderItemDto = new OrderItemDto();
         BeanUtils.copyProperties(deleteItemForm, orderItemDto);
-        session.setAttribute("order", orderService.deleteOrderItem(orderDto, orderItemDto));
+        session.setAttribute("order", orderService.deleteOrderItem(orderItemDto));
         return displayCartPage(model);
     }
 
@@ -97,17 +93,9 @@ public class OrderController {
         if(memberDto == null) {
             return PageConstants.LOGIN_PAGE;
         }
-
         final OrderDto orderDto = (OrderDto) session.getAttribute("order");
-        orderDto.setMemberId(memberDto.getId());
-
         final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemInfos(orderDto.getId());
         model.addAttribute("orderItemList", orderItemDtoList);
-
-        final List<ItemDto> itemDtoList = new ArrayList<>();
-        itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemInfo).collect(Collectors.toList()));
-        model.addAttribute("itemList", itemDtoList);
-
         return PageConstants.ORDER_CONFIRM_PAGE;
     }
 
@@ -115,9 +103,10 @@ public class OrderController {
      * 注文内容を確定する.
      *
      * @return 注文確定画面
+     * @throws HummingException
      */
     @RequestMapping(value = "/redirect")
-    public String order(@Validated OrderForm orderForm, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+    public String order(@Validated OrderForm orderForm, BindingResult result, RedirectAttributes redirectAttributes, Model model) throws HummingException {
         MemberDto memberDto = (MemberDto) session.getAttribute("member");
         final OrderDto orderDto = (OrderDto) session.getAttribute("order");
         if(memberDto.getId() == null || orderDto == null) {
@@ -130,15 +119,11 @@ public class OrderController {
 
         final OrderEntity orderEntity= new OrderEntity();
         BeanUtils.copyProperties(orderForm, orderEntity);
-
         orderEntity.setId(orderDto.getId());
         orderEntity.setMemberId(memberDto.getId());
-        orderEntity.setTotalPrice(orderForm.getTotalPrice());
 
-        orderService.completeOrder(orderEntity, orderForm.getDeliveryTime(), orderForm.getDeliverySpecifiedTime());
-
+        orderService.orderComplete(orderEntity, orderForm.getDeliveryTime(), orderForm.getDeliverySpecifiedTime());
         session.removeAttribute("order");
-
         return "redirect:/order/complete";
     }
 

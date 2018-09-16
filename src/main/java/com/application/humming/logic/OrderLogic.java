@@ -5,6 +5,7 @@ import java.util.List;
 import com.application.humming.dto.OrderDto;
 import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.OrderEntity;
+import com.application.humming.exception.HummingException;
 
 import lombok.NonNull;
 
@@ -19,21 +20,36 @@ public interface OrderLogic {
     List<OrderItemDto> findOrderItemInfosByOrderId(@NonNull final Integer orderId);
 
     /**
-     * 注文アイテム情報を更新する.
+     * 注文情報を生成する.
+     *
+     * @param orderItemDto
+     * @return OrderEntity
+     */
+    OrderEntity createOrderInfoByOrderItem(@NonNull final OrderItemDto orderItemDto);
+
+    /**
+     * 注文情報を追加・更新する.
+     *
+     * @param orderEntity
+     * @return OrderDto
+     */
+    OrderDto insertOrUpdateOrderInfo(@NonNull final OrderEntity orderEntity);
+
+    /**
+     * 注文アイテム情報を追加・更新する.
      *
      * @param orderItemDto
      * @return OrderDto
      */
-    OrderDto updateOrderItemInfo(@NonNull final OrderItemDto orderItemDto);
+    void insertOrUpdateOrderItemInfo(@NonNull final OrderItemDto orderItemDto);
 
     /**
      * カートからアイテムを削除する.
      *
-     * @param orderDto
      * @param orderItemDto
      * @return OrderDto
      */
-    OrderDto deleteOrderItemInfo(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto);
+    OrderDto deleteOrderItemInfo(@NonNull final OrderItemDto orderItemDto);
 
     /**
      * 注文ステータスを更新する.
@@ -48,8 +64,9 @@ public interface OrderLogic {
      * @param orderEntity
      * @param deliveryTime
      * @param deliverySpecifiedTime
+     * @throws HummingException
      */
-    void setDeliveryTime(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime);
+    void setDeliveryTime(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime) throws HummingException;
 
     /**
      * 確定済みの注文情報を取得する.
@@ -57,7 +74,7 @@ public interface OrderLogic {
      * @param memberId
      * @return List<OrderDto>
      */
-    List<OrderDto> createOrderedInfoByMemberId(final Integer memberId);
+    List<OrderDto> findOrderedInfoByMemberId(final Integer memberId);
 
     /**
      * 確定済みの注文アイテム情報を取得する.
@@ -65,5 +82,5 @@ public interface OrderLogic {
      * @param orderDtoList
      * @return List<OrderItemDto>
      */
-    List<OrderItemDto> createOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList);
+    List<OrderItemDto> findOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList);
 }

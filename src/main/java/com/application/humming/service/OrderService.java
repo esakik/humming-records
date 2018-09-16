@@ -5,6 +5,7 @@ import java.util.List;
 import com.application.humming.dto.OrderDto;
 import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.OrderEntity;
+import com.application.humming.exception.HummingException;
 
 import lombok.NonNull;
 
@@ -29,11 +30,10 @@ public interface OrderService {
     /**
      * 買い物かごから注文アイテムを削除する.
      *
-     * @param orderDto
      * @param orderItemDto
      * @return OrderDto
      */
-    public OrderDto deleteOrderItem(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto);
+    public OrderDto deleteOrderItem(@NonNull final OrderItemDto orderItemDto);
 
     /**
      * 注文を確定する.
@@ -41,8 +41,9 @@ public interface OrderService {
      * @param orderEntity
      * @param deliveryTime
      * @param deliverySpecifiedTime
+     * @throws HummingException
      */
-    public void completeOrder(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime);
+    public void orderComplete(@NonNull final OrderEntity orderEntity, @NonNull final String deliveryTime, @NonNull final String deliverySpecifiedTime) throws HummingException;
 
     /**
      * 注文履歴を取得する.
