@@ -47,7 +47,7 @@
                                     </div>
                                     <form:form modelAttribute="addItemForm"
                                         action="${pageContext.request.contextPath}/order/cart/add"
-                                        name="shoppingCartForm">
+                                        name="addItemForm">
                                         <div class="quantity">
                                             数量: <select name="quantity" id="select"
                                                 onClick="calculateTotalAmount()">

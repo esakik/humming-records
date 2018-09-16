@@ -22,18 +22,18 @@ public class OrderServiceImpl implements OrderService {
     OrderLogic orderLogic;
 
     @Override
-    public OrderDto addToCart(@NonNull final OrderItemDto orderItemDto) {
+    public List<OrderItemDto> getOrderItemInfos(@NonNull final Integer orderId) {
+        return orderLogic.findOrderItemInfosByOrderId(orderId);
+    }
+
+    @Override
+    public OrderDto addOrderItem(@NonNull final OrderItemDto orderItemDto) {
         return orderLogic.updateOrderItemInfo(orderItemDto);
     }
 
     @Override
-    public OrderDto deleteOrderItemFromCart(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto) {
+    public OrderDto deleteOrderItem(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto) {
         return orderLogic.deleteOrderItemInfo(orderDto, orderItemDto);
-    }
-
-    @Override
-    public List<OrderItemDto> getOrderItemInfos(@NonNull final Integer orderId) {
-        return orderLogic.findOrderItemInfosByOrderId(orderId);
     }
 
     @Override

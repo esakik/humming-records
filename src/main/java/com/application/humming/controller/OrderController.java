@@ -59,33 +59,30 @@ public class OrderController {
     }
 
     /**
-     * アイテムを買い物かごに追加する.
+     * 注文アイテムを買い物かごに追加する.
      *
      * @return 買い物かご画面
      */
     @RequestMapping(value="/cart/add")
-    public String addItem(AddItemForm addItemForm, Model model) {
+    public String addOrderItem(AddItemForm addItemForm, Model model) {
         final OrderItemDto orderItemDto = new OrderItemDto();
         BeanUtils.copyProperties(addItemForm, orderItemDto);
-
-        final OrderDto orderDto = orderService.addToCart(orderItemDto);
+        final OrderDto orderDto = orderService.addOrderItem(orderItemDto);
         session.setAttribute("order", orderDto);
         return displayCartPage(model);
     }
 
     /**
-     * アイテムを買い物かごから削除する.
+     * 注文アイテムを買い物かごから削除する.
      *
      * @return 買い物かご画面
      */
     @RequestMapping(value="/cart/delete")
-    public String deleteItem(DeleteItemForm deleteItemForm, Model model) {
-        OrderDto orderDto = (OrderDto) session.getAttribute("order");
-
+    public String deleteOrderItem(DeleteItemForm deleteItemForm, Model model) {
+        final OrderDto orderDto = (OrderDto) session.getAttribute("order");
         final OrderItemDto orderItemDto = new OrderItemDto();
         BeanUtils.copyProperties(deleteItemForm, orderItemDto);
-
-        session.setAttribute("order", orderService.deleteOrderItemFromCart(orderDto, orderItemDto));
+        session.setAttribute("order", orderService.deleteOrderItem(orderDto, orderItemDto));
         return displayCartPage(model);
     }
 

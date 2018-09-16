@@ -97,11 +97,12 @@ public class OrderLogicImpl implements OrderLogic {
     public OrderDto updateOrderItemInfo(@NonNull final OrderItemDto orderItemDto) {
         // 注文情報を更新する
         final OrderEntity updatedOrderEntity = orderDao.save(createOrderInfo(orderItemDto));
+        orderItemDto.setOrderId(updatedOrderEntity.getId());
 
-        // 注文アイテム情報を取得する
+        // 注文アイテム情報が存在する → インサート | 存在しない → 数量のみ更新する
         final OrderItemEntity orderItemEntity = orderItemDao.findbyOrderIdAndItemId(updatedOrderEntity.getId(), orderItemDto.getItemId());
 
-        orderItemDto.setOrderId(updatedOrderEntity.getId());
+
         if (orderItemEntity == null) {
             orderItemDao.insert(orderItemDto);
         } else {
@@ -143,7 +144,7 @@ public class OrderLogicImpl implements OrderLogic {
         }
         orderEntity.setTotalPrice(totalPrice);
 
-        // 注文ステータスはすべて「0: 注文未確定」
+        // 注文ステータスは「0: 注文未確定」
         orderEntity.setStatus(OrderStatus.UNDETERMINED.getCode());
 
         return orderEntity;

@@ -11,29 +11,29 @@ import lombok.NonNull;
 public interface OrderService {
 
     /**
-     * 買い物かごにアイテムを追加する.
-     *
-     * @param orderItemDto
-     * @return OrderDto
-     */
-    public OrderDto addToCart(@NonNull final OrderItemDto orderItemDto);
-
-    /**
-     * 買い物かごからアイテムを削除する.
-     *
-     * @param orderDto
-     * @param orderItemDto
-     * @return OrderDto
-     */
-    public OrderDto deleteOrderItemFromCart(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto);
-
-    /**
      * 注文アイテム情報を取得する.
      *
      * @param id
      * @return List<OrderItemDto>
      */
     public List<OrderItemDto> getOrderItemInfos(@NonNull final Integer id);
+
+    /**
+     * 買い物かごに注文アイテムを追加する.
+     *
+     * @param orderItemDto
+     * @return OrderDto
+     */
+    public OrderDto addOrderItem(@NonNull final OrderItemDto orderItemDto);
+
+    /**
+     * 買い物かごから注文アイテムを削除する.
+     *
+     * @param orderDto
+     * @param orderItemDto
+     * @return OrderDto
+     */
+    public OrderDto deleteOrderItem(@NonNull final OrderDto orderDto, @NonNull final OrderItemDto orderItemDto);
 
     /**
      * 注文を確定する.
