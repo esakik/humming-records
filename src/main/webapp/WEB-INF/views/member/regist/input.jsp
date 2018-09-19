@@ -58,8 +58,12 @@
                             <tr>
                                 <th>住所<span class="error"><form:errors
                                             path="address" element="div" /></span></th>
-                                <th><form:input class="form-control input-sm form-field"
-                                        path="address" placeholder="（例）東京都杉並区高円寺1-1-1" /></th>
+                                <th>
+                                    <form:input id="zipcode" class="form-control input-sm form-field" path="" type="text" maxlength="7" style="width: 30%; float:left;" placeholder="〒郵便番号（7桁）"/>
+                                    <a id="zipcode-btn" class="btn btn-warning" style="height: 30px; border-radius: 0; font-size: 12px; font-weight: bold; margin-left: 1px;">検索</a>
+                                    <form:input class="form-control input-sm form-field" id ="address" path="address" type="text" placeholder="（例）東京都杉並区高円寺1-1-1" />
+
+                                </th>
                             </tr>
                             <tr>
                                 <th>電話番号<span class="error"><form:errors
@@ -103,5 +107,6 @@
 
     <script src="../../js/jquery-3.1.1.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/search-address.js"></script>
 </body>
 </html>
