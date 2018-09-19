@@ -12,6 +12,7 @@
 </head>
 <body style="background-color: whitesmoke;">
 <div class="container-fluid">
+    <div id="content-main">
     <%@ include file="../common/header.jsp"%>
     <div id="content">
         <div class="panel panel-default">
@@ -47,6 +48,7 @@
     </div>
     <div class="row">
             <%@ include file="../common/footer.jsp"%>
+    </div>
     </div>
 </div>
 

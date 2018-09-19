@@ -7,7 +7,12 @@ body, html {
     margin: auto;
     margin-top: 30px;
     min-width: 860px;
-    min-height: 452px;
+}
+
+#content-main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .main {

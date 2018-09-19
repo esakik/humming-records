@@ -14,6 +14,7 @@
 </head>
 <body style="background-color: whitesmoke;">
     <div class="container-fluid">
+    <div id="content-main">
         <%@ include file="../common/header.jsp"%>
         <div id="content">
             <div class="panel panel-default">
@@ -135,6 +136,7 @@
         </p>
         <div class="row">
             <%@ include file="../common/footer.jsp"%>
+        </div>
         </div>
     </div>
     <script src="../js/jquery-3.1.1.min.js"></script>

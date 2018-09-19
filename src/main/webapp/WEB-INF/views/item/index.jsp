@@ -13,8 +13,8 @@
 </head>
 <body style="background-color: whitesmoke;">
     <div class="container-fluid">
+    <div id="content-main">
         <%@ include file="../common/header.jsp"%>
-
         <div id="content">
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                 <div class="main panel panel-default">
@@ -142,7 +142,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <p class="row" id="scrollTop">
@@ -150,6 +149,7 @@
         </p>
         <div class="row">
             <%@ include file="../common/footer.jsp"%>
+            </div>
         </div>
     </div>
 
