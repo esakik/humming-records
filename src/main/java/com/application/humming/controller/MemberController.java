@@ -25,6 +25,7 @@ import com.application.humming.entity.MemberEntity;
 import com.application.humming.exception.HummingException;
 import com.application.humming.form.LoginForm;
 import com.application.humming.form.RegistForm;
+import com.application.humming.form.WithdrawForm;
 import com.application.humming.service.MemberService;
 import com.application.humming.service.OrderService;
 import com.application.humming.util.PropertiesUtil;
@@ -196,11 +197,11 @@ public class MemberController {
      * @throws HummingException
      */
     @RequestMapping(value = "/withdraw/redirect")
-    public String withdraw(RegistForm registForm, SessionStatus sessionStatus) throws HummingException {
+    public String withdraw(WithdrawForm withdrawForm, SessionStatus sessionStatus) throws HummingException {
         if (session.getAttribute("member") == null) {
             return PageConstants.LOGIN_PAGE;
         }
-        memberService.withdraw(registForm.getDeleted(), sessionStatus);
+        memberService.withdraw(withdrawForm.getDeleted(), sessionStatus);
         return "redirect:/member/withdraw/complete";
     }
 
