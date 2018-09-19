@@ -59,9 +59,8 @@
                                 <th>住所<span class="error"><form:errors
                                             path="address" element="div" /></span></th>
                                 <th>
-                                    <form:input id="zipcode" class="form-control input-sm form-field" path="" type="text" maxlength="7" style="width: 30%; float:left;" placeholder="〒郵便番号（7桁）"/>
-                                    <a id="zipcode-btn" class="btn btn-warning" style="height: 30px; border-radius: 0; font-size: 12px; font-weight: bold; margin-left: 1px;">検索</a>
-                                    <form:input class="form-control input-sm form-field" id ="address" path="address" type="text" placeholder="（例）東京都杉並区高円寺1-1-1" />
+                                    <form:input id="zipcode" name="zip" class="form-control input-sm form-field" path="" type="text" maxlength="7" style="width: 45%; float:left;" placeholder="〒郵便番号（7桁・ハイフンなし）" onKeyUp="AjaxZip3.zip2addr(this,'','address','address');"/>
+                                    <form:input class="form-control input-sm form-field" id ="address" name="address" path="address" type="text" placeholder="（例）東京都杉並区高円寺1-1-1" />
 
                                 </th>
                             </tr>
@@ -107,6 +106,6 @@
 
     <script src="../../js/jquery-3.1.1.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
-    <script src="../../js/search-address.js"></script>
+    <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 </body>
 </html>
