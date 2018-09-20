@@ -33,7 +33,7 @@ public class PageConstants {
     public static final String WITHDRAW_COMPLETE_PAGE = "member/withdraw/complete";
 
     /** 問い合わせ画面. */
-    public static final String CONTACT_PAGE = "member/contact";
+    public static final String CONTACT_PAGE = "contact/input";
 
     /** 買い物かご画面. */
     public static final String CART_PAGE = "order/cart";

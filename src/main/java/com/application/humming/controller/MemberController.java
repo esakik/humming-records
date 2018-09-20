@@ -242,15 +242,4 @@ public class MemberController {
 
         return PageConstants.MY_PAGE;
     }
-
-    /**
-     * 問い合わせ画面を表示する.
-     *
-     * @return 問い合わせ画面
-     * @throws HummingException
-     */
-    @RequestMapping(value = "/contact")
-    public String displayContactPage() {
-        return PageConstants.CONTACT_PAGE;
-    }
 }

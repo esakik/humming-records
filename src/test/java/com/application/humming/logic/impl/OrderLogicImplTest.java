@@ -33,10 +33,10 @@ import com.application.humming.type.OrderStatus;
 public class OrderLogicImplTest {
 
     /**
-     * CreateOrderItemInfoByOrderIdTest.
+     * FindOrderItemInfosByOrderIdTest.
      */
     @RunWith(SpringJUnit4ClassRunner.class)
-    public static class createOrderItemInfoByOrderIdTest {
+    public static class findOrderItemInfoByOrderIdTest {
 
         @InjectMocks
         private OrderLogicImpl sut;

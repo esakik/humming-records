@@ -50,7 +50,7 @@
                     <li><a href="/member/regist/input"><span class="material-text">会員登録</span></a></li>
                 </c:if>
                 <li><a href="/order/cart"><span class="material-text">買い物かご</span></a></li>
-                <li><a href="/member/contact"><span class="material-text">問い合わせ</span></a></li>
+                <li><a href="/contact/input"><span class="material-text">問い合わせ</span></a></li>
             </ul>
         </div>
     </div>
