@@ -1,53 +1,38 @@
-body {
-    box-sizing: border-box;
-    margin: auto;
-    height: 100%
+@charset "UTF-8";
+
+body, html {
+    height: 100%;
 }
 
-html {
-	height: 100%;
-}
-
-#content {
-    max-width: 1000px;
-    margin: auto;
-    margin-top: 30px;
+.wrapper {
+    padding: 0 100px;
+    margin: 50px auto;
     text-align: center;
-}
-
-#content-main {
-	display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.main {
-    padding: 0px 24px;
-}
-
-#item {
     clear: both;
-    color: #444;
+}
+
+.item {
+    clear: both;
     font-size: 12px;
 }
 
-#item img {
-	margin-bottom: 5px;
+.item img {
+    margin-bottom: 5px;
 }
 
-#item .song {
-	font-size: 14px;
-	font-weight: bold;
-	text-align: left;
-}
-
-#item .singer {
-	color: #444;
+.item .song {
+    font-size: 14px;
+    font-weight: bold;
     text-align: left;
 }
 
-#item .price {
-	font-size: 14px;
+.item .singer {
+    color: #444;
+    text-align: left;
+}
+
+.item .price {
+    font-size: 14px;
     font-weight: bold;
     color: #D24D4D;
     text-align: right;
@@ -57,16 +42,21 @@ html {
     margin-top: 30px;
 }
 
+.new-list, .reserve-list {
+    clear: both;
+    padding: 30px;
+}
+
 .ribbon_box {
     position: relative;
 }
 
-.ribbon8 {
+.ribbon {
     display: inline-block;
     position: relative;
     box-sizing: border-box;
     padding: 10px 10px 10px 28px;
-    margin: 20px 0 0 -34px;
+    margin: 20px 0 0 -25px;
     width: calc(50% + 10px);
     float: left;
     text-align: left;
@@ -76,7 +66,7 @@ html {
     background: #ffb900;
 }
 
-.ribbon8:before {
+.ribbon:before {
     position: absolute;
     content: '';
     top: 100%;
@@ -84,6 +74,10 @@ html {
     border: none;
     border-bottom: solid 15px transparent;
     border-right: solid 10px #dda800;
+}
+
+.category {
+    text-align: left;
 }
 
 #scrollTop {
@@ -94,11 +88,11 @@ html {
     right: 20px;
 }
 
-.category {
-	text-align: left;
+.paging {
+    width: 100%;
 }
 
-.paging_btn{
+.paging-btn {
     position: relative;
     display: inline-block;
     font-weight: bold;
@@ -109,9 +103,9 @@ html {
     background: #ECECEC;
     border: 1px solid #DDDDDD;
     transition: .4s;
-  }
+}
 
-.paging_btn:hover {
+.paging-btn:hover {
     background: #ffb900;
     border: 1px solid #ffb900;
     color: white;
@@ -119,19 +113,46 @@ html {
 }
 
 .active-page {
-	background: #ffb900;
+    background: #ffb900;
     border: 1px solid #ffb900;
     color: white;
     text-decoration: none;
 }
 
-.footer {
-	margin-top: auto;
-    border-top : 2px solid lightgray;
-    width: 100%;
+footer {
+    margin-top: auto;
+    border-top: 2px solid lightgray;
     padding: 12px 0 6px 0;
     text-align: center;
     color: #666;
     line-height: 15px;
-    border-top: 2px solid lightgray;
+}
+
+@media ( max-width : 992px) {
+    .wrapper {
+        padding: 0px 30px;
+        margin: 30px auto;
+    }
+}
+
+@media ( max-width : 768px) {
+    * {
+        font-size: 12px;
+    }
+    li  a {
+        font-size: 10px;
+    }
+    .wrapper {
+        padding: 0px;
+        margin: 20px auto;
+    }
+    .category {
+        text-align: center;
+    }
+    .dlv {
+        display: none;
+    }
+    .paging-btn {
+        padding: 0.25em 0.50em;
+    }
 }

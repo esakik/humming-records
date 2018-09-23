@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 body, html {
     height: 100%;
 }
@@ -8,24 +10,14 @@ h2 {
     width: 210px;
 }
 
-#content {
-    max-width: 820px;
-    margin: auto;
-    margin-top: 30px;
-    min-width: 820px;
+.wrapper {
+    max-width: 720px;
+    margin: 50px auto;
+    min-width: 720px;
+    min-height: 405px;
 }
 
-#content-main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
-
-.main {
-    width: 740px;
-    margin: 0 auto;
-}
-
 .service {
     margin-bottom: 10px;
 }
@@ -34,7 +26,7 @@ h2 {
     padding: 20px;
 }
 
-form {
+.form-container {
     float: left;
 }
 
@@ -117,7 +109,7 @@ form {
 }
 
 .about-humming a {
-    color: blue;
+    color: #0000ff;
 }
 
 .regist p {
@@ -125,7 +117,7 @@ form {
     font-weight: bold;
 }
 
-.square_btn {
+.regist-btn {
     position: relative;
     display: inline-block;
     padding: 0.5em 0.5em;
@@ -140,22 +132,41 @@ form {
     font-size: 16px;
 }
 
-.square_btn:active {
+.regist-btn:active {
     border-bottom: solid 2px #fd9535;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }
 
-.square_btn:hover {
+.regist-btn:hover {
     color: white;
 }
 
-.footer {
+footer {
     bottom: 0px;
-    border-top : 2px solid lightgray;
-    width: 100%;
+    border-top: 2px solid lightgray;
     padding: 12px 0 6px 0;
     text-align: center;
     color: #666;
     line-height: 15px;
-    border-top: 2px solid lightgray;
+}
+
+@media ( max-width : 768px) {
+    * {
+        font-size: 12px;
+    }
+    .wrapper {
+        margin: 20px auto;
+        min-width: 0px;
+        min-height: 660px;
+    }
+    .form-container {
+        float: none;
+        margin: 0 auto;
+    }
+    .regist {
+        float: none;
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+    }
 }

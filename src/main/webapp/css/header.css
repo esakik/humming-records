@@ -1,17 +1,19 @@
-#container-top {
+@charset "UTF-8";
+
+header {
+    width: 100%;
     text-align: right;
-    color: #333;
-    padding-right: 15px;
+    color: #444;
     font-size: 12px;
 }
 
-.navbar {
-	padding: 4px 0;
+.navbar-brand img {
+    height: 42px;
+    margin-top: -10px;
 }
 
-.navbar-brand img {
-    height:42px;
-    margin-top: -10px;
+form img {
+    width: 18px;
 }
 
 .material-text {
@@ -20,5 +22,5 @@
 }
 
 .navbar-nav li:hover {
-	opacity: 0.4;
+    opacity: 0.4;
 }

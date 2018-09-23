@@ -1,24 +1,15 @@
-body {
-    box-sizing: border-box;
-    text-align: center;
-    margin: auto;
+@charset "UTF-8";
+
+body, html {
     height: 100%;
 }
 
-html {
-	height: 100%;
-}
-
-#content {
-    width: 820px;
-    margin: auto;
-    margin-top: 30px;
-}
-
-#content-main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.wrapper {
+    padding: 0 100px;
+    margin: 50px auto;
+    text-align: center;
+    clear: both;
+    min-height: 405px;
 }
 
 #message {
@@ -38,7 +29,7 @@ html {
 }
 
 #item {
-	margin-top: 30px;
+    margin-top: 30px;
 }
 
 #item img {
@@ -59,13 +50,22 @@ html {
     text-align: right;
 }
 
-.footer {
-    bottom: 0px;
-    border-top : 2px solid lightgray;
-    width: 100%;
+footer {
+    margin-top: auto;
+    border-top: 2px solid lightgray;
     padding: 12px 0 6px 0;
     text-align: center;
     color: #666;
     line-height: 15px;
-    border-top: 2px solid lightgray;
+}
+
+@media ( max-width : 768px) {
+    * {
+        font-size: 12px;
+    }
+    .wrapper {
+        padding: 0 15px;
+        margin: 20px auto;
+        min-height: 660px;
+    }
 }
