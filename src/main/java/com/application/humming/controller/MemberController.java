@@ -88,7 +88,7 @@ public class MemberController {
 
         // 注文情報がある場合は買い物かごへ遷移
         if ((OrderDto) session.getAttribute("order") != null) {
-            return "redirect:/order/confirm";
+            return "redirect:/order/cart";
         }
 
         return "redirect:/";

@@ -54,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void logout(@NonNull final SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        removeAttributes(sessionStatus, SESSION_OBJECT);
+        session.setAttribute(SESSION_OBJECT[0], null);
     }
 
     @Override
