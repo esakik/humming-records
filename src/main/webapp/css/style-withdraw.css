@@ -1,58 +1,34 @@
 @charset "UTF-8";
 
-.error {
-    text-align: center;
-    color: red;
-    margin-top: 20px;
-    margin-bottom: -20px;
-}
-
 .wrapper {
-    max-width: 440px;
+    padding: 0 200px;
     margin: 50px auto;
     min-height: 405px;
 }
 
-.form-container {
-    padding: 10px 0;
-    max-width: 380px;
-    margin: 0px auto 0 auto;
 }
-
-.form-field {
-    color: #333333;
-    padding: 8px;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-textarea {
-    width: 100%;
-    padding: 8px;
-    max-width: 380px;
-    min-height: 120px;
-    max-height: 180px;
-}
-
-.form-field:focus {
-    background: #fff;
-    color: #333333;
-}
-
-.form-title {
+#title {
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 5px;
-    color: #000032;
-    text-shadow: #ffffff 0 1px 0;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
-.submit-container {
-    margin: 8px 0;
-    text-align: right;
+#back {
+    text-align: center;
+    padding: 10px 0;
 }
 
-.submit-button {
+#back a {
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+.withdraw {
+    text-align: center;
+}
+
+.withdraw-btn {
+    margin-top: 10px;
     border: 1px solid #ffffff;
     background: #ffbb00;
     -webkit-border-radius: 4px;
@@ -65,7 +41,7 @@ textarea {
     vertical-align: middle;
 }
 
-.submit-button:hover {
+.withdraw-btn:hover {
     opacity: 0.6;
 }
 
@@ -78,11 +54,18 @@ footer {
     line-height: 15px;
 }
 
+@media ( max-width : 992px) {
+    .wrapper {
+        padding: 0px 100px;
+    }
+}
+
 @media ( max-width : 768px) {
     * {
         font-size: 12px;
     }
     .wrapper {
+        padding: 0 15px;
         margin: 20px auto;
         min-height: 680px;
     }

@@ -1,18 +1,13 @@
+@charset "UTF-8";
+
 body, html {
     height: 100%;
 }
 
-#content {
+.wrapper {
     max-width: 860px;
-    margin: auto;
-    margin-top: 30px;
-    min-width: 860px;
-}
-
-#content-main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    margin: 50px auto;
+    min-height: 405px;
 }
 
 .complete span {
@@ -24,11 +19,10 @@ body, html {
 }
 
 .main {
-    width: 820px;
     margin: 20px auto 20px auto;
 }
 
-.progressbar_02 {
+.progressbar {
     margin: 0;
     padding: 0;
     counter-reset: step;
@@ -36,7 +30,7 @@ body, html {
     float: right;
 }
 
-.progressbar_02 li {
+.progressbar li {
     list-style-type: none;
     width: 33%;
     float: left;
@@ -50,7 +44,7 @@ body, html {
     justify-content: center;
 }
 
-.progressbar_02 li:before {
+.progressbar li:before {
     width: 30px;
     height: 30px;
     content: counter(step);
@@ -64,33 +58,50 @@ body, html {
     margin-right: 10px;
 }
 
-.progressbar_02 li:first-child:after {
+.progressbar li:first-child:after {
     content: none;
 }
 
-.progressbar_02 li.active {
+.progressbar li.active {
     color: #fd9535;
     font-weight: bold;
 }
 
-.progressbar_02 li.active:before {
+.progressbar li.active:before {
     background-color: #ffbb00;
     color: #fff;
     border-color: #fd9535;
 }
 
-.progressbar_02 li.active+li:after {
+.progressbar li.active+li:after {
     background-color: #ffbb00;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0px;
-    border-top : 2px solid lightgray;
-    width: 100%;
+footer {
+    margin-top: auto;
+    border-top: 2px solid lightgray;
     padding: 12px 0 6px 0;
     text-align: center;
     color: #666;
     line-height: 15px;
-    border-top: 2px solid lightgray;
+}
+
+@media ( max-width : 768px) {
+    * {
+        font-size: 12px;
+    }
+    .wrapper {
+        margin: 20px auto;
+        min-height: 680px;
+    }
+    .progressbar {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .progressbar li:before {
+        width: 20px;
+        height: 20px;
+        line-height: 16px;
+        margin-right: 3px;
+    }
 }

@@ -30,7 +30,7 @@
                                 <c:out value="${itemCount}" />
                                     <div class="item">
                                         <c:forEach var="item" items="${itemList}">
-                                            <div class="single-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                            <div class="single-item col-lg-3 col-md-3 col-sm-4 col-xs-4">
                                                 <img src="data:jpg;base64, ${item.image}" class="img-thumbnail">
                                                 <div class="song">
                                                     <a href="/detail?itemId=${item.id}" style="text-decoration: none;"><c:out value="${item.song}" /></a>

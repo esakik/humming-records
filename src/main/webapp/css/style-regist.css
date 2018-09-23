@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 body, html {
     height: 100%;
 }
@@ -5,21 +7,12 @@ body, html {
 .error {
     text-align: left;
     color: red;
-    margin-top: 20px;
-    margin-bottom: -20px;
 }
 
-#content {
+.wrapper {
     max-width: 820px;
-    margin: auto;
-    margin-top: 20px;
-    min-width: 820px;
-}
-
-#content-main {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    margin: 50px auto;
+    min-height: 405px;
 }
 
 .title span {
@@ -38,16 +31,6 @@ body, html {
     margin: 0 0 10px 0;
     font-weight: bold;
     text-align: center;
-}
-
-.main {
-    width: 820px;
-    margin: 10px auto 20px auto;
-}
-
-.form-container {
-    width: 820px;
-    margin: 0 auto 0 auto;
 }
 
 .form-field {
@@ -109,7 +92,7 @@ body, html {
 }
 
 .step-bar {
-    width: 600px;
+    max-width: 600px;
     margin: 10px auto 10px auto;
 }
 
@@ -176,14 +159,21 @@ body, html {
     z-index: 2;
 }
 
-.footer {
-	margin-top: 70px;
-    bottom: 0px;
-    border-top : 2px solid lightgray;
-    width: 100%;
+footer {
+    margin-top: auto;
+    border-top: 2px solid lightgray;
     padding: 12px 0 6px 0;
     text-align: center;
     color: #666;
     line-height: 15px;
-    border-top: 2px solid lightgray;
+}
+
+@media ( max-width : 768px) {
+    * {
+        font-size: 12px;
+    }
+    .wrapper {
+        margin: 20px auto;
+        min-height: 680px;
+    }
 }
