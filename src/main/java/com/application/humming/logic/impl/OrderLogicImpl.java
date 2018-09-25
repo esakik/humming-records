@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import com.application.humming.constant.HummingConstants;
+import com.application.humming.constant.SessionObjects;
 import com.application.humming.dao.ItemDao;
 import com.application.humming.dao.OrderDao;
 import com.application.humming.dao.OrderItemDao;
@@ -51,7 +52,7 @@ public class OrderLogicImpl implements OrderLogic {
     private HttpSession session;
 
     @Override
-    public List<OrderItemDto> findOrderItemInfosByOrderId(@NonNull final Integer orderId){
+    public List<OrderItemDto> findOrderItemInfosByOrderId(@NonNull final Integer orderId) {
         final List<OrderItemDto> orderItemDtoList = new ArrayList<>();
 
         final List<OrderItemEntity> orderItemEntityList = orderItemDao.findByOrderId(orderId);
@@ -97,7 +98,7 @@ public class OrderLogicImpl implements OrderLogic {
         final OrderEntity orderEntity = new OrderEntity();
 
         // 会員IDをセットする
-        final MemberDto memberDto = (MemberDto) session.getAttribute("member");
+        final MemberDto memberDto = (MemberDto) session.getAttribute(SessionObjects.MEMBER);
         if (memberDto != null) {
             orderEntity.setMemberId(memberDto.getId());
         } else {
@@ -108,7 +109,7 @@ public class OrderLogicImpl implements OrderLogic {
         final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemDto.getItemId());
         Integer totalPrice = orderItemDto.getQuantity() * itemEntity.getPrice();
 
-        final OrderDto orderDto = (OrderDto) session.getAttribute("order");
+        final OrderDto orderDto = (OrderDto) session.getAttribute(SessionObjects.ORDER);
         if (orderDto != null) {
             totalPrice += orderDto.getTotalPrice();
             // セッションに注文情報が残っている場合は注文IDをセットする.
@@ -145,7 +146,7 @@ public class OrderLogicImpl implements OrderLogic {
 
     @Override
     public OrderDto deleteOrderItemInfo(@NonNull final OrderItemDto orderItemDto) {
-        final OrderDto orderDto = (OrderDto) session.getAttribute("order");
+        final OrderDto orderDto = (OrderDto) session.getAttribute(SessionObjects.ORDER);
         if (orderDto != null) {
             final ItemEntity itemEntity = itemDao.findByPrimaryKey(orderItemDto.getItemId());
             // 合計金額を再計算する
@@ -181,8 +182,8 @@ public class OrderLogicImpl implements OrderLogic {
     }
 
     @Override
-    public List<OrderDto> findOrderedInfoByMemberId(final Integer memberId){
-        final  List<OrderDto> orderDtoList = new ArrayList<>();
+    public List<OrderDto> findOrderedInfoByMemberId(final Integer memberId) {
+        final List<OrderDto> orderDtoList = new ArrayList<>();
         final List<OrderEntity> orderEntityList = orderDao.findByMemberIdAndStatus(memberId, OrderStatus.DETERMINED.getCode());
         orderEntityList.forEach(orderEntity -> {
             final OrderDto orderDto = new OrderDto();
@@ -193,7 +194,7 @@ public class OrderLogicImpl implements OrderLogic {
     }
 
     @Override
-    public List<OrderItemDto> findOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList){
+    public List<OrderItemDto> findOrderedItemInfo(@NonNull final List<OrderDto> orderDtoList) {
         final List<OrderItemEntity> orderItemEntityList = new ArrayList<>();
 
         final List<Integer> orderIdList = orderDtoList.stream().map(OrderDto::getId).collect(Collectors.toList());

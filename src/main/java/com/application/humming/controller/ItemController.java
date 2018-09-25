@@ -2,8 +2,6 @@ package com.application.humming.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +23,6 @@ import com.application.humming.util.PropertiesUtil;
 @Controller
 @RequestMapping(value = "/")
 public class ItemController {
-
-    @Autowired
-    HttpSession session;
 
     @Autowired
     private ItemService itemService;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.application.humming.constant.SessionObjects;
 import com.application.humming.dto.MemberDto;
 import com.application.humming.entity.MemberEntity;
 import com.application.humming.exception.HummingException;
@@ -36,8 +37,6 @@ public class MemberServiceImpl implements MemberService {
         return new StandardPasswordEncoder();
     }
 
-    private final static String[] SESSION_OBJECT = { "member", "order" };
-
     @Override
     public MemberDto createMemberDto(@NonNull final String email, @NonNull final String password) {
         final MemberDto memberDto = new MemberDto();
@@ -54,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void logout(@NonNull final SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        session.setAttribute(SESSION_OBJECT[0], null);
+        session.setAttribute(SessionObjects.MEMBER, null);
     }
 
     @Override
@@ -68,13 +67,13 @@ public class MemberServiceImpl implements MemberService {
         memberLogic.save(memberEntity);
         final MemberDto memberDto = new MemberDto();
         BeanUtils.copyProperties(memberLogic.findByEmail(memberEntity.getEmail()), memberDto);
-        session.setAttribute("member", memberDto);
+        session.setAttribute(SessionObjects.MEMBER, memberDto);
     }
 
     @Override
     public void withdraw(@NonNull final Integer id, @NonNull final SessionStatus sessionStatus) throws HummingException {
         memberLogic.delete(id);
-        removeAttributes(sessionStatus, SESSION_OBJECT);
+        removeAttributes(sessionStatus, new String[] { SessionObjects.MEMBER, SessionObjects.ORDER });
     }
 
     /**

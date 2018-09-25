@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.application.humming.constant.PageConstants;
+import com.application.humming.constant.SessionObjects;
 import com.application.humming.dto.ItemDto;
 import com.application.humming.dto.MemberDto;
 import com.application.humming.dto.OrderDto;
@@ -84,10 +85,10 @@ public class MemberController {
             return displayLoginPage();
         }
         // ユーザー情報有り → ユーザー情報をセッションで保持する
-        session.setAttribute("member", memberDto);
+        session.setAttribute(SessionObjects.MEMBER, memberDto);
 
         // 注文情報がある場合は買い物かごへ遷移
-        if ((OrderDto) session.getAttribute("order") != null) {
+        if ((OrderDto) session.getAttribute(SessionObjects.ORDER) != null) {
             return "redirect:/order/cart";
         }
 
@@ -140,7 +141,7 @@ public class MemberController {
         if (password.equals(confirmationPassword)) {
             final MemberDto memberDto = new MemberDto();
             BeanUtils.copyProperties(registForm, memberDto);
-            session.setAttribute("member", memberDto);
+            session.setAttribute(SessionObjects.MEMBER, memberDto);
             return PageConstants.REGIST_CONFIRM_PAGE;
         // パスワードと確認パスワードが一致しない → エラーメッセージを表示する
         } else {
@@ -157,7 +158,7 @@ public class MemberController {
      */
     @RequestMapping(value = "/regist/redirect")
     public String regist() throws HummingException {
-        final MemberDto memberDto = (MemberDto) session.getAttribute("member");
+        final MemberDto memberDto = (MemberDto) session.getAttribute(SessionObjects.MEMBER);
         if (memberDto == null) {
             return PageConstants.REGIST_INPUT_PAGE;
         }
@@ -184,7 +185,7 @@ public class MemberController {
      */
     @RequestMapping(value = "/withdraw/confirm")
     public String displayWithdrawConfirmPage() {
-        if (session.getAttribute("member") == null) {
+        if (session.getAttribute(SessionObjects.MEMBER) == null) {
             return PageConstants.LOGIN_PAGE;
         }
         return PageConstants.WITHDRAW_CONFIRM_PAGE;
@@ -198,7 +199,7 @@ public class MemberController {
      */
     @RequestMapping(value = "/withdraw/redirect")
     public String withdraw(WithdrawForm withdrawForm, SessionStatus sessionStatus) throws HummingException {
-        if (session.getAttribute("member") == null) {
+        if (session.getAttribute(SessionObjects.MEMBER) == null) {
             return PageConstants.LOGIN_PAGE;
         }
         memberService.withdraw(withdrawForm.getDeleted(), sessionStatus);
@@ -222,7 +223,7 @@ public class MemberController {
      */
     @RequestMapping(value = "/mypage")
     public String displayMyPage(Model model) {
-        final MemberDto memberDto = (MemberDto) session.getAttribute("member");
+        final MemberDto memberDto = (MemberDto) session.getAttribute(SessionObjects.MEMBER);
         if (memberDto == null) {
             return PageConstants.LOGIN_PAGE;
         }
