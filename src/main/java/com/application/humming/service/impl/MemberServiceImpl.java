@@ -79,10 +79,10 @@ public class MemberServiceImpl implements MemberService {
     /**
      * セッションに格納されている情報を削除する.
      *
-     * @param SessionStatus sessionStatus
-     * @param String attribute
+     * @param sessionStatus
+     * @param attributes
      */
-    private void removeAttributes(@NonNull final SessionStatus sessionStatus, final String[] attributes) {
+    private void removeAttributes(@NonNull final SessionStatus sessionStatus, @NonNull final String[] attributes) {
         sessionStatus.setComplete();
         for (final String attribute : attributes) {
             session.removeAttribute(attribute);
