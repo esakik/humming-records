@@ -1,6 +1,6 @@
 package com.application.humming.constant;
 
-public class PageConstants {
+public final class PageConstants {
 
     /** トップ画面. */
     public static final String TOP_PAGE = "item/index";

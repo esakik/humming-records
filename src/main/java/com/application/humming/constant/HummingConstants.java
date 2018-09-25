@@ -1,6 +1,6 @@
 package com.application.humming.constant;
 
-public class HummingConstants {
+public final class HummingConstants {
 
     public static final int OFFSET = 0;
 
