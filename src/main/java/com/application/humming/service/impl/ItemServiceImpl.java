@@ -3,12 +3,14 @@ package com.application.humming.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.application.humming.constant.HummingConstants;
 import com.application.humming.dto.ItemDto;
 import com.application.humming.entity.ItemEntity;
 import com.application.humming.exception.HummingException;
@@ -61,7 +63,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Integer getItemCount() {
-        return itemLogic.getItemCount();
+    public Integer calculatePagingCount() {
+        final int itemCount = itemLogic.getItemCount();
+        return (itemCount / HummingConstants.LIMIT) + NumberUtils.INTEGER_ONE;
     }
 }

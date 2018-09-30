@@ -1,8 +1,6 @@
 package com.application.humming.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,10 +16,8 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.application.humming.constant.PageConstants;
 import com.application.humming.constant.SessionObjects;
-import com.application.humming.dto.ItemDto;
 import com.application.humming.dto.MemberDto;
 import com.application.humming.dto.OrderDto;
-import com.application.humming.dto.OrderItemDto;
 import com.application.humming.entity.MemberEntity;
 import com.application.humming.exception.HummingException;
 import com.application.humming.form.LoginForm;
@@ -45,7 +41,7 @@ public class MemberController {
     HttpSession session;
 
     @ModelAttribute
-    public RegistForm setUpForm() {
+    public RegistForm setUpRegistForm() {
         return new RegistForm();
     }
 
@@ -53,6 +49,17 @@ public class MemberController {
     public LoginForm setUpLoginForm() {
         return new LoginForm();
     }
+
+    /** ログインエラーメッセージモデル. */
+    private static final String LOGIN_ERROR_MESSAGE_MODEL = "loginErrorMessage";
+    /** 会員登録エラーメッセージ（メールアドレス）モデル. */
+    private static final String REGIST_ERROR_EMAIL_MESSAGE_MODEL = "registErrorEmailMessage";
+    /** 会員登録エラーメッセージ（パスワード）モデル. */
+    private static final String REGIST_ERROR_PASSWORD_MESSAGE_MODEL = "registErrorPasswordMessage";
+    /** 注文リストモデル. */
+    private static final String ORDER_LIST_MODEL = "orderList";
+    /** 注文アイテムリストモデル. */
+    private static final String ORDER_ITEM_LIST_MODEL = "orderItemList";
 
     /**
      * ログイン画面を表示する.
@@ -74,24 +81,20 @@ public class MemberController {
         if (result.hasErrors()) {
             return displayLoginPage();
         }
-
         final String email = loginForm.getEmail();
         final String password = loginForm.getPassword();
 
         final MemberDto memberDto = memberService.createMemberDto(email, password);
-        // ユーザー情報無し → エラーメッセージを表示する
         if (memberDto.getId() == null) {
-            model.addAttribute("error", PropertiesUtil.getProperties("login.error.invalid"));
+            model.addAttribute(LOGIN_ERROR_MESSAGE_MODEL, PropertiesUtil.getProperties("login.error.invalid"));
             return displayLoginPage();
         }
-        // ユーザー情報有り → ユーザー情報をセッションで保持する
         session.setAttribute(SessionObjects.MEMBER, memberDto);
 
         // 注文情報がある場合は買い物かごへ遷移
         if ((OrderDto) session.getAttribute(SessionObjects.ORDER) != null) {
             return "redirect:/order/cart";
         }
-
         return "redirect:/";
     }
 
@@ -131,13 +134,14 @@ public class MemberController {
         final boolean isUniqueEmailFlag = memberService.checkIfUniqueEmail(email);
         // 既に登録されたメールアドレス → エラーメッセージを表示する
         if (!isUniqueEmailFlag) {
-            model.addAttribute("emailError", PropertiesUtil.getProperties("regist.error.invalid.email"));
+            model.addAttribute(REGIST_ERROR_EMAIL_MESSAGE_MODEL, PropertiesUtil.getProperties("regist.error.invalid.email"));
             return displayRegistInputPage();
         }
 
         final String password = registForm.getPassword();
         final String confirmationPassword = registForm.getConfirmationPassword();
-        // パスワードと確認パスワードが一致 → 新規会員登録する
+
+        // パスワードと確認パスワードが一致 → 会員登録確認画面へ遷移する
         if (password.equals(confirmationPassword)) {
             final MemberDto memberDto = new MemberDto();
             BeanUtils.copyProperties(registForm, memberDto);
@@ -145,7 +149,7 @@ public class MemberController {
             return PageConstants.REGIST_CONFIRM_PAGE;
         // パスワードと確認パスワードが一致しない → エラーメッセージを表示する
         } else {
-            model.addAttribute("passwordError", PropertiesUtil.getProperties("regist.error.invalid.password"));
+            model.addAttribute(REGIST_ERROR_PASSWORD_MESSAGE_MODEL, PropertiesUtil.getProperties("regist.error.invalid.password"));
             return displayRegistInputPage();
         }
     }
@@ -227,19 +231,12 @@ public class MemberController {
         if (memberDto == null) {
             return PageConstants.LOGIN_PAGE;
         }
-
         final MemberEntity memberEntity= new MemberEntity();
         BeanUtils.copyProperties(memberDto, memberEntity);
 
         final List<OrderDto> orderDtoList = orderService.getOrderHistory(memberEntity.getId());
-        model.addAttribute("orderList", orderDtoList);
-
-        final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemHistory(orderDtoList);
-        model.addAttribute("orderItemList", orderItemDtoList);
-
-        final List<ItemDto> itemDtoList = new ArrayList<>();
-        itemDtoList.addAll(orderItemDtoList.stream().map(OrderItemDto::getItemInfo).collect(Collectors.toList()));
-        model.addAttribute("itemList", itemDtoList);
+        model.addAttribute(ORDER_LIST_MODEL, orderDtoList);
+        model.addAttribute(ORDER_ITEM_LIST_MODEL, orderService.getOrderItemHistory(orderDtoList));
 
         return PageConstants.MY_PAGE;
     }

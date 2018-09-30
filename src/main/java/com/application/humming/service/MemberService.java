@@ -27,7 +27,7 @@ public interface MemberService {
     void logout(@NonNull final SessionStatus sessionStatus);
 
     /**
-     * emailの重複チェックを行う.
+     * メールアドレスの重複チェックを行う.
      *
      * @param email
      * @return boolean

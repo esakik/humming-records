@@ -2,6 +2,7 @@ package com.application.humming.logic.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +41,6 @@ public class ItemLogicImpl implements ItemLogic {
     @Override
     public int getItemCount() {
         final List<ItemEntity> itemEntityList = itemDao.findAll();
-        return itemEntityList != null? itemEntityList.size() : 0;
+        return itemEntityList != null? itemEntityList.size() : NumberUtils.INTEGER_ZERO;
     }
 }

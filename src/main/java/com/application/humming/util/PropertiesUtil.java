@@ -12,7 +12,7 @@ public class PropertiesUtil {
      * プロパティファイルに含まれるメッセージを取得する.
      *
      * @param key
-     * @return メッセージ
+     * @return keyに対応するメッセージ
      */
     public static String getProperties(final String key) {
         Properties properties = new Properties();

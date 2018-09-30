@@ -38,5 +38,4 @@ public class RegistForm {
     /** 確認用パスワード. */
     @NotBlank(message = "パスワード (確認)は入力必須です。")
     private String confirmationPassword;
-
 }

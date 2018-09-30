@@ -48,7 +48,7 @@
                                     <c:if test="${activePage != 1}">
                                         <a href="/page?number=${activePage - 1}" class="paging-btn">前の12件</a>
                                     </c:if>
-                                    <c:forEach begin="1" end="${pagingButtonCount}" varStatus="status">
+                                    <c:forEach begin="1" end="${pagingCount}" varStatus="status">
                                         <c:choose>
                                             <c:when test="${activePage == status.index}">
                                                 <a href="/page?number=${status.index}" class="active-page paging-btn"><c:out value="${status.index}" /></a>
@@ -58,7 +58,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
-                                    <c:if test="${activePage != pagingButtonCount}">
+                                    <c:if test="${activePage != pagingCount}">
                                         <a href="/page?number=${activePage + 1}" class="paging-btn">次の12件</a>
                                     </c:if>
                                 </div>

@@ -1,7 +1,5 @@
 package com.application.humming.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
@@ -42,6 +40,9 @@ public class OrderController {
         return new LoginForm();
     }
 
+    /** 注文アイテムリストモデル. */
+    private static final String ORDER_ITEM_LIST_MODEL = "orderItemList";
+
     /**
      * 買い物かご画面を表示する.
      *
@@ -51,8 +52,7 @@ public class OrderController {
     public String displayCartPage(Model model) {
         final OrderDto orderDto = (OrderDto) session.getAttribute(SessionObjects.ORDER);
         if (orderDto != null) {
-            final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemInfos(orderDto.getId());
-            model.addAttribute("orderItemList", orderItemDtoList);
+            model.addAttribute(ORDER_ITEM_LIST_MODEL, orderService.getOrderItemInfos(orderDto.getId()));
         }
         return PageConstants.CART_PAGE;
     }
@@ -95,8 +95,7 @@ public class OrderController {
             return PageConstants.LOGIN_PAGE;
         }
         final OrderDto orderDto = (OrderDto) session.getAttribute(SessionObjects.ORDER);
-        final List<OrderItemDto> orderItemDtoList = orderService.getOrderItemInfos(orderDto.getId());
-        model.addAttribute("orderItemList", orderItemDtoList);
+        model.addAttribute(ORDER_ITEM_LIST_MODEL, orderService.getOrderItemInfos(orderDto.getId()));
         return PageConstants.ORDER_CONFIRM_PAGE;
     }
 
@@ -108,12 +107,12 @@ public class OrderController {
      */
     @RequestMapping(value = "/redirect")
     public String order(@Validated OrderForm orderForm, BindingResult result, RedirectAttributes redirectAttributes, Model model) throws HummingException {
-        MemberDto memberDto = (MemberDto) session.getAttribute(SessionObjects.MEMBER);
+        final MemberDto memberDto = (MemberDto) session.getAttribute(SessionObjects.MEMBER);
         final OrderDto orderDto = (OrderDto) session.getAttribute(SessionObjects.ORDER);
-        if(memberDto.getId() == null || orderDto == null) {
+
+        if(memberDto == null || orderDto == null) {
             return PageConstants.LOGIN_PAGE;
         }
-
         if (result.hasErrors()) {
             return displayOrderConfirmPage(model);
         }

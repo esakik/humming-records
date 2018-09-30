@@ -36,9 +36,9 @@ public interface ItemService {
     List<ItemDto> getItemWithSingerOrSong(@NonNull final String singerOrSong);
 
     /**
-     * アイテム総数を取得する.
+     * ページング数を計算する.
      *
      * @return Integer
      */
-    Integer getItemCount();
+    Integer calculatePagingCount();
 }

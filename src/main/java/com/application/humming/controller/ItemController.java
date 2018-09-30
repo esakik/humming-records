@@ -32,6 +32,15 @@ public class ItemController {
         return new SearchForm();
     }
 
+    /** アイテムリストモデル. */
+    private static final String ITEM_LIST_MODEL = "itemList";
+    /** アクティブページモデル. */
+    private static final String ACTIVE_PAGE_MODEL = "activePage";
+    /** ページング数モデル. */
+    private static final String PAGING_COUNT_MODEL = "pagingCount";
+    /** 検索結果メッセージモデル. */
+    private static final String SEARCH_RESULT_MESSAGE_MODEL = "searchResultMessage";
+
     /**
      * トップ画面を表示する.
      *
@@ -40,12 +49,9 @@ public class ItemController {
      */
     @RequestMapping(value = "/")
     public String displayTopPage(Model model) throws HummingException {
-        // OffsetとLimitに値を入れることで、表示数を変更できる
-        final List<ItemDto> itemDtoList = itemService.getInitialItemList(HummingConstants.OFFSET, HummingConstants.LIMIT);
-        model.addAttribute("itemList", itemDtoList);
-        final Integer itemCount = itemService.getItemCount();
-        model.addAttribute("pagingButtonCount", (itemCount / HummingConstants.LIMIT) + NumberUtils.INTEGER_ONE);
-        model.addAttribute("activePage", NumberUtils.INTEGER_ONE);
+        model.addAttribute(ITEM_LIST_MODEL, itemService.getInitialItemList(HummingConstants.OFFSET, HummingConstants.LIMIT));
+        model.addAttribute(ACTIVE_PAGE_MODEL, NumberUtils.INTEGER_ONE);
+        model.addAttribute(PAGING_COUNT_MODEL, itemService.calculatePagingCount());
         return PageConstants.TOP_PAGE;
     }
 
@@ -57,12 +63,10 @@ public class ItemController {
      */
     @RequestMapping(value = "/page")
     public String displayTopPaging(@RequestParam(name = "number") Integer number, Model model) throws HummingException {
-        // OffsetとLimitに値を入れることで、表示数を変更できる
-        final List<ItemDto> itemDtoList = itemService.getInitialItemList(HummingConstants.LIMIT * (number - 1), HummingConstants.LIMIT);
-        model.addAttribute("itemList", itemDtoList);
-        final Integer itemCount = itemService.getItemCount();
-        model.addAttribute("pagingButtonCount", (itemCount / HummingConstants.LIMIT) + NumberUtils.INTEGER_ONE);
-        model.addAttribute("activePage", number);
+        final int offset = HummingConstants.LIMIT * (number - NumberUtils.INTEGER_ONE);
+        model.addAttribute(ITEM_LIST_MODEL, itemService.getInitialItemList(offset, HummingConstants.LIMIT));
+        model.addAttribute(ACTIVE_PAGE_MODEL, number);
+        model.addAttribute(PAGING_COUNT_MODEL, itemService.calculatePagingCount());
         return PageConstants.TOP_PAGE;
     }
 
@@ -72,9 +76,8 @@ public class ItemController {
      * @return アイテム詳細画面
      */
     @RequestMapping(value = "/detail")
-    public String displsyDetailPage(@RequestParam(name = "itemId") Integer id, Model model) {
-        final ItemDto itemDto = itemService.getItemDetail(id);
-        model.addAttribute("item", itemDto);
+    public String displsyDetailPage(@RequestParam(name = "itemId") Integer itemId, Model model) {
+        model.addAttribute("item", itemService.getItemDetail(itemId));
         return PageConstants.ITEM_DETAIL_PAGE;
     }
 
@@ -88,18 +91,18 @@ public class ItemController {
         final String singerOrSong = searchForm.getSingerOrSong();
         // 検索キーワード無し → ユーザーメッセージを表示する
         if (StringUtils.isEmpty(singerOrSong)) {
-            model.addAttribute("searchResultMessage", PropertiesUtil.getProperties("search.empty.message"));
+            model.addAttribute(SEARCH_RESULT_MESSAGE_MODEL, PropertiesUtil.getProperties("search.empty.message"));
             return PageConstants.ITEM_SEARCH_PAGE;
         }
         final List<ItemDto> itemDtoList = itemService.getItemWithSingerOrSong(singerOrSong);
         // 検索一致アイテム無し → ユーザーメッセージを表示する
         if (CollectionUtils.isEmpty(itemDtoList)) {
-            model.addAttribute("searchResultMessage", PropertiesUtil.getProperties("search.not.found.message"));
+            model.addAttribute(SEARCH_RESULT_MESSAGE_MODEL, PropertiesUtil.getProperties("search.not.found.message"));
             return PageConstants.ITEM_SEARCH_PAGE;
         }
-        // 検索一致アイテム有り → 検索アイテムを表示する
-        model.addAttribute("searchResultMessage", HummingConstants.SEARCH_RESULT_PREFIX + singerOrSong + HummingConstants.SEARCH_RESULT_SUFFIX);
-        model.addAttribute("itemList", itemDtoList);
+        // 検索一致アイテム有り → 検索アイテム名を表示する
+        model.addAttribute(SEARCH_RESULT_MESSAGE_MODEL, HummingConstants.SEARCH_RESULT_PREFIX + singerOrSong + HummingConstants.SEARCH_RESULT_SUFFIX);
+        model.addAttribute(ITEM_LIST_MODEL, itemDtoList);
 
         return PageConstants.ITEM_SEARCH_PAGE;
     }

@@ -18,9 +18,9 @@
         <%@ include file="../common/header.jsp"%>
         <div class="wrapper row">
             <form:form modelAttribute="loginForm" action="/member/login/complete" class="form-container">
-                <c:if test="${not empty error || not empty email}">
+                <c:if test="${not empty loginErrorMessage}">
                     <div class="alert alert-danger">
-                        <c:out value="${error}" />
+                        <c:out value="${loginErrorMessage}" />
                     </div>
                 </c:if>
                 <spring:hasBindErrors name="loginForm">

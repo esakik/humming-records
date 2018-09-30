@@ -80,7 +80,7 @@
                         <tr>
                             <th>
                                 メールアドレス<span class="error"><form:errors path="email" element="div" /></span><br>
-                                <span class="error"><c:out value="${emailError}" /></span>
+                                <span class="error"><c:out value="${registErrorEmailMessage}" /></span>
                             </th>
                             <th>
                                 <form:input class="form-control input-sm form-field" path="email" placeholder="（例）user@gmail.com" />
@@ -89,7 +89,7 @@
                         <tr>
                             <th>
                                 パスワード<span class="error"><form:errors path="password" element="div" /></span><br>
-                                <span class="error"><c:out value="${passwordError}" /></span>
+                                <span class="error"><c:out value="${registErrorPasswordMessage}" /></span>
                             </th>
                             <th>
                                 <form:password class="form-control input-sm form-field" path="password" placeholder="8文字以上半角英数字" />

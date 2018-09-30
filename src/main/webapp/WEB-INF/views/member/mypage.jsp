@@ -48,35 +48,31 @@
                                                         <div class="panel-body">
                                                             <c:forEach var="orderItem" items="${orderItemList}">
                                                                 <c:if test="${order.id == orderItem.orderId}">
-                                                                    <c:forEach var="item" items="${itemList}">
-                                                                        <c:if test="${orderItem.itemId == item.id}">
-                                                                            <div class="confirm">
-                                                                                <table class="table table-bordered">
-                                                                                    <tr>
-                                                                                        <th>アイテム名</th>
-                                                                                        <td>
-                                                                                            <c:out value="${item.song}" />
-                                                                                            /
-                                                                                            <c:out value="${item.singer}" />
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th>アイテム価格</th>
-                                                                                        <td>
-                                                                                            <fmt:formatNumber value="${item.price}" pattern="###,###" />
-                                                                                            円
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <th>注文数量</th>
-                                                                                        <td>
-                                                                                            <c:out value="${orderItem.quantity}" />
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>
-                                                                            </div>
-                                                                        </c:if>
-                                                                    </c:forEach>
+                                                                    <div class="confirm">
+                                                                        <table class="table table-bordered">
+                                                                            <tr>
+                                                                                <th>アイテム名</th>
+                                                                                <td>
+                                                                                    <c:out value="${orderItem.itemInfo.song}" />
+                                                                                    /
+                                                                                    <c:out value="${orderItem.itemInfo.singer}" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th>アイテム価格</th>
+                                                                                <td>
+                                                                                    <fmt:formatNumber value="${orderItem.itemInfo.price}" pattern="###,###" />
+                                                                                    円
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th>注文数量</th>
+                                                                                <td>
+                                                                                    <c:out value="${orderItem.quantity}" />
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
                                                                 </c:if>
                                                             </c:forEach>
                                                         </div>

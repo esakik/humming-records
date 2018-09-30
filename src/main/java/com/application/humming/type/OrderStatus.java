@@ -16,4 +16,13 @@ public enum OrderStatus {
         this.code = code;
         this.label = label;
     }
+
+    public static OrderStatus codeOf(final int code) {
+        for (OrderStatus orderStatus : values()) {
+            if (orderStatus.getCode() == code) {
+                return orderStatus;
+            }
+        }
+        throw new IllegalArgumentException("No such enum object for the code: " + code);
+    }
 }
