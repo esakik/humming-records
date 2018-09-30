@@ -23,6 +23,8 @@ body, html {
 
 .item {
     float: left;
+    margin-top: 15px;
+    margin-left: 15px;
     max-width: 500px;
     min-width: 400px;
 }
@@ -52,7 +54,8 @@ body, html {
 .purchase-box {
     width: 240px;
     float: right;
-    margin-top: 5px;
+    margin-top: 15px;
+    margin-right: 15px;
 }
 
 #totalPrice {
@@ -102,7 +105,7 @@ footer {
     }
     .item {
         float: none;
-        margin: 0px auto;
+        margin: 15px auto 0px auto;
         text-align: center;
         min-width: 0px;
     }
