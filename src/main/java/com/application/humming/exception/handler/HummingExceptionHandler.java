@@ -17,7 +17,7 @@ public class HummingExceptionHandler {
     @ExceptionHandler(value = { HummingException.class })
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String HummingException(final HummingException e) {
-        log.error("Occured HummingException, message: {}", e.getMessage());
+        log.error("HummingException occured, message: {}", e.getMessage());
         return PageConstants.SYSTEM_ERROR_PAGE;
     }
 }
