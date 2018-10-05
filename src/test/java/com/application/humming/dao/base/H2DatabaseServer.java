@@ -37,7 +37,7 @@ public class H2DatabaseServer extends ExternalResource {
         String url = "jdbc:h2:" + server.getURL() + "/" + dbName;
         Connection conn = org.h2.Driver.load().connect(url, props);
         try {
-            conn.createStatement().execute("CREATE IF NOT EXISTS " + schemaName);
+            conn.createStatement().execute("CREATE TABLE IF NOT EXISTS " + schemaName);
         } finally {
             JdbcUtils.closeSilently(conn);
         }
