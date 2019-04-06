@@ -16,15 +16,11 @@ https://humming-records.herokuapp.com
 
 ## Technology
 
-Programming languages: Java 8, JavaScript, HTML, CSS
-
-Framework: Sprint Boot 1.5.4
-
-Database: PostgreSQL
-
-Libraries: Bootstrap, JQuery, Lombok
-
-Template engine: JSP
+- Programming languages: Java 8, JavaScript, HTML, CSS
+- Framework: Sprint Boot 1.5.4
+- Database: PostgreSQL
+- Libraries: Bootstrap, JQuery, Lombok
+- Template engine: JSP
 
 ## Test Accounts
 
