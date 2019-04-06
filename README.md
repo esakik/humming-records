@@ -24,5 +24,5 @@ https://humming-records.herokuapp.com
 
 ## Test Accounts
 
-E-Mail: testuser@gmail.com  
-Password: testuser
+- E-Mail: testuser@gmail.com  
+- Password: testuser
