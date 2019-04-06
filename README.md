@@ -1,14 +1,14 @@
-# Humming records (EC Site Mock)
+# Humming Records
 
 ## Description
 
-CDショップのECサイトのモックアプリケーションです。
+It is a mock application of the EC site which deals with CDs.
 
-新規会員登録、ログイン、商品を購入、履歴を閲覧など一連の機能を使うことができます。
+You can use a series of functions such as new member registration, login, product purchase, and history browsing.
 
-Java, Spring Bootの学習用で、初めて作成したアプリケーションです。
+This is the my first application created for learning Java, Spring Boot.
 
-HerokuでDeployしているので初回のページの読み込みが遅いですがご了承ください。
+Please note that loading the first page is slow because this site is released on Heroku.
 
 ## Site URL
 
@@ -26,6 +26,7 @@ Libraries: Bootstrap, JQuery, Lombok
 
 Template engine: JSP
 
-## Author
+## Test Accounts
 
-esaki01
+E-Mail: testuser@gmail.com  
+Password: testuser
