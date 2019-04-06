@@ -9,7 +9,7 @@ body, html {
     margin: 50px auto;
     text-align: center;
     clear: both;
-    min-height: 405px;
+    min-height: 100vh;
 }
 
 #message {

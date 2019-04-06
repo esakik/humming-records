@@ -10,7 +10,7 @@
 .wrapper {
     max-width: 440px;
     margin: 50px auto;
-    min-height: 405px;
+    min-height: 100vh;
 }
 
 .form-container {
