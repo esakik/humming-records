@@ -45,6 +45,9 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                <p>[テストログイン用]</p>
+                <p>メールアドレス：testuser@gmail.com, パスワード：testuser</p>
             </form:form>
             <div class="regist">
                 <p>まだ登録されていない方へ</p>
