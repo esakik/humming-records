@@ -6,7 +6,7 @@ It is a mock application of the EC site which deals with CDs. You can use a seri
 
 <img width="1428" alt="スクリーンショット 2019-09-06 21 06 49" src="https://user-images.githubusercontent.com/44774033/64426848-a58e4580-d0ea-11e9-937e-c9e92e506ef3.png">
 
-Please note that loading the first page is very slow because this site is released on [Heroku Free Dyno Hours](https://devcenter.heroku.com/articles/free-dyno-hours). Please try to reload if the request is timeout.
+Please note that loading the first page is very slow because this site is released on [Heroku Free Dyno Hours](https://devcenter.heroku.com/articles/free-dyno-hours). Please try to reload if the request is timeout.  
 ※ Herokuの無料枠でデプロイしており、初期表示が非常に遅くなっておりますのでご了承ください. タイムアウトになってしまった場合は、1度リロードしてみてください:pray:
 
 ## Web URL
