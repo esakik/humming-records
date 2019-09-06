@@ -4,7 +4,8 @@
 
 It is a mock application of the EC site which deals with CDs. You can use a series of functions such as new member registration, login, product purchase, and history browsing. This is the my first application created for learning Java, Spring Boot.
 
-Please note that loading the first page is slow because this site is released on Heroku.
+Please note that loading the first page is slow because this site is released on Heroku.  
+※ Herokuの無料枠でデプロイしており、初期表示が非常に遅くなっておりますのでご了承ください:pray:
 
 ## Site URL
 
