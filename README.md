@@ -1,4 +1,5 @@
 # Humming records
+<img width="1428" alt="スクリーンショット 2019-09-06 21 06 49" src="https://user-images.githubusercontent.com/44774033/64426848-a58e4580-d0ea-11e9-937e-c9e92e506ef3.png">
 
 ## Description
 
