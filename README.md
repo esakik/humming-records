@@ -2,7 +2,7 @@
 
 ## Overview
 
-Humming Records is a mock e-commerce (EC) site dealing with CDs. It provides functions such as new member registration, login, product purchase, and order history browsing. This is the very first application I built for learning Java and Spring Boot. Initially created using Maven, I later migrated the project to Gradle for its improved build performance and flexibility.
+Humming Records is a mock e-commerce (EC) site dealing with CDs. It provides functions such as new member registration, login, product purchase, and order history browsing. This is the very first application I built for learning Java and Spring Boot. Initially created using Maven, I later migrated the project to Gradle.
 
 ![Screenshot](https://user-images.githubusercontent.com/44774033/64426848-a58e4580-d0ea-11e9-937e-c9e92e506ef3.png)
 
@@ -34,8 +34,8 @@ Humming Records is a mock e-commerce (EC) site dealing with CDs. It provides fun
   brew services start postgresql
   ```
 
-- **Windows:**
-Download and install PostgreSQL from [PostgreSQL.org](https://www.postgresql.org/download/).
+- **Windows:**  
+  Download and install PostgreSQL from [PostgreSQL.org](https://www.postgresql.org/download/).
 
 #### Creating the Database
 
