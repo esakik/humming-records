@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
     StandardPasswordEncoder spe;
 
     @Bean
-    public StandardPasswordEncoder standardPasswordEncoder() {
+    public static StandardPasswordEncoder standardPasswordEncoder() {
         return new StandardPasswordEncoder();
     }
 
